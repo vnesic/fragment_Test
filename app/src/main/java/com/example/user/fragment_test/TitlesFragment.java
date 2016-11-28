@@ -44,9 +44,9 @@ public class TitlesFragment extends ListFragment {
 
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
-        View detailsFrame = getActivity().findViewById(R.id.details);
-        mDualPane = detailsFrame != null
-                && detailsFrame.getVisibility() == View.VISIBLE;
+    //    View detailsFrame = getActivity().findViewById(R.id.details);
+    //    mDualPane = detailsFrame != null
+    //            && detailsFrame.getVisibility() == View.VISIBLE;
 
         if (savedState != null) {
             // Restore last state for checked position.
@@ -80,7 +80,7 @@ public class TitlesFragment extends ListFragment {
     void showDetails(int index) {
         mCurCheckPosition = index;
 
-        if (mDualPane) {
+     /*   if (mDualPane) {
             // We can display everything in-place with fragments.
             // Have the list highlight this item and show the data.
             getListView().setItemChecked(index, true);
@@ -102,14 +102,14 @@ public class TitlesFragment extends ListFragment {
                 ft.commit();
             }
 
-        } else {
+        } else {*/
             // Otherwise we need to launch a new activity to display
             // the dialog fragment with selected text.
             Intent intent = new Intent();
             intent.setClass(getActivity(), DetailsActivity.class);
             intent.putExtra("index", index);
             startActivity(intent);
-        }
+    //    }
     }
 
 }

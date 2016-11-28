@@ -19,12 +19,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -34,20 +36,16 @@ import java.util.List;
 import static android.view.View.INVISIBLE;
 
 public class MainActivity extends FragmentActivity {
+    ListView listview;
+    ImageView imageView;
 
-    void changeContentView(){
-
-        setContentView(R.layout.activity_main);
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1);
-
-        final ListView listview = (ListView) findViewById(R.id.listview);
-
-
+        this.setContentView(R.layout.activity_main1);
+       listview = (ListView) findViewById(R.id.listview);
+        imageView=(ImageView)findViewById(R.id.image);
+        imageView.setImageResource(R.drawable.win_main_title);
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < Shakespeare.TITLES.length; ++i) {
             list.add(Shakespeare.TITLES[i]);
@@ -62,7 +60,6 @@ public class MainActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
 
-                       // changeContentView();
                 Intent intent = new Intent();
                 intent.setClass(getApplication(), DetailsActivity.class);
                 intent.putExtra("type","type1");
@@ -97,6 +94,7 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+
 
 
 }
