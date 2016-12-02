@@ -26,13 +26,19 @@ import java.util.List;
 import static java.security.AccessController.getContext;
 
 public class DetailsActivity extends FragmentActivity {
+
+    final ArrayList<String> list = new ArrayList<String>();
+
     ListView listview;
+
+    int lastPos=0;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    StableArrayAdapter adapter;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -95,7 +101,29 @@ public class DetailsActivity extends FragmentActivity {
     }
     private Object lock = new Object();
 
-    final ArrayList<String> list = new ArrayList<String>();
+    void initFunction(ArrayList<String> list){
+
+        adapter = new StableArrayAdapter(this,
+                android.R.layout.simple_list_item_1, list);
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), TextActivity.class);
+                intent.putExtra("index", position);
+                intent.putExtra("lastPos",lastPos);
+                startActivity(intent);
+            }
+
+        });
+        adapter.notifyDataSetChanged();
+    }
+
     Thread t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +136,8 @@ public class DetailsActivity extends FragmentActivity {
         listview = (ListView) findViewById(R.id.listview2);
 
         int subTextIndex = getIntent().getIntExtra("index",0);
+        subTextIndex++;
+        lastPos=subTextIndex;
 
         Intent mServiceIntent = new Intent(this, ParsingService.class);
         mServiceIntent.putExtra("kind", Const.SUBTITLE);
@@ -134,24 +164,7 @@ public class DetailsActivity extends FragmentActivity {
         });
         t.start();
 
-        Toast.makeText(this, "WAKE UP CALL", Toast.LENGTH_LONG).show();
-        StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), TextActivity.class);
-                intent.putExtra("index", position);
-                startActivity(intent);
-            }
-
-        });
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -165,11 +178,17 @@ public class DetailsActivity extends FragmentActivity {
             String action = intent.getAction();
             if (action.equals(Const.NOTIFICATION_SUB)) {
                 String text = intent.getStringExtra("subtitle_intent");
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 
+                String[] parts = text.split("#");
+
+                for(int i=0;i<parts.length;i++) {
+                    if(!parts[i].equals(""))list.add(parts[i]);
+                }
                 synchronized (lock){
                     lock.notify();
                 }
+                initFunction(list);
+
             }
         }
     };

@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * Created by Buljoslav on 27/11/2016.
@@ -118,68 +119,51 @@ public class ParsingService extends Service {
     }
 
     String parseSubtitles(int n) {
-        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "/src/main/assets/text"+n+".txt";
-        File myFile = new File(baseDir + File.separator + fileName);
+
         String aDataRow = "";
         String aBuffer = "#";
 
-        try{
-            if(myFile.exists()) {
-                FileInputStream fIn = new FileInputStream(myFile);
-                Resources res = getResources();
-                InputStream in_s = res.openRawResource(R.raw.help);
+      try {
 
-                byte[] b = new byte[in_s.available()];
-                in_s.read(b);
-                String s=new String(b);
 
-                InputStream ins = getResources().openRawResource(
-                        getResources().getIdentifier("text1",
-                                "raw", getPackageName()));
-                BufferedReader myReader = new BufferedReader(ins);
+          InputStream raw = getAssets().open("text" + n + ".txt");
+          BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
 
-                //how many row
-                int ip = 0;
+          //how many row
+          int ip = 0;
 
-                while ((aDataRow = myReader.readLine()) != null) {
-                    if(aDataRow.equals(Const.SUBTITLE_DELIMITERS[0])) {
-                        aDataRow = myReader.readLine();
-                        aBuffer += aDataRow + "#";
-                        if(!aDataRow.equals(Const.SUBTITLE_DELIMITERS[1])) {
-                            Log.d("PARSER","Error while parsing");
-                        }
-                    }
-                }
-            }
-        }catch (IOException e){
+          while ((aDataRow = myReader.readLine()) != null) {
+              if (aDataRow.equals(Const.SUBTITLE_DELIMITERS[0])) {
+                  aDataRow = myReader.readLine();
+                  aBuffer += aDataRow + "#";
+                  if (!aDataRow.equals(Const.SUBTITLE_DELIMITERS[1])) {
+                      Log.d("PARSER", "Error while parsing");
+                  }
+              }
+          }
 
-        }
+      }catch (IOException e){}
 
         return aBuffer;
     }
 
     String parseText(int n) {
-        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "/src/main/assets/text"+n+".txt";
-        File myFile = new File(baseDir + File.separator + fileName);
+
         String aDataRow = "";
         String aBuffer = "#";
         try{
-            if(myFile.exists()) {
-                FileInputStream fIn = new FileInputStream(myFile);
-                BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
-
+            InputStream raw = getAssets().open("text"+n+".txt");
+            BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
                 while ((aDataRow = myReader.readLine()) != null) {
-                    if(aDataRow.equals(Const.TEXT_DELIMITERS[0])) {
+                   if(aDataRow!=null)
+                    if (aDataRow.equals(Const.TEXT_DELIMITERS[0])) {
                         while (!aDataRow.equals(Const.TEXT_DELIMITERS[1])) {
                             aDataRow = myReader.readLine();
-                            aBuffer += aDataRow +"\n";
+                            aBuffer += aDataRow + "\n";
                         }
-                        aBuffer+="#";
+                        aBuffer += "#";
                     }
                 }
-            }
         }catch (IOException e){}
 
         return aBuffer;

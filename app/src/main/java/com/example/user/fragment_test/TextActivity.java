@@ -24,15 +24,11 @@ public class TextActivity extends FragmentActivity {
     private int lastText=0;
     private int lastSubtext=0;
     private Object lock = new Object();
-
-
-    /*
-    * Sends infor a service,gets paragraph text back
-    *
-    *
-    *
-    * */
     Thread t;
+
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +43,19 @@ public class TextActivity extends FragmentActivity {
         textView.setMovementMethod(new ScrollingMovementMethod());
 
         int subTextIndex = getIntent().getIntExtra("index",0);
+        subTextIndex++;
+        lastText=subTextIndex;
+        lastSubtext=getIntent().getIntExtra("lastPos",0);
 
         final ProgressDialog dialog = ProgressDialog.show(this, "Initalising list", "Please wait", true);
+
+
+        Intent mServiceIntent = new Intent(this, ParsingService.class);
+        mServiceIntent.putExtra("kind", Const.TEXT);
+        mServiceIntent.putExtra("index",subTextIndex);
+        startService(mServiceIntent);
+
+
 
         t= new Thread(new Runnable() {
 
@@ -80,9 +87,17 @@ public class TextActivity extends FragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals(Const.NOTIFICATION_SUB)){
-                String text=intent.getStringExtra("subtitle_intent");
+            if(action.equals(Const.NOTIFICATION_TEXT)){
+
+                String text=intent.getStringExtra("text_intent");
                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+
+                String[] parts = text.split("#");
+
+                for(int i=0;i<parts.length;i++) {
+                    if(!parts[i].equals(""))cachedText[lastSubtext][i]=parts[i];
+
+                }
                 synchronized (lock){
                     lock.notify();
                 }
