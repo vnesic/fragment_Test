@@ -10,19 +10,20 @@ public final class Shakespeare {
   */
  public static final String[] TITLES =
          {
-                 "Spasenje",
-                 "Raskoli",
-                 "Monofizitstvo",
-                 "Rimokatolicizam",
-                 "Protestantizam",
-                 "Jehovini svedoci",
-                 "Islam",
-                 "Neopaganizam (Rodnoverje)",
-                 "Ateizam",
-                 "'Pravoslavni' evolucionizam",
-                 "Cuda",
-                 "Joga",
-                 "Renkarnacija"
+                 "О аутору",
+                 "ПРАВОСЛАВНО УЧЕЊЕ О СПАСЕЊУ",
+                 "О РАСКОЛИМА",
+                 "МОНОФИЗИТСТВО",
+                 "РИМОКАТОЛИЦИЗАМ ",
+                 "ПРОТЕСТАНТИЗАМ",
+                 "ЈЕХОВИНИ СВЕДОЦИ",
+                 "ИСЛАМ",
+                 "О НЕОПАГАНИЗМУ",
+                 "ШТА ОДГОВОРИТИ АТЕИСТИ? \n" +
+                         "СВЕШТЕНИК ГЕОРГИЈЕ МАКСИМОВ",
+                 "ПРАВОСЛАВНИ ОДНОС ПРЕМА ЧУДИМА",
+                 "ЈОГА",
+                 "РЕИНКАРНАЦИЈА"
          };
 
     public static final String[] SUBTITLES =

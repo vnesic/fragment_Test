@@ -8,8 +8,8 @@ public final class Const {
 
     public static final int SUBTITLE=0;
     public static final int TEXT=1;
-    public static final int MaxNumOfTexts=10;
-    public static final int MaxNumOfSubTexts=10;
+    public static final int MaxNumOfTexts=20;
+    public static final int MaxNumOfSubTexts=20;
     public static final int BEGINNING=0;
     public static final int END=1;
     public static final String[] TEXT_DELIMITERS={"<text>","</text>"};
@@ -18,5 +18,22 @@ public final class Const {
     public static final String NOTIFICATION_SUB ="subtitle_intent" ;
     public static final String NOTIFICATION_TEXT ="text_intent" ;
 
+    public static final String[] TITLES =
+            {
+                    "О аутору",
+                    "ПРАВОСЛАВНО УЧЕЊЕ О СПАСЕЊУ",
+                    "О РАСКОЛИМА",
+                    "МОНОФИЗИТСТВО",
+                    "РИМОКАТОЛИЦИЗАМ ",
+                    "ПРОТЕСТАНТИЗАМ",
+                    "ЈЕХОВИНИ СВЕДОЦИ",
+                    "ИСЛАМ",
+                    "О НЕОПАГАНИЗМУ",
+                    "ШТА ОДГОВОРИТИ АТЕИСТИ? \n" +
+                            "СВЕШТЕНИК ГЕОРГИЈЕ МАКСИМОВ",
+                    "ПРАВОСЛАВНИ ОДНОС ПРЕМА ЧУДИМА",
+                    "ЈОГА",
+                    "РЕИНКАРНАЦИЈА"
+            };
 
 }

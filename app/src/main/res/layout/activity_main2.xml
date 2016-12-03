@@ -6,12 +6,20 @@
     android:paddingRight="30dp"
     android:paddingLeft="30dp"
     android:background="@color/astTextNight">
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="20dp">
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/astTextNight"/>
-
+        android:background="@color/astTextNight"
+        android:divider="@drawable/line_all"
+        android:dividerHeight="1dp"/>
+</LinearLayout>
 
 </LinearLayout>

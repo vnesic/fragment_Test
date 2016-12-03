@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -33,6 +34,7 @@ public class DetailsActivity extends FragmentActivity {
 
     int lastPos=0;
 
+    boolean isAuthor=false;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -136,36 +138,47 @@ public class DetailsActivity extends FragmentActivity {
         listview = (ListView) findViewById(R.id.listview2);
 
         int subTextIndex = getIntent().getIntExtra("index",0);
-        subTextIndex++;
+       // subTextIndex++;
         lastPos=subTextIndex;
 
-        Intent mServiceIntent = new Intent(this, ParsingService.class);
-        mServiceIntent.putExtra("kind", Const.SUBTITLE);
-        mServiceIntent.putExtra("index",subTextIndex);
-        startService(mServiceIntent);
+        if(subTextIndex==0){
+            isAuthor=true;
+        }else {
+            isAuthor=false;
+        }
+        if(!isAuthor) {
+            Intent mServiceIntent = new Intent(this, ParsingService.class);
+            mServiceIntent.putExtra("kind", Const.SUBTITLE);
+            mServiceIntent.putExtra("index", subTextIndex);
+            startService(mServiceIntent);
 
        /*for (int i = 0; i < Shakespeare.SUBTITLES.length; ++i) {
             list.add(Shakespeare.SUBTITLES[i]);
         }*/
-        final ProgressDialog dialog = ProgressDialog.show(this, "Initalising list", "Please wait", true);
+            final ProgressDialog dialog = ProgressDialog.show(this, "Initalising list", "Please wait", true);
 
-       t= new Thread(new Runnable() {
+            t = new Thread(new Runnable() {
 
-            public void run() {
-                try {
-                    synchronized (lock) {
-                        lock.wait(100000);
+                public void run() {
+                    try {
+                        synchronized (lock) {
+                            lock.wait(100000);
+                        }
+                        dialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    dialog.dismiss();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
-        t.start();
+            });
+            t.start();
 
 
+        }else {
 
+            setContentView(R.layout.author);
+            TextView biography=(TextView) findViewById(R.id.authorBiography);
+            biography.setText(Shakespeare.DIALOGUE[1]);
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

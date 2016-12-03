@@ -44,11 +44,9 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main1);
        listview = (ListView) findViewById(R.id.listview);
-        imageView=(ImageView)findViewById(R.id.image);
-        imageView.setImageResource(R.drawable.win_main_title);
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < Shakespeare.TITLES.length; ++i) {
-            list.add(Shakespeare.TITLES[i]);
+        for (int i = 0; i < Const.TITLES.length; ++i) {
+            list.add(Const.TITLES[i]);
         }
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
                 android.R.layout.simple_list_item_1, list);

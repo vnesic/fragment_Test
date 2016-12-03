@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="30dp"
-    android:paddingLeft="30dp"
     android:background="@color/astPage">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeImage"
-        android:background="@color/astPage">
+
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/image"
-    />
-    </RelativeLayout>
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/adv_main_background"
-    android:id="@+id/linListView">
+        android:src="@drawable/win_main_title_land"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+
+        />
+
+
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_alignTop="@+id/image"
+        android:background="@drawable/adv_main_background"
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="355dp"
-        android:background="@color/astTextNight"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:divider="@drawable/line_all"
+        android:dividerHeight="1dp"
         />
-</RelativeLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

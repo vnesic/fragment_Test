@@ -133,10 +133,10 @@ public class ParsingService extends Service {
           int ip = 0;
 
           while ((aDataRow = myReader.readLine()) != null) {
-              if (aDataRow.equals(Const.SUBTITLE_DELIMITERS[0])) {
+              if (aDataRow.contains(Const.SUBTITLE_DELIMITERS[0])) {
                   aDataRow = myReader.readLine();
                   aBuffer += aDataRow + "#";
-                  if (!aDataRow.equals(Const.SUBTITLE_DELIMITERS[1])) {
+                  if (!aDataRow.contains(Const.SUBTITLE_DELIMITERS[1])) {
                       Log.d("PARSER", "Error while parsing");
                   }
               }
@@ -155,14 +155,19 @@ public class ParsingService extends Service {
             InputStream raw = getAssets().open("text"+n+".txt");
             BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
                 while ((aDataRow = myReader.readLine()) != null) {
-                   if(aDataRow!=null)
-                    if (aDataRow.equals(Const.TEXT_DELIMITERS[0])) {
-                        while (!aDataRow.equals(Const.TEXT_DELIMITERS[1])) {
+
+                    if (aDataRow.contains(Const.TEXT_DELIMITERS[0])) {
+                        aDataRow = myReader.readLine();
+                        do{
+                            if(aDataRow!=null) aBuffer += aDataRow + "\n";
+                            if(aDataRow==null)break;
                             aDataRow = myReader.readLine();
-                            aBuffer += aDataRow + "\n";
                         }
+                        while (!aDataRow.contains(Const.TEXT_DELIMITERS[1]));
+
                         aBuffer += "#";
                     }
+
                 }
         }catch (IOException e){}
 

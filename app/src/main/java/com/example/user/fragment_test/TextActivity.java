@@ -43,7 +43,7 @@ public class TextActivity extends FragmentActivity {
         textView.setMovementMethod(new ScrollingMovementMethod());
 
         int subTextIndex = getIntent().getIntExtra("index",0);
-        subTextIndex++;
+        //subTextIndex++;
         lastText=subTextIndex;
         lastSubtext=getIntent().getIntExtra("lastPos",0);
 
@@ -90,14 +90,14 @@ public class TextActivity extends FragmentActivity {
             if(action.equals(Const.NOTIFICATION_TEXT)){
 
                 String text=intent.getStringExtra("text_intent");
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 
                 String[] parts = text.split("#");
 
                 for(int i=0;i<parts.length;i++) {
                     if(!parts[i].equals(""))cachedText[lastSubtext][i]=parts[i];
-
                 }
+
+                textView.setText(cachedText[lastSubtext][lastText]);
                 synchronized (lock){
                     lock.notify();
                 }

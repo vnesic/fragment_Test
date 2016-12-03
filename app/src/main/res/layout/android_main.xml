@@ -9,11 +9,7 @@
     android:paddingLeft="30dp"
     android:background="@color/astPage"
     >
-    <fragment class="com.example.user.fragment_test.TitlesFragment"
-        android:id="@+id/titles"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/astTextNight"/>
+
 
 
 </FrameLayout>
