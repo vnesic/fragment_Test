@@ -35,7 +35,7 @@ import java.util.List;
 
 import static android.view.View.INVISIBLE;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
     ListView listview;
     ImageView imageView;
 

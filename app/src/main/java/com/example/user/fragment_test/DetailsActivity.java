@@ -1,5 +1,6 @@
 package com.example.user.fragment_test;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ import java.util.List;
 
 import static java.security.AccessController.getContext;
 
-public class DetailsActivity extends FragmentActivity {
+public class DetailsActivity extends Activity {
 
     final ArrayList<String> list = new ArrayList<String>();
 
@@ -131,6 +133,8 @@ public class DetailsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main2);
+        Button bDummy=(Button)findViewById(R.id.backButtonDummy);
+        bDummy.setVisibility(View.INVISIBLE);
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_SUB);
         registerReceiver(myRecieverD, filter);
@@ -141,6 +145,15 @@ public class DetailsActivity extends FragmentActivity {
        // subTextIndex++;
         lastPos=subTextIndex;
 
+        TextView title=(TextView)findViewById(R.id.subtitleTitle);
+        title.setText(Const.TITLES[subTextIndex]);
+        Button backButton=(Button)findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         if(subTextIndex==0){
             isAuthor=true;
         }else {

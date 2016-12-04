@@ -3,9 +3,39 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="30dp"
-    android:paddingLeft="30dp"
     android:background="@color/astTextNight">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_top_list_back"
+        >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Button
+            android:background="@drawable/button_back_active"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/backButton"
+            android:gravity="left"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/subtitleTitle"
+            android:gravity="center"
+            />
+            <Button
+                android:background="@drawable/button_back_active"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/backButtonDummy"
+                android:gravity="right"
+                />
+        </TableRow>
+    </TableLayout>
+
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
