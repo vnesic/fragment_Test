@@ -15,7 +15,10 @@
     android:visibility="invisible"
     android:layout_alignParentTop="true">
 
-    <TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,16 +60,26 @@
         android:id="@+id/text"
         android:background="@color/astTextNight"
         android:scrollbars = "vertical"
-        android:layout_above="@+id/pager_scoller"
+        android:clickable="true"
+        android:layout_above="@+id/pager_scollerTab"
         />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pager_scollerTab"
+    android:visibility="invisible"
+    android:layout_alignParentBottom="true"
+    >
 
     <SeekBar
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/pager_scoller"
-        android:progressDrawable="@drawable/cel"
+        android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:layout_alignParentBottom="true"/>
+        android:id="@+id/pager_scoller"
+        android:layout_gravity="bottom"
+        />
+
+</LinearLayout>
 
 </RelativeLayout>

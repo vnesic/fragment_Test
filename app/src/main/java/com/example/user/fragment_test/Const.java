@@ -15,6 +15,8 @@ public final class Const {
     public static final String[] TEXT_DELIMITERS={"<text>","</text>"};
     public static final String[] SUBTITLE_DELIMITERS={"<subtitle>","</subtitle>"};
     public static final String[] TITLE_DELIMITERS={"<title>","</title>"};
+    public static final String[] FOOTNOTE_DELIMITERS={"<footnote>","</footnote>"};
+
     public static final String NOTIFICATION_SUB ="subtitle_intent" ;
     public static final String NOTIFICATION_TEXT ="text_intent" ;
 
@@ -36,4 +38,5 @@ public final class Const {
                     "РЕИНКАРНАЦИЈА"
             };
 
+    public static int MaxNumberofFootnotes=20;
 }

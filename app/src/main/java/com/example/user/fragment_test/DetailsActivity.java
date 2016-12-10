@@ -9,7 +9,9 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,7 +37,11 @@ public class DetailsActivity extends Activity {
     ListView listview;
 
     int lastPos=0;
-
+    int width;
+    int height;
+    TextView title;
+    Button backButton;
+    Button backButtonDummy;
     boolean isAuthor=false;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -140,20 +146,26 @@ public class DetailsActivity extends Activity {
         registerReceiver(myRecieverD, filter);
 
         listview = (ListView) findViewById(R.id.listview2);
+        WindowManager w = getWindowManager();
+        Display d = w.getDefaultDisplay();
 
+        width = d.getWidth();
+        height = d.getHeight();
         int subTextIndex = getIntent().getIntExtra("index",0);
        // subTextIndex++;
         lastPos=subTextIndex;
 
-        TextView title=(TextView)findViewById(R.id.subtitleTitle);
+        title=(TextView)findViewById(R.id.subtitleTitle);
         title.setText(Const.TITLES[subTextIndex]);
-        Button backButton=(Button)findViewById(R.id.backButton);
+
+        backButton=(Button)findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+        backButtonDummy=(Button)findViewById(R.id.backButtonDummy);
         if(subTextIndex==0){
             isAuthor=true;
         }else {
@@ -164,11 +176,11 @@ public class DetailsActivity extends Activity {
             mServiceIntent.putExtra("kind", Const.SUBTITLE);
             mServiceIntent.putExtra("index", subTextIndex);
             startService(mServiceIntent);
-
+            tabButtonAling();
        /*for (int i = 0; i < Shakespeare.SUBTITLES.length; ++i) {
             list.add(Shakespeare.SUBTITLES[i]);
         }*/
-            final ProgressDialog dialog = ProgressDialog.show(this, "Initalising list", "Please wait", true);
+            final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање садржаја...", "Молимо Вас сачекајте", true);
 
             t = new Thread(new Runnable() {
 
@@ -192,7 +204,6 @@ public class DetailsActivity extends Activity {
             TextView biography=(TextView) findViewById(R.id.authorBiography);
             biography.setText(Shakespeare.DIALOGUE[1]);
         }
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -218,6 +229,17 @@ public class DetailsActivity extends Activity {
             }
         }
     };
+
+    void tabButtonAling() {
+        backButton = (Button) findViewById(R.id.backButton);
+        backButtonDummy = (Button) findViewById(R.id.backButtonDummy);
+        backButton.setWidth((int) (width * 0.2));
+        backButtonDummy.setWidth((int) (width * 0.2));
+        title.setWidth((int) (width * 0.6));
+    }
+
+
+
 
     @Override
     protected void onDestroy() {

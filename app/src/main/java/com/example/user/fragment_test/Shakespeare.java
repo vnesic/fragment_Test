@@ -142,29 +142,15 @@ public final class Shakespeare {
                          "What yesternight our council did decree" +
                          "In forwarding this dear expedience.",
 
-                 "Hear him but reason in divinity," +
-                         "And all-admiring with an inward wish" +
-                         "You would desire the king were made a prelate:" +
-                         "Hear him debate of commonwealth affairs," +
-                         "You would say it hath been all in all his study:" +
-                         "List his discourse of war, and you shall hear" +
-                         "A fearful battle render'd you in music:" +
-                         "Turn him to any cause of policy," +
-                         "The Gordian knot of it he will unloose," +
-                         "Familiar as his garter: that, when he speaks," +
-                         "The air, a charter'd libertine, is still," +
-                         "And the mute wonder lurketh in men's ears," +
-                         "To steal his sweet and honey'd sentences;" +
-                         "So that the art and practic part of life" +
-                         "Must be the mistress to this theoric:" +
-                         "Which is a wonder how his grace should glean it," +
-                         "Since his addiction was to courses vain," +
-                         "His companies unletter'd, rude and shallow," +
-                         "His hours fill'd up with riots, banquets, sports," +
-                         "And never noted in him any study," +
-                         "Any retirement, any sequestration" +
-                         "From open haunts and popularity.",
-
+                 "Nikola Tesla (Serbian Cyrillic: Никола Тесла; 10 July 1856 – 7 January 1943) was a " +
+                         "Serbian-American[3][4][5][6] inventor, electrical engineer, mechanical engineer, physicist," +
+                         " and futurist best known for his contributions to the design of the modern alternating current (AC) " +
+                         "electricity supply system.[7]"+
+                "Tesla gained experience in telephony and electrical engineering before emigrating to the United States in 1884 to work for Thomas Edison in New York City. He soon struck out on his own with financial backers, setting up laboratories and companies to develop a range of electrical devices. His patented AC" +
+                         " induction motor and transformer were licensed by George Westinghouse, who also hired " +
+                         "Tesla for a short time as a consultant. His work in the formative years of electric-power" +
+                         " development was involved in a corporate alternating current/direct current War of Currents as " +
+                         "well as various patent battles. He became a naturalized US citizen in 1891.[8]",
                  "I come no more to make you laugh: things now," +
                          "That bear a weighty and a serious brow," +
                          "Sad, high, and working, full of state and woe," +
