@@ -53,8 +53,10 @@ public class TextActivity extends Activity {
     static final String DEBUG_TAG="[VNesic]:TextAct";
     boolean firstEntry=false;
     GestureDetector mGestureDetector;
-   // private String[][] cachedText = new String[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
-    private String[] footnotes=new String[Const.MaxNumberofFootnotes];
+    private SpannableString[][] cachedText = new SpannableString[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
+    private SpannableString[] footnotes=new SpannableString[Const.MaxNumberofFootnotes];
+    private String[] footnotesString=new String[Const.MaxNumberofFootnotes];
+
     private int lastText = 0;
     private int lastSubtext = 0;
     private Object lock = new Object();
@@ -233,6 +235,7 @@ public class TextActivity extends Activity {
 
     }
 
+
     BroadcastReceiver myRecieverD = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -241,46 +244,40 @@ public class TextActivity extends Activity {
             if (action.equals(Const.NOTIFICATION_TEXT)) {
 
                 String text = intent.getStringExtra("text_intent");
-
+                String footN=intent.getStringExtra("foot_note");
                 String[] parts = text.split("#");
 
-                int j = 0;
-           /*     for (int i = 0; i < parts.length; i++) {
 
-                    if (!parts[i].equals("")) {
-                        cachedText[lastSubtext][j] = parts[i];
-                        j++;
-                    }
+                footnotesString=footN.split("#");
 
+                SpannableString spannableString = new SpannableString(parts[lastText]);
+                for(int i=0;i<footnotesString.length;i++){
 
-                }*/
+                    int startIndex= parts[lastText].indexOf(footnotesString[i]);
+                    int endIndex=startIndex+parts[lastText].length();
+                    spannableString.setSpan(new ClickableSpan() {
+                        @Override
+                        public void onClick(View widget) {
+                            // your action
+                            Toast.makeText(getApplicationContext(), "Start Sign up activity",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
-                for(int i=0;i<parts.length;i++) {
-                    if (parts[i].contains(Const.FOOTNOTE_DELIMITERS[0])) {
-
-                        createLink(textView, parts[i], "<footnote>", new ClickableSpan() {
-                            @Override
-                            public void onClick(View widget) {
-                                // your action
-                                Toast.makeText(getApplicationContext(), "Start Sign up activity",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void updateDrawState(TextPaint ds) {
-                                super.updateDrawState(ds);
-                                // this is where you set link color, underline, typeface etc.
-                                int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.afTitle);
-                                ds.setColor(linkColor);
-                                ds.setUnderlineText(false);
-                            }
-                        });
-                    } else {
-
-//                        textView.setText(cachedText[lastSubtext][lastText]);
-
-                    }
+                        @Override
+                        public void updateDrawState(TextPaint ds) {
+                            super.updateDrawState(ds);
+                            // this is where you set link color, underline, typeface etc.
+                            int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.afTitle);
+                            ds.setColor(linkColor);
+                            ds.setUnderlineText(false);
+                        }
+                    }, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 }
+
+
+
+
+
                 synchronized (lock) {
                     lock.notify();
                 }
@@ -299,15 +296,10 @@ public class TextActivity extends Activity {
     public static void createLink(TextView targetTextView, String completeString,String partToClick, ClickableSpan clickableAction) {
 
         SpannableString spannableString = new SpannableString(completeString);
-
-        // make sure the String is exist, if it doesn't exist
-        // it will throw IndexOutOfBoundException
         int startPosition = completeString.indexOf(partToClick);
         int endPosition = completeString.lastIndexOf(partToClick) + partToClick.length();
-
         spannableString.setSpan(clickableAction, startPosition, endPosition,
                 Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-
         targetTextView.setText(spannableString);
         targetTextView.setMovementMethod(LinkMovementMethod.getInstance());
 

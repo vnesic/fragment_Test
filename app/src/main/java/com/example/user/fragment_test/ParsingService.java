@@ -36,6 +36,7 @@ public class ParsingService extends Service {
     private String textToReturn="";
 
     private String retString="";
+    private String retFootnote="#";
     private String pathToFile="/src/main/assets";
 
 
@@ -89,6 +90,7 @@ public class ParsingService extends Service {
                 Intent subtitleIntent = new Intent(Const.NOTIFICATION_SUB);
                 subtitleIntent.putExtra("subtitle_intent", retString);
                 sendBroadcast(subtitleIntent);
+                retString="";
                 break;
 
             case Const.TEXT:
@@ -98,7 +100,10 @@ public class ParsingService extends Service {
                 retString=parseText(subTextIndex);
                 Intent textIntent = new Intent(Const.NOTIFICATION_TEXT);
                 textIntent.putExtra("text_intent", retString);
+                textIntent.putExtra("foot_note",retFootnote);
                 sendBroadcast(textIntent);
+                retString="";
+                retFootnote="#";
                 break;
 
         }
@@ -159,7 +164,13 @@ public class ParsingService extends Service {
                     if (aDataRow.contains(Const.TEXT_DELIMITERS[0])) {
                         aDataRow = myReader.readLine();
                         do{
-                            if(aDataRow!=null) aBuffer += aDataRow + "\n";
+                            if(aDataRow!=null) {
+                            if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])){
+                                aDataRow=aDataRow.substring(3,aDataRow.length()-4);
+                                retFootnote+=aDataRow+"#";
+                            }
+                                aBuffer += aDataRow + "\n";
+                            }
                             if(aDataRow==null)break;
                             aDataRow = myReader.readLine();
                         }
