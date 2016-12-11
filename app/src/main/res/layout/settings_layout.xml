@@ -1,130 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/astTextNight"
-    android:id="@+id/textFrame"
-    >
+    android:background="@color/astTextNight">
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/topLayout"
-        android:layout_above="@+id/text"
-        android:visibility="invisible"
-        android:layout_alignParentTop="true">
+        android:background="@drawable/toolbar_top_list_back"
+        >
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
             <Button
+                android:background="@drawable/button_back_active"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/backButton"
+                android:gravity="left"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/subtitleTitle"
+                android:text="Подешавања "
+                android:gravity="center"
+                />
+
+            <Button
                 android:background="@drawable/button_back_active"
-                />
-
-            <Button
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/contentButton"
-                android:background="@drawable/button_contents_normal"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bookMarkButton"
-                android:background="@drawable/button_bookmark_normal"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/settingsButton"
-                android:background="@drawable/button_options_normal"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/starButton"
-                android:background="@drawable/button_set_star_normal"
+                android:id="@+id/backButtonDummy"
+                android:visibility="invisible"
+                android:gravity="right"
                 />
         </TableRow>
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             >
-            <Button
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/backgroundColor"
+                android:text="Боја слова"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_back_active"
+                 />
+            <Button
+                android:background="@drawable/button_st_fc_1_active"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/yellowColor"
                 />
-
             <Button
+                android:background="@drawable/button_st_fc_1_normal"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_contents_normal"
+                android:id="@+id/whiteColor"
+
                 />
             <Button
+                android:background="@drawable/button_st_fc_2_active"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bookmark_normal"/>
+                android:id="@+id/yellowColor2"
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_options_normal"
                 />
-
             <Button
+                android:background="@drawable/button_st_fc_2_normal"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_set_star_normal"
+                android:id="@+id/whiteColor2"
+
                 />
         </TableRow>
+        </TableLayout>
 
 
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+    <ImageView
+        android:layout_height="10dp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/line_all"/>
+    </TableRow>
+</TableLayout>
+
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             >
-            <Button
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_back_active"
+                android:layout_height="match_parent"
+                android:id="@+id/textColor"
+                android:text="Боја позадине"
+
                 />
 
             <Button
+                android:background="@drawable/button_st_bgc_1_active"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_contents_normal"
+                android:id="@+id/texBlack"
                 />
             <Button
+                android:background="@drawable/button_st_bgc_1_normal"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bookmark_normal"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_options_normal"
+                android:id="@+id/textBrown"
                 />
-
             <Button
+                android:background="@drawable/button_st_bgc_2_active"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_set_star_normal"
+                android:id="@+id/textBlue"
+                />
+            <Button
+                android:background="@drawable/button_st_bgc_2_normal"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/textRed"
                 />
         </TableRow>
+</TableLayout>
 
 
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+</TableLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/textSize"
+                android:text="Величина слова "
+                />
+
+            <Button
+                android:background="@drawable/button_st_s_plus_normal"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/sizeUP"
+
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/button_st_fc_2_normal"
+                />
+            <Button
+                android:background="@drawable/button_st_s_minus_normal"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/sizeDOWN"
+
+                />
+        </TableRow>
+</TableLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
 
     </TableLayout>
 
 
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/button_st_ok_normal"
+                android:layout_gravity="center_horizontal"
+                />
+
+
+    </RelativeLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>
