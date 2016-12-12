@@ -53,7 +53,7 @@ public class TextActivity extends Activity {
     static final String DEBUG_TAG="[VNesic]:TextAct";
     boolean firstEntry=false;
     GestureDetector mGestureDetector;
-    private SpannableString[][] cachedText = new SpannableString[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
+    private String[][] cachedText = new String[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
     private SpannableString[] footnotes=new SpannableString[Const.MaxNumberofFootnotes];
     private String[] footnotesString=new String[Const.MaxNumberofFootnotes];
 
@@ -130,16 +130,16 @@ public class TextActivity extends Activity {
 
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
-     /*   if (cachedText[lastSubtext][lastText] != null) {
+      if (cachedText[lastSubtext][lastText] != null) {
             textView.setText(cachedText[lastText][lastText]);
             textView.setVisibility(View.VISIBLE);
         } else {
-*/
+
             Intent mServiceIntent = new Intent(this, ParsingService.class);
             mServiceIntent.putExtra("kind", Const.TEXT);
             mServiceIntent.putExtra("index", lastSubtext);
             startService(mServiceIntent);
-  //      }
+        }
 
 
         t = new Thread(new Runnable() {
@@ -246,36 +246,64 @@ public class TextActivity extends Activity {
                 String text = intent.getStringExtra("text_intent");
                 String footN=intent.getStringExtra("foot_note");
                 String[] parts = text.split("#");
+                String [] fnTemp=footN.split("#");
 
+                int j=0;
+                for(int i=0;i<parts.length;i++) {
 
-                footnotesString=footN.split("#");
+                    if (!parts[i].equals("")) {
+                        cachedText[lastSubtext][j] = parts[i];
+                        j++;
+                    }
+                }
+                j=0;
+                for(int i=0;i<fnTemp.length;i++) {
 
-                SpannableString spannableString = new SpannableString(parts[lastText]);
-                for(int i=0;i<footnotesString.length;i++){
-
-                    int startIndex= parts[lastText].indexOf(footnotesString[i]);
-                    int endIndex=startIndex+parts[lastText].length();
-                    spannableString.setSpan(new ClickableSpan() {
-                        @Override
-                        public void onClick(View widget) {
-                            // your action
-                            Toast.makeText(getApplicationContext(), "Start Sign up activity",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void updateDrawState(TextPaint ds) {
-                            super.updateDrawState(ds);
-                            // this is where you set link color, underline, typeface etc.
-                            int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.afTitle);
-                            ds.setColor(linkColor);
-                            ds.setUnderlineText(false);
-                        }
-                    }, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    if (!fnTemp[i].equals("")) {
+                        footnotesString[j] = fnTemp[i];
+                        j++;
+                    }
                 }
 
 
+                SpannableString spannableString = new SpannableString(cachedText[lastSubtext][lastText]);
 
+                int lenght =spannableString.length();
+
+
+                for(int i=0;i<footnotesString.length;i++) {
+
+                    if (footnotesString[i] != null) {
+                        int startIndex = cachedText[lastSubtext][lastText].indexOf(footnotesString[i]);
+                        int endIndex = startIndex + footnotesString[i].length();
+
+                        String test = cachedText[lastSubtext][lastText];
+                        int testL = cachedText[lastSubtext][lastText].length();
+
+                        spannableString.setSpan(new ClickableSpan() {
+                            @Override
+                            public void onClick(View widget) {
+                                // your action
+                                Toast.makeText(getApplicationContext(), "Start Sign up activity",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void updateDrawState(TextPaint ds) {
+                                super.updateDrawState(ds);
+                                // this is where you set link color, underline, typeface etc.
+                                int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.afTitle);
+                                ds.setColor(linkColor);
+                                ds.setUnderlineText(false);
+                            }
+                        }, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }else {
+                        break;
+                    }
+                }
+
+
+                    textView.setText(spannableString);
 
 
                 synchronized (lock) {

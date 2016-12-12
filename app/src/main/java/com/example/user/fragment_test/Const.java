@@ -8,8 +8,8 @@ public final class Const {
 
     public static final int SUBTITLE=0;
     public static final int TEXT=1;
-    public static final int MaxNumOfTexts=40;
-    public static final int MaxNumOfSubTexts=40;
+    public static final int MaxNumOfTexts=50;
+    public static final int MaxNumOfSubTexts=50;
     public static final int BEGINNING=0;
     public static final int END=1;
     public static final String[] TEXT_DELIMITERS={"<text>","</text>"};
