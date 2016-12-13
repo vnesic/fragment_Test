@@ -39,6 +39,9 @@ public class ParsingService extends Service {
     private String retFootnote="#";
     private String pathToFile="/src/main/assets";
 
+    private int lastText=0;
+    private boolean noMoreFootnote=false;
+    private boolean nextLine=false;
 
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
@@ -84,7 +87,7 @@ public class ParsingService extends Service {
             case Const.SUBTITLE:
 
                 int subTextIndex = intent.getIntExtra("index",0);
-
+                lastText=intent.getIntExtra("text",0);
                 retString=parseSubtitles(subTextIndex);
                 //send intent to Detailst Activity
                 Intent subtitleIntent = new Intent(Const.NOTIFICATION_SUB);
@@ -96,6 +99,8 @@ public class ParsingService extends Service {
             case Const.TEXT:
 
                 subTextIndex = intent.getIntExtra("index",0);
+                lastText=intent.getIntExtra("text",0);
+
                 //send intent to Text Activity
                 retString=parseText(subTextIndex);
                 Intent textIntent = new Intent(Const.NOTIFICATION_TEXT);
@@ -165,12 +170,26 @@ public class ParsingService extends Service {
                         aDataRow = myReader.readLine();
                         do{
                             if(aDataRow!=null) {
-                            if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])){
-                                aDataRow=aDataRow.substring(3,aDataRow.length()-4);
-                                retFootnote+=aDataRow+"#";
+                            if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])&& !noMoreFootnote){
+                                char tempChar=aDataRow.charAt(3);
+                                int temp=Character.getNumericValue(aDataRow.charAt(3));
+                                if(temp==lastText) {
+                                    aDataRow = aDataRow.substring(4, aDataRow.length() - 4);
+                                    retFootnote += aDataRow + "#";
+                                    nextLine=true;
+                                }else{
+                                    if(Character.getNumericValue(aDataRow.charAt(3))>lastText)noMoreFootnote=true;
+
+                                }
                             }
-                                aBuffer += aDataRow + "\n";
+                               if(nextLine) {
+                                   aBuffer += aDataRow ;
+                                   nextLine=false;
+                               }else {
+                                   aBuffer += aDataRow + "\n";
+                               }
                             }
+
                             if(aDataRow==null)break;
                             aDataRow = myReader.readLine();
                         }
@@ -181,7 +200,7 @@ public class ParsingService extends Service {
 
                 }
         }catch (IOException e){}
-
+        noMoreFootnote=false;
         return aBuffer;
     }
 

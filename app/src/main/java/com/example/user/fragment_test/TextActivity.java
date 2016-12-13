@@ -6,7 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -24,11 +26,13 @@ import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
@@ -48,7 +52,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class TextActivity extends Activity {
 
-
+    PopupWindow popUp;
     TextView textView;
     static final String DEBUG_TAG="[VNesic]:TextAct";
     boolean firstEntry=false;
@@ -56,7 +60,7 @@ public class TextActivity extends Activity {
     private String[][] cachedText = new String[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
     private SpannableString[] footnotes=new SpannableString[Const.MaxNumberofFootnotes];
     private String[] footnotesString=new String[Const.MaxNumberofFootnotes];
-
+    private boolean click=false;
     private int lastText = 0;
     private int lastSubtext = 0;
     private Object lock = new Object();
@@ -74,13 +78,20 @@ public class TextActivity extends Activity {
     View v;
     private GestureDetectorCompat mDetector;
     boolean isFirstEntry=true;
+    private TextView tv;
+    private LinearLayout layout;
+    private WindowManager.LayoutParams params;
+
     @Override
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main3);
-
+        tv = new TextView(this);
+        layout = new LinearLayout(this);
+        params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         WindowManager w = getWindowManager();
@@ -93,7 +104,7 @@ public class TextActivity extends Activity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
-
+        popUp = new PopupWindow(this);
         mSeekBar=(SeekBar)findViewById(R.id.pager_scoller);
         mSeekBar.setMinimumHeight(0);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -118,9 +129,18 @@ public class TextActivity extends Activity {
 
             }
         });
+
+
+        mSeekBar.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+       // mSeekBar.getThumb().setColorFilter(Color.BLACK,PorterDuff.Mode.MULTIPLY);
+        mSeekBar.getRootView().setBackgroundColor(Color.BLACK);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        tv.setText("Hi this is a sample text for popup window");
+        layout.addView(tv, params);
+        popUp.setContentView(layout);
         textView = (TextView) findViewById(R.id.text);
         textView.setMovementMethod(new ScrollingMovementMethod());
-
+        tv.setTextColor(Color.WHITE);
         int subTextIndex = getIntent().getIntExtra("index", 0);
 
         lastText = subTextIndex;
@@ -138,6 +158,8 @@ public class TextActivity extends Activity {
             Intent mServiceIntent = new Intent(this, ParsingService.class);
             mServiceIntent.putExtra("kind", Const.TEXT);
             mServiceIntent.putExtra("index", lastSubtext);
+            mServiceIntent.putExtra("text", lastText);
+
             startService(mServiceIntent);
         }
 
@@ -228,6 +250,7 @@ public class TextActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
                 mGestureDetector.onTouchEvent(event);
+                popUp.dismiss();
                 return false;
             }
         });
@@ -246,8 +269,8 @@ public class TextActivity extends Activity {
                 String text = intent.getStringExtra("text_intent");
                 String footN=intent.getStringExtra("foot_note");
                 String[] parts = text.split("#");
-                String [] fnTemp=footN.split("#");
-
+                String[] fnTemp;
+                fnTemp = footN.split("#");
                 int j=0;
                 for(int i=0;i<parts.length;i++) {
 
@@ -257,6 +280,7 @@ public class TextActivity extends Activity {
                     }
                 }
                 j=0;
+                if(fnTemp!=null)
                 for(int i=0;i<fnTemp.length;i++) {
 
                     if (!fnTemp[i].equals("")) {
@@ -266,16 +290,16 @@ public class TextActivity extends Activity {
                 }
 
 
-                SpannableString spannableString = new SpannableString(cachedText[lastSubtext][lastText]);
+                final SpannableString spannableString = new SpannableString(cachedText[lastSubtext][lastText]);
 
                 int lenght =spannableString.length();
 
-
+                if(fnTemp!=null)
                 for(int i=0;i<footnotesString.length;i++) {
 
                     if (footnotesString[i] != null) {
-                        int startIndex = cachedText[lastSubtext][lastText].indexOf(footnotesString[i]);
-                        int endIndex = startIndex + footnotesString[i].length();
+                        final int startIndex = cachedText[lastSubtext][lastText].indexOf(footnotesString[i]);
+                        final int endIndex = startIndex + footnotesString[i].length();
 
                         String test = cachedText[lastSubtext][lastText];
                         int testL = cachedText[lastSubtext][lastText].length();
@@ -283,20 +307,30 @@ public class TextActivity extends Activity {
                         spannableString.setSpan(new ClickableSpan() {
                             @Override
                             public void onClick(View widget) {
-                                // your action
-                                Toast.makeText(getApplicationContext(), "Start Sign up activity",
-                                        Toast.LENGTH_SHORT).show();
+                                if (click) {
+                                    popUp.showAtLocation((RelativeLayout)findViewById(R.id.textFrame), Gravity.BOTTOM, 10, 10);
+                                    //    public void update(int x, int y, int width, int height) {
+                                    String tempS=spannableString.subSequence(startIndex,endIndex).toString();
+                                    tv.setText(tempS);
+                                    tv.setTextColor(Color.WHITE);
+
+                                    popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                    click = false;
+                                } else {
+                                    popUp.dismiss();
+                                    click = true;
+                                }
                             }
 
                             @Override
                             public void updateDrawState(TextPaint ds) {
                                 super.updateDrawState(ds);
                                 // this is where you set link color, underline, typeface etc.
-                                int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.afTitle);
+                                int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
                                 ds.setColor(linkColor);
                                 ds.setUnderlineText(false);
                             }
-                        }, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }else {
                         break;
                     }
@@ -304,7 +338,7 @@ public class TextActivity extends Activity {
 
 
                     textView.setText(spannableString);
-
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
 
                 synchronized (lock) {
                     lock.notify();

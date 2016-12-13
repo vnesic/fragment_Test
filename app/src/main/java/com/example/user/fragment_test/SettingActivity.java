@@ -55,14 +55,14 @@ public class SettingActivity extends Activity {
         backButtonDummy.setWidth((int) (width * 0.15));
         title.setWidth((int) (width * 0.6));
 
-        yellowColorButton.setWidth((int) (width * 0.15));
-        whiteColorButton.setWidth((int) (width * 0.15));
-        yellow2ColorButton.setWidth((int) (width * 0.15));
-        whiteColor2Button.setWidth((int) (width * 0.15));
-        textBlack.setWidth((int) (width * 0.15));;
-        textBrown.setWidth((int) (width * 0.15));
-        textBlue.setWidth((int) (width * 0.15));;
-        textRed.setWidth((int) (width * 0.15));
+        yellowColorButton.setWidth((int) (width * 00.10));
+        whiteColorButton.setWidth((int) (width * 0.10));
+        yellow2ColorButton.setWidth((int) (width * 0.10));
+        whiteColor2Button.setWidth((int) (width * 0.10));
+        textBlack.setWidth((int) (width * 0.10));;
+        textBrown.setWidth((int) (width * 0.10));
+        textBlue.setWidth((int) (width * 0.10));;
+        textRed.setWidth((int) (width * 0.10));
  //       dummyButton.setWidth((int) (width * 0.3));
    //     sizeUPButton.setWidth((int) (width * 0.25));
    //     sizeDownButton.setWidth((int) (width * 0.25));
