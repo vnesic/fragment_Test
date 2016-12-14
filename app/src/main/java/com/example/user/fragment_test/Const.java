@@ -6,7 +6,12 @@ package com.example.user.fragment_test;
 
 public final class Const {
 
-    public static final String[] authorBio={"Свештеник Георгије Максимов " +
+    public static final String[] authorBio={"\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "Свештеник Георгије Максимов " +
             "је рођен 1979. године. \n" +
             "2001. године завршио је православни Свето-тихоновски " +
             "универзитет Апостола Јована Богослова. 2009. године заштитио је" +

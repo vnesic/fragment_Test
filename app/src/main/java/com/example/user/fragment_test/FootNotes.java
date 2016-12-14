@@ -6,9 +6,9 @@ package com.example.user.fragment_test;
 
 public class FootNotes {
 
-    String []text1;
+    String []text1=null;
 
-    String []text2;
+    String []text2={"  Правила Православне Цркве са тумачењима епископа Никодима Милаша, књига I, стр. 257-258"};
 
     String []text3;
 

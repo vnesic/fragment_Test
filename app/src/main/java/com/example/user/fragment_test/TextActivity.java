@@ -258,7 +258,6 @@ public class TextActivity extends Activity {
                 return false;
             }
         });
-        textView.setTextSize(50);
 
         if(firstPass){
             UserSettings.setDefaultFontSize((int)textView.getTextSize());
@@ -312,7 +311,7 @@ public class TextActivity extends Activity {
 
                         String test = cachedText[lastSubtext][lastText];
                         int testL = cachedText[lastSubtext][lastText].length();
-
+                        if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
                         spannableString.setSpan(new ClickableSpan() {
                             @Override
                             public void onClick(View widget) {
