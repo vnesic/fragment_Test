@@ -52,6 +52,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class TextActivity extends Activity {
 
+    private boolean firstPass=true;
     PopupWindow popUp;
     TextView textView;
     static final String DEBUG_TAG="[VNesic]:TextAct";
@@ -101,6 +102,9 @@ public class TextActivity extends Activity {
         width = d.getWidth();
         height = d.getHeight();
         tabButtonAling();
+
+   //     UserSettings.Font=UserSettings.fonts.TIMES;
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
@@ -254,8 +258,12 @@ public class TextActivity extends Activity {
                 return false;
             }
         });
+        textView.setTextSize(50);
 
-
+        if(firstPass){
+            UserSettings.setDefaultFontSize((int)textView.getTextSize());
+            firstPass=false;
+        }
     }
 
 
@@ -263,7 +271,8 @@ public class TextActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-
+///////////if Const_SETTINGS_INTENT sets values from user settings to text view
+//              /activates on OK on click
             if (action.equals(Const.NOTIFICATION_TEXT)) {
 
                 String text = intent.getStringExtra("text_intent");
@@ -344,6 +353,7 @@ public class TextActivity extends Activity {
                     lock.notify();
                 }
             }
+           // else if(Const.SETTINGS_INTENT){}
         }
 
     };

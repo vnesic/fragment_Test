@@ -202,7 +202,7 @@ public class DetailsActivity extends Activity {
 
             setContentView(R.layout.author);
             TextView biography=(TextView) findViewById(R.id.authorBiography);
-            biography.setText(Shakespeare.DIALOGUE[1]);
+            biography.setText(Const.authorBio[0]);
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

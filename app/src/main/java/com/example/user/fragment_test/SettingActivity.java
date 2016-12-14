@@ -24,7 +24,7 @@ public class SettingActivity extends Activity {
     private TextView title,backgroundColor,textColor,textSize;
     private Button yellowColorButton,whiteColorButton,yellow2ColorButton,whiteColor2Button;
     private Button textBlack,textBrown,textBlue,textRed;
-    private Button dummyButton,sizeUPButton,sizeDownButton;
+    private Button dummyButton,sizeUPButton,sizeDownButton,okButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,27 @@ public class SettingActivity extends Activity {
                 onBackPressed();
             }
         });
-        backButtonDummy=(Button)findViewById(R.id.backButtonDummy);
+
+        sizeUPButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.incrementFont();
+            }
+        });
+        sizeDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.decrementFont();
+            }
+        });
+
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ////send intent to put current settings into the text view
+            }
+        });
         arrangeLayout();
 
     }
@@ -76,7 +96,8 @@ public class SettingActivity extends Activity {
 
         title=(TextView)findViewById(R.id.subtitleTitle);
         backButton=(Button)findViewById(R.id.backButton);
-
+        backButtonDummy=(Button)findViewById(R.id.backButtonDummy);
+        okButton=(Button)findViewById(R.id.okbutton);
         yellowColorButton=(Button)findViewById(R.id.yellowColor);
         whiteColorButton=(Button)findViewById(R.id.whiteColor);
         yellow2ColorButton=(Button)findViewById(R.id.yellowColor2);
@@ -91,5 +112,7 @@ public class SettingActivity extends Activity {
         backgroundColor=(TextView)findViewById(R.id.backgroundColor);
         textColor=(TextView)findViewById(R.id.textColor);
         textSize=(TextView)findViewById(R.id.textSize);
+
+
     }
 }
