@@ -24,6 +24,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -83,9 +84,9 @@ public class TextActivity extends Activity {
     private LinearLayout layout;
     private WindowManager.LayoutParams params;
 
+
+
     @Override
-
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main3);
@@ -263,6 +264,7 @@ public class TextActivity extends Activity {
             UserSettings.setDefaultFontSize((int)textView.getTextSize());
             firstPass=false;
         }
+        textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
     }
 
 
@@ -363,6 +365,8 @@ public class TextActivity extends Activity {
         if (myRecieverD != null) {
             unregisterReceiver(myRecieverD);
         }
+
+
     }
     public static void createLink(TextView targetTextView, String completeString,String partToClick, ClickableSpan clickableAction) {
 
@@ -485,6 +489,15 @@ public class TextActivity extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    void putSettings(){ //ischanged proverava da li je iz settings-a postavljeno .
+
+        if(UserSettings.isChanged){
+
+            UserSettings.isChanged=false;
+        }
+
     }
 
 }

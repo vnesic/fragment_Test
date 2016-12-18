@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class SettingActivity extends Activity {
 
 
+
     private Button backButton,backButtonDummy;
     int width=0;
     int height=0;
@@ -62,7 +63,10 @@ public class SettingActivity extends Activity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ////send intent to put current settings into the text view
+
+                UserSettings.isChanged=true;
+                UserSettings.setToDisplay();
+
             }
         });
         arrangeLayout();
@@ -113,6 +117,18 @@ public class SettingActivity extends Activity {
         textColor=(TextView)findViewById(R.id.textColor);
         textSize=(TextView)findViewById(R.id.textSize);
 
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(UserSettings.isChanged) {
+        }else {
+            UserSettings.resetToDefault();
+        }
 
     }
 }
