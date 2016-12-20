@@ -53,7 +53,6 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class TextActivity extends Activity {
 
-    private boolean firstPass=true;
     PopupWindow popUp;
     TextView textView;
     static final String DEBUG_TAG="[VNesic]:TextAct";
@@ -74,7 +73,7 @@ public class TextActivity extends Activity {
     int width;
     int height;
     SpannableString toDisplay;
-    Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5;
+    Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5,tabButton6;
     TableLayout tableLayout;
     SeekBar seekBar;
     View v;
@@ -260,11 +259,14 @@ public class TextActivity extends Activity {
             }
         });
 
-        if(firstPass){
+        if(UserSettings.firstPass){
             UserSettings.setDefaultFontSize((int)textView.getTextSize());
-            firstPass=false;
+            UserSettings.firstPass=false;
+        }else{
+            putSettings();
         }
         textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
+
     }
 
 
@@ -365,10 +367,16 @@ public class TextActivity extends Activity {
         if (myRecieverD != null) {
             unregisterReceiver(myRecieverD);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        putSettings();
 
     }
-    public static void createLink(TextView targetTextView, String completeString,String partToClick, ClickableSpan clickableAction) {
+
+    public static void createLink(TextView targetTextView, String completeString, String partToClick, ClickableSpan clickableAction) {
 
         SpannableString spannableString = new SpannableString(completeString);
         int startPosition = completeString.indexOf(partToClick);
@@ -466,14 +474,23 @@ public class TextActivity extends Activity {
         tabButton3 = (Button) findViewById(R.id.bookMarkButton);
         tabButton4 = (Button) findViewById(R.id.settingsButton);
         tabButton5 = (Button) findViewById(R.id.starButton);
+        tabButton6 =(Button)findViewById(R.id.dayNightButton);
 
+        /*
+        tabButton1.setWidth((int) (width * 0.05));
+        tabButton2.setWidth((int) (width * 0.05));
+        tabButton3.setWidth((int) (width * 0.05));
+        tabButton4.setWidth((int) (width * 0.05));
+        tabButton5.setWidth((int) (width * 0.05));
+        tabButton6.setWidth((int) (width * 0.05));
 
-        tabButton1.setWidth((int) (width * 0.2));
-        tabButton2.setWidth((int) (width * 0.2));
-        tabButton3.setWidth((int) (width * 0.2));
-        tabButton4.setWidth((int) (width * 0.2));
-        tabButton5.setWidth((int) (width * 0.2));
-
+        tabButton1.setHeight((int) (height * 0.05));
+        tabButton2.setHeight((int) (height * 0.05));
+        tabButton3.setHeight((int) (height * 0.05));
+        tabButton4.setHeight((int) (height * 0.05));
+        tabButton5.setHeight((int) (height * 0.05));
+        tabButton6.setHeight((int) (height * 0.05));
+*/
         tabButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -494,6 +511,8 @@ public class TextActivity extends Activity {
     void putSettings(){ //ischanged proverava da li je iz settings-a postavljeno .
 
         if(UserSettings.isChanged){
+            UserSettings.setToDisplay();
+            textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
 
             UserSettings.isChanged=false;
         }

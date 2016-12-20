@@ -71,13 +71,6 @@
 
                 />
             <Button
-                android:background="@drawable/button_st_fc_2_active"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/yellowColor2"
-
-                />
-            <Button
                 android:background="@drawable/button_st_fc_2_normal"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -122,12 +115,7 @@
 
                 />
 
-            <Button
-                android:background="@drawable/button_st_bgc_1_active"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/texBlack"
-                />
+
             <Button
                 android:background="@drawable/button_st_bgc_1_normal"
                 android:layout_height="match_parent"
@@ -140,12 +128,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/textBlue"
                 />
-            <Button
-                android:background="@drawable/button_st_bgc_2_normal"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/textRed"
-                />
+
         </TableRow>
 </TableLayout>
 

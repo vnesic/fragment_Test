@@ -4,10 +4,11 @@ package com.example.user.fragment_test;
  * Created by Buljoslav on 13/12/2016.
  */
 
-public class UserSettings {
+public  class UserSettings {
 
-    enum colors {RED,BLACK};
+    enum colors {RED,BLACK,BLUE};
     enum fonts{TIMES,CALIBRI,ARIAL};
+    public static boolean firstPass=true;
 
     public static boolean isChanged=false;
     public static fonts Font=fonts.ARIAL;
@@ -17,6 +18,17 @@ public class UserSettings {
     public static int currentFontSize=20;
     public static int defaultFontSizeIncrement;
     public static int displayFontSize=0;
+
+    public static fonts defaultFont=fonts.TIMES;
+    public static fonts currentFont=fonts.TIMES;
+    public static fonts displayFont=fonts.TIMES;
+
+    public static colors defaultFontColor=colors.BLACK;
+    public static colors currentFontColor=colors.BLACK;
+    public static colors displayFontColor=colors.BLACK;
+
+
+
     public static void setDefaultFontSize(int n){
 
         defaultFontSize=n;
@@ -44,14 +56,16 @@ public class UserSettings {
         }
     }
 
-     public static void setToDisplay(){
-
-         displayFontSize=currentFontSize;
+    public static void setToDisplay(){
+        displayFontColor=currentFontColor;
+        displayFont=currentFont;
+        displayFontSize=currentFontSize;
      }
 
 
     public static void resetToDefault(){
-
+        currentFontColor=displayFontColor;
+        currentFont=displayFont;
         currentFontSize=displayFontSize;
         isChanged=false;
     }

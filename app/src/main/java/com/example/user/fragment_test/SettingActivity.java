@@ -23,8 +23,8 @@ public class SettingActivity extends Activity {
     int height=0;
 
     private TextView title,backgroundColor,textColor,textSize;
-    private Button yellowColorButton,whiteColorButton,yellow2ColorButton,whiteColor2Button;
-    private Button textBlack,textBrown,textBlue,textRed;
+    private Button yellowColorButton,whiteColorButton,whiteColor2Button;
+    private Button textBrown,textBlue;
     private Button dummyButton,sizeUPButton,sizeDownButton,okButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,21 +79,19 @@ public class SettingActivity extends Activity {
         backButtonDummy.setWidth((int) (width * 0.15));
         title.setWidth((int) (width * 0.6));
 
-        yellowColorButton.setWidth((int) (width * 00.10));
-        whiteColorButton.setWidth((int) (width * 0.10));
-        yellow2ColorButton.setWidth((int) (width * 0.10));
-        whiteColor2Button.setWidth((int) (width * 0.10));
-        textBlack.setWidth((int) (width * 0.10));;
-        textBrown.setWidth((int) (width * 0.10));
-        textBlue.setWidth((int) (width * 0.10));;
-        textRed.setWidth((int) (width * 0.10));
+        yellowColorButton.setWidth((int) (yellowColorButton.getHeight()));
+        whiteColorButton.setWidth((int) (whiteColorButton.getHeight()));
+        whiteColor2Button.setWidth((int) (whiteColor2Button.getHeight()));
+        textBrown.setWidth((int) (textBrown.getHeight()));
+        textBlue.setWidth((int) (textBlue.getHeight()));;
  //       dummyButton.setWidth((int) (width * 0.3));
    //     sizeUPButton.setWidth((int) (width * 0.25));
    //     sizeDownButton.setWidth((int) (width * 0.25));
 
-        backgroundColor.setWidth((int) (width * 0.3));
-        textColor.setWidth((int) (width * 0.3));
-        textSize.setWidth((int) (width * 0.45));
+        backgroundColor.setWidth((int) (width * 0.2));
+        textColor.setWidth((int) (width * 0.2));
+        textSize.setWidth((int) (width * 0.2));
+        okButton.setWidth(okButton.getHeight());
     }
 
     void init(){
@@ -104,12 +102,9 @@ public class SettingActivity extends Activity {
         okButton=(Button)findViewById(R.id.okbutton);
         yellowColorButton=(Button)findViewById(R.id.yellowColor);
         whiteColorButton=(Button)findViewById(R.id.whiteColor);
-        yellow2ColorButton=(Button)findViewById(R.id.yellowColor2);
         whiteColor2Button=(Button)findViewById(R.id.whiteColor2);
-        textBlack=(Button)findViewById(R.id.texBlack);
         textBrown=(Button)findViewById(R.id.textBrown);
         textBlue=(Button)findViewById(R.id.textBlue);
-        textRed=(Button)findViewById(R.id.textRed);
    //     dummyButton=(Button)findViewById(R.id.dummyButton);
         sizeUPButton=(Button)findViewById(R.id.sizeUP);
         sizeDownButton=(Button)findViewById(R.id.sizeDOWN);
