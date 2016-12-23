@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -136,7 +137,7 @@ public class TextActivity extends Activity {
 
 
         mSeekBar.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-       // mSeekBar.getThumb().setColorFilter(Color.BLACK,PorterDuff.Mode.MULTIPLY);
+        //mSeekBar.getThumb().setColorFilter(Color.BLACK,PorterDuff.Mode.MULTIPLY);
         mSeekBar.getRootView().setBackgroundColor(Color.BLACK);
         layout.setOrientation(LinearLayout.VERTICAL);
         tv.setText("Hi this is a sample text for popup window");
@@ -348,8 +349,9 @@ public class TextActivity extends Activity {
                     }
                 }
 
+                  textView.setText(Html.fromHtml(text));
+            //    textView.setText(spannableString);
 
-                    textView.setText(spannableString);
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
 
                 synchronized (lock) {
@@ -476,7 +478,8 @@ public class TextActivity extends Activity {
         tabButton5 = (Button) findViewById(R.id.starButton);
         tabButton6 =(Button)findViewById(R.id.dayNightButton);
 
-        /*
+
+
         tabButton1.setWidth((int) (width * 0.05));
         tabButton2.setWidth((int) (width * 0.05));
         tabButton3.setWidth((int) (width * 0.05));
@@ -490,7 +493,7 @@ public class TextActivity extends Activity {
         tabButton4.setHeight((int) (height * 0.05));
         tabButton5.setHeight((int) (height * 0.05));
         tabButton6.setHeight((int) (height * 0.05));
-*/
+
         tabButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -506,6 +509,19 @@ public class TextActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        tabButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!UserSettings.day_night){
+                    nightModeOn();
+                    UserSettings.day_night=!UserSettings.day_night;
+                }else {
+                    dayModeOn();
+                    UserSettings.day_night=!UserSettings.day_night;
+                }
+            }
+        });
     }
 
     void putSettings(){ //ischanged proverava da li je iz settings-a postavljeno .
@@ -516,6 +532,19 @@ public class TextActivity extends Activity {
 
             UserSettings.isChanged=false;
         }
+
+    }
+
+    void nightModeOn(){
+
+        textView.setBackgroundColor(Color.WHITE);
+        textView.setTextColor(Color.BLACK);
+    }
+
+    void dayModeOn(){
+
+       // setBackgroud default
+      //  textView.setTextColor(Color.BLACK); color User.Settings.default
 
     }
 

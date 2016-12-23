@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -160,14 +161,27 @@ public class ParsingService extends Service {
     String parseText(int n) {
 
         String aDataRow = "";
-        String aBuffer = "#";
+        String aBuffer = "";
         try{
             InputStream raw = getAssets().open("text"+n+".txt");
             BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
                 while ((aDataRow = myReader.readLine()) != null) {
 
+
+                    if (aDataRow.contains(Const.SUBTITLE_DELIMITERS[0])) {
+                        aBuffer+="<p>"+"<b>";
+                        aDataRow = myReader.readLine();
+                        aBuffer += aDataRow + "</b>"+"</p>";
+                        if (!aDataRow.contains(Const.SUBTITLE_DELIMITERS[1])) {
+                            Log.d("PARSER", "Error while parsing");
+                        }
+                        aBuffer+= "\n";
+                    }
+
+
                     if (aDataRow.contains(Const.TEXT_DELIMITERS[0])) {
                         aDataRow = myReader.readLine();
+                        aBuffer +="<p>";
                         do{
                             if(aDataRow!=null) {
                             if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])&& !noMoreFootnote){
@@ -195,7 +209,8 @@ public class ParsingService extends Service {
                         }
                         while (!aDataRow.contains(Const.TEXT_DELIMITERS[1]));
 
-                        aBuffer += "#";
+                        aBuffer += "</p>";
+
                     }
 
                 }

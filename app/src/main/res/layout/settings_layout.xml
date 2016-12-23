@@ -208,22 +208,31 @@
     </TableLayout>
 
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="1">
 
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/okbutton"
-                android:background="@drawable/button_st_ok_normal"
-                android:layout_gravity="center_horizontal"
-                />
+        <View
+            android:layout_width="118dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.50">
+
+        </View>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="76dp"
+            android:id="@+id/okbutton"
+            android:background="@drawable/button_st_ok_normal"
+            android:layout_gravity="center_horizontal" />
 
 
-    </RelativeLayout>
+        <View
+            android:layout_width="118dp"
+            android:layout_height="match_parent">
 
+        </View>
+    </LinearLayout>
 
 
     <TableLayout

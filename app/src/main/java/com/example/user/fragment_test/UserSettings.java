@@ -10,6 +10,8 @@ public  class UserSettings {
     enum fonts{TIMES,CALIBRI,ARIAL};
     public static boolean firstPass=true;
 
+    public static boolean day_night=false;
+
     public static boolean isChanged=false;
     public static fonts Font=fonts.ARIAL;
     public static colors Color=colors.BLACK;
