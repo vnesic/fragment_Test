@@ -60,11 +60,22 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
 
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 intent.setClass(getApplication(), DetailsActivity.class);
                 intent.putExtra("type","type1");
                 intent.putExtra("index", position);
+                startActivity(intent);*/
+                Intent intent = new Intent();
+                if(position!=0) {
+                    intent.setClass(getApplicationContext(), TextActivity.class);
+                    intent.putExtra("index", position);
+                }else{
+
+                    intent.setClass(getApplicationContext(), AuthorActivity.class);
+
+                }
                 startActivity(intent);
+
             }
 
         });

@@ -47,6 +47,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.example.user.fragment_test.R.*;
+import static com.example.user.fragment_test.R.color.aseSection;
+import static com.example.user.fragment_test.R.color.astPageNight;
+import static com.example.user.fragment_test.R.color.astTextNight;
 
 /**
  * Created by Buljoslav on 26/11/2016.
@@ -59,7 +63,7 @@ public class TextActivity extends Activity {
     static final String DEBUG_TAG="[VNesic]:TextAct";
     boolean firstEntry=false;
     GestureDetector mGestureDetector;
-    private String[][] cachedText = new String[Const.MaxNumOfTexts][Const.MaxNumOfSubTexts];
+    private static String[] cachedText = new String[Const.MaxNumOfTexts];
     private SpannableString[] footnotes=new SpannableString[Const.MaxNumberofFootnotes];
     private String[] footnotesString=new String[Const.MaxNumberofFootnotes];
     private boolean click=false;
@@ -98,19 +102,19 @@ public class TextActivity extends Activity {
         Point size = new Point();
         WindowManager w = getWindowManager();
         Display d = w.getDefaultDisplay();
-        mTableLayout=(LinearLayout)findViewById(R.id.pager_scollerTab);
-        tableLayout=(TableLayout)findViewById(R.id.topLayout);
+        mTableLayout=(LinearLayout)findViewById(id.pager_scollerTab);
+        tableLayout=(TableLayout)findViewById(id.topLayout);
         width = d.getWidth();
         height = d.getHeight();
         tabButtonAling();
-
+        v=findViewById(id.textFrame);
    //     UserSettings.Font=UserSettings.fonts.TIMES;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
         popUp = new PopupWindow(this);
-        mSeekBar=(SeekBar)findViewById(R.id.pager_scoller);
+        mSeekBar=(SeekBar)findViewById(id.pager_scoller);
         mSeekBar.setMinimumHeight(0);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -143,46 +147,47 @@ public class TextActivity extends Activity {
         tv.setText("Hi this is a sample text for popup window");
         layout.addView(tv, params);
         popUp.setContentView(layout);
-        textView = (TextView) findViewById(R.id.text);
+        textView = (TextView) findViewById(id.text);
         textView.setMovementMethod(new ScrollingMovementMethod());
         tv.setTextColor(Color.WHITE);
         int subTextIndex = getIntent().getIntExtra("index", 0);
 
         lastText = subTextIndex;
-        lastSubtext = getIntent().getIntExtra("lastPos", 0);
+       // lastSubtext = getIntent().getIntExtra("lastPos", 0);
         /////////[lastSubtext][lastText]//////////
         textView.setPadding(0,40,0,0);
 
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
-      if (cachedText[lastSubtext][lastText] != null) {
-            textView.setText(cachedText[lastText][lastText]);
-            textView.setVisibility(View.VISIBLE);
-        } else {
 
-            Intent mServiceIntent = new Intent(this, ParsingService.class);
-            mServiceIntent.putExtra("kind", Const.TEXT);
-            mServiceIntent.putExtra("index", lastSubtext);
-            mServiceIntent.putExtra("text", lastText);
+            if (cachedText[lastText] != null) {
+                textView.setText(cachedText[lastText]);
+                textView.setVisibility(View.VISIBLE);
+            } else {
 
-            startService(mServiceIntent);
-        }
+                Intent mServiceIntent = new Intent(this, ParsingService.class);
+                mServiceIntent.putExtra("kind", Const.TEXT);
+                mServiceIntent.putExtra("index", lastSubtext);
+                mServiceIntent.putExtra("text", lastText);
 
-
-        t = new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    synchronized (lock) {
-                        lock.wait(100000);
-                    }
-                    dialog.dismiss();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                startService(mServiceIntent);
             }
-        });
-        t.start();
+
+
+            t = new Thread(new Runnable() {
+
+                public void run() {
+                    try {
+                        synchronized (lock) {
+                            lock.wait(100000);
+                        }
+                        dialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            t.start();
 
         mGestureDetector = new GestureDetector(this,new GestureDetector.OnGestureListener() {
             @Override
@@ -285,13 +290,16 @@ public class TextActivity extends Activity {
                 String[] fnTemp;
                 fnTemp = footN.split("#");
                 int j=0;
-                for(int i=0;i<parts.length;i++) {
+                /*for(int i=0;i<parts.length;i++) {
 
                     if (!parts[i].equals("")) {
-                        cachedText[lastSubtext][j] = parts[i];
+                        cachedText[lastSubtext] = text;
                         j++;
                     }
-                }
+                }*/
+
+
+                cachedText[lastSubtext] = text;
                 j=0;
                 if(fnTemp!=null)
                 for(int i=0;i<fnTemp.length;i++) {
@@ -303,7 +311,7 @@ public class TextActivity extends Activity {
                 }
 
 
-                final SpannableString spannableString = new SpannableString(cachedText[lastSubtext][lastText]);
+                final SpannableString spannableString = new SpannableString(cachedText[lastSubtext]);
 
                 int lenght =spannableString.length();
 
@@ -311,17 +319,17 @@ public class TextActivity extends Activity {
                 for(int i=0;i<footnotesString.length;i++) {
 
                     if (footnotesString[i] != null) {
-                        final int startIndex = cachedText[lastSubtext][lastText].indexOf(footnotesString[i]);
+                        final int startIndex = cachedText[lastSubtext].indexOf(footnotesString[i]);
                         final int endIndex = startIndex + footnotesString[i].length();
 
-                        String test = cachedText[lastSubtext][lastText];
-                        int testL = cachedText[lastSubtext][lastText].length();
+                        String test = cachedText[lastSubtext];
+                        int testL = cachedText[lastSubtext].length();
                         if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
                         spannableString.setSpan(new ClickableSpan() {
                             @Override
                             public void onClick(View widget) {
                                 if (click) {
-                                    popUp.showAtLocation((RelativeLayout)findViewById(R.id.textFrame), Gravity.BOTTOM, 10, 10);
+                                    popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                     //    public void update(int x, int y, int width, int height) {
                                     String tempS=spannableString.subSequence(startIndex,endIndex).toString();
                                     tv.setText(tempS);
@@ -339,7 +347,7 @@ public class TextActivity extends Activity {
                             public void updateDrawState(TextPaint ds) {
                                 super.updateDrawState(ds);
                                 // this is where you set link color, underline, typeface etc.
-                                int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
                                 ds.setColor(linkColor);
                                 ds.setUnderlineText(false);
                             }
@@ -446,7 +454,7 @@ public class TextActivity extends Activity {
 
         if (!wasClicked) {
             textView.setHeight((int) (height * 0.75));
-            tableLayout = (TableLayout) findViewById(R.id.topLayout);
+            tableLayout = (TableLayout) findViewById(id.topLayout);
             tableLayout.setVisibility(View.VISIBLE);
             mTableLayout.setVisibility(View.VISIBLE);
             mTableLayout.setMinimumHeight((int)(height*0.1));
@@ -471,12 +479,12 @@ public class TextActivity extends Activity {
     }
 
     void tabButtonAling() {
-        tabButton1 = (Button) findViewById(R.id.backButton);
-        tabButton2 = (Button) findViewById(R.id.contentButton);
-        tabButton3 = (Button) findViewById(R.id.bookMarkButton);
-        tabButton4 = (Button) findViewById(R.id.settingsButton);
-        tabButton5 = (Button) findViewById(R.id.starButton);
-        tabButton6 =(Button)findViewById(R.id.dayNightButton);
+        tabButton1 = (Button) findViewById(id.backButton);
+        tabButton2 = (Button) findViewById(id.contentButton);
+        tabButton3 = (Button) findViewById(id.bookMarkButton);
+        tabButton4 = (Button) findViewById(id.settingsButton);
+        tabButton5 = (Button) findViewById(id.starButton);
+        tabButton6 =(Button)findViewById(id.dayNightButton);
 
 
 
@@ -510,13 +518,16 @@ public class TextActivity extends Activity {
             }
         });
 
+
         tabButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!UserSettings.day_night){
+                    view.setBackgroundResource(R.drawable.button_mode_night_active);
                     nightModeOn();
                     UserSettings.day_night=!UserSettings.day_night;
                 }else {
+                    view.setBackgroundResource(drawable.button_mode_active);
                     dayModeOn();
                     UserSettings.day_night=!UserSettings.day_night;
                 }
@@ -537,15 +548,18 @@ public class TextActivity extends Activity {
 
     void nightModeOn(){
 
-        textView.setBackgroundColor(Color.WHITE);
-        textView.setTextColor(Color.BLACK);
+        textView.setBackgroundColor(getResources().getColor(aseSection));
+        textView.setTextColor(getResources().getColor(astPageNight));
+
+        v.setBackgroundColor(getResources().getColor(aseSection));
     }
 
     void dayModeOn(){
 
-       // setBackgroud default
-      //  textView.setTextColor(Color.BLACK); color User.Settings.default
+        textView.setBackgroundColor(getResources().getColor(astTextNight));
+        textView.setTextColor(Color.BLACK);
 
+        v.setBackgroundColor(getResources().getColor(astTextNight));
     }
 
 }

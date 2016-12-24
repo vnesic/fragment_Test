@@ -103,7 +103,7 @@ public class ParsingService extends Service {
                 lastText=intent.getIntExtra("text",0);
 
                 //send intent to Text Activity
-                retString=parseText(subTextIndex);
+                retString=parseText(lastText);
                 Intent textIntent = new Intent(Const.NOTIFICATION_TEXT);
                 textIntent.putExtra("text_intent", retString);
                 textIntent.putExtra("foot_note",retFootnote);
