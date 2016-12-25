@@ -60,8 +60,8 @@
     <Button
         android:layout_width="69dp"
         android:layout_height="wrap_content"
-        android:id="@+id/starButton"
-        android:background="@drawable/button_set_star_normal" />
+        android:id="@+id/searchButton"
+        android:background="@drawable/button_search_active" />
         </LinearLayout>
     </TableRow>
 </TableLayout>
