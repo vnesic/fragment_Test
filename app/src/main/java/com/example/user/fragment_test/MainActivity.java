@@ -27,6 +27,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ import static android.view.View.INVISIBLE;
 public class MainActivity extends Activity {
     ListView listview;
     ImageView imageView;
-
+    Button mBookmark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,16 @@ public class MainActivity extends Activity {
 
             }
 
+        });
+        mBookmark=(Button)findViewById(R.id.bookMarkButton);
+        mBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getApplication(), BookmarkActivity.class);
+                startActivity(intent);
+
+            }
         });
         
     }

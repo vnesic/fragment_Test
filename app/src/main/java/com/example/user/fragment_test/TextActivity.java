@@ -566,8 +566,14 @@ public class TextActivity extends Activity {
                             viewBookmark.setBackgroundResource(drawable.button_bookmark_active);
 
                         }
+                        if(UserSettings.bookmarkArray[lastText]){
+                            UserSettings.bookmarkArray[lastText]=false;
+                            Toast.makeText(TextActivity.this, "Text removed from bookmarks", Toast.LENGTH_SHORT).show();
+                        }else {
+                            UserSettings.bookmarkArray[lastText]=true;
+                            Toast.makeText(TextActivity.this, "Text bookmarked", Toast.LENGTH_SHORT).show();
 
-
+                        }
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         // RELEASED
@@ -696,7 +702,42 @@ public class TextActivity extends Activity {
         if(UserSettings.isChanged){
             UserSettings.setToDisplay();
             textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
+            switch (UserSettings.displayBackgroundColor){
 
+                case RED:
+                    textView.setBackgroundColor(Color.RED);
+                    break;
+                case BLUE:
+
+                    textView.setBackgroundColor(Color.BLUE);
+                    break;
+                case YELLOW:
+
+                    textView.setBackgroundColor(Color.YELLOW);
+                    break;
+                case WHITE:
+
+                    textView.setBackgroundColor(Color.WHITE);
+                    break;
+            }
+            switch (UserSettings.displayFontColor){
+
+                case RED:
+                    textView.setTextColor(Color.RED);
+                    break;
+                case BLUE:
+
+                    textView.setTextColor(Color.BLUE);
+                    break;
+                case YELLOW:
+
+                    textView.setTextColor(Color.YELLOW);
+                    break;
+                case WHITE:
+
+                    textView.setTextColor(Color.WHITE);
+                    break;
+            }
             UserSettings.isChanged=false;
         }
 

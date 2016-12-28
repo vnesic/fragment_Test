@@ -1,12 +1,20 @@
 package com.example.user.fragment_test;
 
+import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 /**
  * Created by Buljoslav on 13/12/2016.
  */
 
 public  class UserSettings {
 
-    enum colors {RED,BLACK,BLUE};
+    enum colors {RED,BLACK,BLUE,YELLOW,WHITE};
     enum fonts{TIMES,CALIBRI,ARIAL};
     public static boolean firstPass=true;
 
@@ -29,7 +37,11 @@ public  class UserSettings {
     public static colors currentFontColor=colors.BLACK;
     public static colors displayFontColor=colors.BLACK;
 
+    public static colors defaultBackgroundColor=colors.YELLOW;
+    public static colors currentBackgroundColor=colors.YELLOW;
+    public static colors displayBackgroundColor=colors.YELLOW;
 
+    public static boolean[] bookmarkArray=new boolean[Const.MaxNumOfTexts];
 
     public static void setDefaultFontSize(int n){
 
@@ -41,7 +53,49 @@ public  class UserSettings {
         defaultFontSizeIncrement=n;
     }
 
-    public static void incrementFont(){
+
+    public static void setFontBlack() {
+        currentFontColor=colors.BLACK;
+    }
+
+
+
+    public static void setFontBlue() {
+        currentFontColor=colors.BLUE;
+    }
+
+
+    public static void setFontRed() {
+        currentFontColor=colors.RED;
+    }
+
+    public static void setFontYellow() {
+        currentFontColor=colors.YELLOW;
+    }
+
+
+
+    public static void setBackgroudBlack() {
+        currentBackgroundColor=colors.BLACK;
+    }
+
+
+
+    public static void setBackgroudYellow() {
+        currentBackgroundColor=colors.YELLOW;
+    }
+
+
+
+
+    public static void setBackgroudWhite() {
+        currentBackgroundColor=colors.WHITE;
+    }
+
+
+
+
+        public static void incrementFont(){
         if((currentFontSize+defaultFontSizeIncrement)>=100){
             currentFontSize=100;
         }else
@@ -62,14 +116,16 @@ public  class UserSettings {
         displayFontColor=currentFontColor;
         displayFont=currentFont;
         displayFontSize=currentFontSize;
+        displayBackgroundColor=currentBackgroundColor;
      }
 
 
     public static void resetToDefault(){
-        currentFontColor=displayFontColor;
-        currentFont=displayFont;
-        currentFontSize=displayFontSize;
+        currentFontColor=defaultFontColor;
+        currentFont=defaultFont;
+        currentFontSize=defaultFontSize;
         isChanged=false;
+        currentBackgroundColor=defaultBackgroundColor;
     }
 }
 

@@ -24,7 +24,7 @@ public class SettingActivity extends Activity {
 
     private TextView title,backgroundColor,textColor,textSize;
     private Button yellowColorButton,whiteColorButton,whiteColor2Button;
-    private Button textBrown,textBlue;
+    private Button backgroundYellow,backgroundWhite;
     private Button dummyButton,sizeUPButton,sizeDownButton,okButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,22 @@ public class SettingActivity extends Activity {
 
             }
         });
+
+        backgroundWhite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.setBackgroudWhite();
+            }
+        });
+
+
+        backgroundYellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.setBackgroudYellow();
+            }
+        });
+
         arrangeLayout();
 
     }
@@ -82,8 +98,8 @@ public class SettingActivity extends Activity {
         yellowColorButton.setWidth((int) (yellowColorButton.getHeight()));
         whiteColorButton.setWidth((int) (whiteColorButton.getHeight()));
         whiteColor2Button.setWidth((int) (whiteColor2Button.getHeight()));
-        textBrown.setWidth((int) (textBrown.getHeight()));
-        textBlue.setWidth((int) (textBlue.getHeight()));;
+        backgroundWhite.setWidth((int) (backgroundWhite.getHeight()));
+        backgroundYellow.setWidth((int) (backgroundYellow.getHeight()));;
  //       dummyButton.setWidth((int) (width * 0.3));
    //     sizeUPButton.setWidth((int) (width * 0.25));
    //     sizeDownButton.setWidth((int) (width * 0.25));
@@ -103,8 +119,8 @@ public class SettingActivity extends Activity {
         yellowColorButton=(Button)findViewById(R.id.yellowColor);
         whiteColorButton=(Button)findViewById(R.id.whiteColor);
         whiteColor2Button=(Button)findViewById(R.id.whiteColor2);
-        textBrown=(Button)findViewById(R.id.textBrown);
-        textBlue=(Button)findViewById(R.id.textBlue);
+        backgroundWhite=(Button)findViewById(R.id.backgroundWhite);
+        backgroundYellow=(Button)findViewById(R.id.backgroundYellow);
    //     dummyButton=(Button)findViewById(R.id.dummyButton);
         sizeUPButton=(Button)findViewById(R.id.sizeUP);
         sizeDownButton=(Button)findViewById(R.id.sizeDOWN);

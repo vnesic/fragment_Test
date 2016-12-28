@@ -14,6 +14,12 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                >
             <Button
                 android:background="@drawable/button_back_active"
                 android:layout_height="match_parent"
@@ -38,6 +44,7 @@
                 android:visibility="invisible"
                 android:gravity="right"
                 />
+            </LinearLayout>
         </TableRow>
     </TableLayout>
 
@@ -51,32 +58,43 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                >
+
             <TextView
                 android:layout_height="match_parent"
                 android:id="@+id/backgroundColor"
                 android:text="Боја слова"
-                android:layout_width="wrap_content"
+                android:layout_width="136dp"
                  />
             <Button
                 android:background="@drawable/button_st_fc_1_active"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
+                android:layout_width="54dp"
                 android:id="@+id/yellowColor"
                 />
             <Button
                 android:background="@drawable/button_st_fc_1_normal"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
+                android:layout_width="51dp"
                 android:id="@+id/whiteColor"
 
                 />
-            <Button
-                android:background="@drawable/button_st_fc_2_normal"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/whiteColor2"
 
-                />
+                <Button
+                    android:background="@drawable/button_st_fc_2_normal"
+                    android:layout_height="match_parent"
+                    android:layout_width="54dp"
+                    android:id="@+id/whiteColor2"
+
+                    />
+            </LinearLayout>
+
+
         </TableRow>
         </TableLayout>
 
@@ -106,9 +124,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             >
-
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="6"
+            >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="194dp"
                 android:layout_height="match_parent"
                 android:id="@+id/textColor"
                 android:text="Боја позадине"
@@ -119,14 +142,16 @@
             <Button
                 android:background="@drawable/button_st_bgc_1_normal"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/textBrown"
+                android:layout_width="50dp"
+                android:id="@+id/backgroundWhite"
                 />
+            </LinearLayout>
+
             <Button
                 android:background="@drawable/button_st_bgc_2_active"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/textBlue"
+                android:layout_width="59dp"
+                android:id="@+id/backgroundYellow"
                 />
 
         </TableRow>
@@ -159,33 +184,45 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+               >
             <TextView
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
+                android:layout_width="136dp"
                 android:id="@+id/textSize"
                 android:text="Величина слова "
                 />
 
-            <Button
-                android:background="@drawable/button_st_s_plus_normal"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/sizeUP"
+                <Button
+                    android:background="@drawable/button_st_s_plus_normal"
+                    android:layout_height="match_parent"
+                    android:layout_width="49dp"
+                    android:id="@+id/sizeUP"
 
-                />
-            <TextView
+                    />
+
+                <TextView
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:gravity="center"
                 android:background="@drawable/button_st_fc_2_normal"
-                />
+                     />
+
+
             <Button
                 android:background="@drawable/button_st_s_minus_normal"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:id="@+id/sizeDOWN"
 
-                />
+                 />
+
+            </LinearLayout>
+
         </TableRow>
 </TableLayout>
 
@@ -221,7 +258,7 @@
         </View>
         <Button
             android:layout_height="wrap_content"
-            android:layout_width="76dp"
+            android:layout_width="51dp"
             android:id="@+id/okbutton"
             android:background="@drawable/button_st_ok_normal"
             android:layout_gravity="center_horizontal" />
