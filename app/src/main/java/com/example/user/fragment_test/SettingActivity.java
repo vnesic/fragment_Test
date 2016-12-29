@@ -23,7 +23,7 @@ public class SettingActivity extends Activity {
     int height=0;
 
     private TextView title,backgroundColor,textColor,textSize;
-    private Button yellowColorButton,whiteColorButton,whiteColor2Button;
+    private Button yellowFont,blackFont,redFont;
     private Button backgroundYellow,backgroundWhite;
     private Button dummyButton,sizeUPButton,sizeDownButton,okButton;
     @Override
@@ -38,6 +38,29 @@ public class SettingActivity extends Activity {
         height = d.getHeight();
 
         init();
+
+
+        yellowFont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.setFontYellow();
+            }
+        });
+
+        blackFont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.setFontBlack();
+            }
+        });
+
+        redFont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSettings.setFontRed();
+            }
+        });
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +118,9 @@ public class SettingActivity extends Activity {
         backButtonDummy.setWidth((int) (width * 0.15));
         title.setWidth((int) (width * 0.6));
 
-        yellowColorButton.setWidth((int) (yellowColorButton.getHeight()));
-        whiteColorButton.setWidth((int) (whiteColorButton.getHeight()));
-        whiteColor2Button.setWidth((int) (whiteColor2Button.getHeight()));
+        yellowFont.setWidth((int) (yellowFont.getHeight()));
+        blackFont.setWidth((int) (blackFont.getHeight()));
+        redFont.setWidth((int) (redFont.getHeight()));
         backgroundWhite.setWidth((int) (backgroundWhite.getHeight()));
         backgroundYellow.setWidth((int) (backgroundYellow.getHeight()));;
  //       dummyButton.setWidth((int) (width * 0.3));
@@ -116,9 +139,9 @@ public class SettingActivity extends Activity {
         backButton=(Button)findViewById(R.id.backButton);
         backButtonDummy=(Button)findViewById(R.id.backButtonDummy);
         okButton=(Button)findViewById(R.id.okbutton);
-        yellowColorButton=(Button)findViewById(R.id.yellowColor);
-        whiteColorButton=(Button)findViewById(R.id.whiteColor);
-        whiteColor2Button=(Button)findViewById(R.id.whiteColor2);
+        yellowFont=(Button)findViewById(R.id.yellowFont);
+        blackFont=(Button)findViewById(R.id.blackFont);
+        redFont=(Button)findViewById(R.id.redFont);
         backgroundWhite=(Button)findViewById(R.id.backgroundWhite);
         backgroundYellow=(Button)findViewById(R.id.backgroundYellow);
    //     dummyButton=(Button)findViewById(R.id.dummyButton);

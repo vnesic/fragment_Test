@@ -713,7 +713,7 @@ public class TextActivity extends Activity {
                     break;
                 case YELLOW:
 
-                    textView.setBackgroundColor(Color.YELLOW);
+                    textView.setBackgroundColor(getResources().getColor(astTextNight));
                     break;
                 case WHITE:
 
@@ -731,11 +731,11 @@ public class TextActivity extends Activity {
                     break;
                 case YELLOW:
 
-                    textView.setTextColor(Color.YELLOW);
+                    textView.setTextColor(getResources().getColor(astPageNight));
                     break;
-                case WHITE:
+                case BLACK:
 
-                    textView.setTextColor(Color.WHITE);
+                    textView.setTextColor(Color.BLACK);
                     break;
             }
             UserSettings.isChanged=false;

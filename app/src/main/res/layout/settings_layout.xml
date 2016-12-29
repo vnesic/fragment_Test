@@ -75,13 +75,13 @@
                 android:background="@drawable/button_st_fc_1_active"
                 android:layout_height="match_parent"
                 android:layout_width="54dp"
-                android:id="@+id/yellowColor"
+                android:id="@+id/yellowFont"
                 />
             <Button
                 android:background="@drawable/button_st_fc_1_normal"
                 android:layout_height="match_parent"
                 android:layout_width="51dp"
-                android:id="@+id/whiteColor"
+                android:id="@+id/blackFont"
 
                 />
 
@@ -89,7 +89,7 @@
                     android:background="@drawable/button_st_fc_2_normal"
                     android:layout_height="match_parent"
                     android:layout_width="54dp"
-                    android:id="@+id/whiteColor2"
+                    android:id="@+id/redFont"
 
                     />
             </LinearLayout>
