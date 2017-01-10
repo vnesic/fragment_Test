@@ -83,15 +83,22 @@
     android:id="@+id/pager_scollerTab"
     android:visibility="invisible"
     android:layout_alignParentBottom="true"
-    >
+    android:weightSum="1">
 
-    <SeekBar
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="66dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:id="@+id/pager_scoller"
-        android:layout_gravity="bottom"
-        />
+        android:text="Назад"
+        android:background="@color/astTextNight"
+        android:id="@+id/prevButton"
+        android:layout_weight="1.02" />
+
+    <Button
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:text="Напред"
+        android:background="@color/astTextNight"
+        android:id="@+id/nextButton"/>
 
 </LinearLayout>
 

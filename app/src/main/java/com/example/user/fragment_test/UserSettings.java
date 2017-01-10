@@ -1,6 +1,7 @@
 package com.example.user.fragment_test;
 
 import android.support.annotation.NonNull;
+import android.text.Spanned;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,11 +19,21 @@ public  class UserSettings {
     enum fonts{TIMES,CALIBRI,ARIAL};
     public static boolean firstPass=true;
 
+    public static int authorTextNumber=13;
+    public static int crossNumber=authorTextNumber-1;
+
     public static boolean day_night=false;
 
+    public static Spanned[][] cachedText = new Spanned[Const.MaxNumOfTexts][Const.MaxNumOfTexts];//2nd index on both is currentPage
+    public static Spanned[][] cachedSubtitles = new Spanned[Const.MaxNumOfSubTexts][Const.MaxNumOfSubTexts];
+
+    public static String[] footnotesString=new String[Const.MaxNumberofFootnotes];
+
+    public static int currentPageNumber=0;
     public static boolean isChanged=false;
     public static fonts Font=fonts.ARIAL;
     public static colors Color=colors.BLACK;
+
 
     public static int defaultFontSize=20;
     public static int currentFontSize=20;

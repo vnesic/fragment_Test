@@ -160,8 +160,7 @@ public class SettingActivity extends Activity {
         super.onDestroy();
 
         if(UserSettings.isChanged) {
-        }else {
-            UserSettings.resetToDefault();
+            UserSettings.setToDisplay();
         }
 
     }

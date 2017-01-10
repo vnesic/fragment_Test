@@ -50,7 +50,7 @@ public final class Const {
 
     public static final String[] TITLES =
             {
-                    "О аутору",
+
                     "ПРАВОСЛАВНО УЧЕЊЕ О СПАСЕЊУ",
                     "РАСКОЛИ",
                     "МОНОФИЗИТСТВО",
@@ -63,7 +63,9 @@ public final class Const {
                             "СВЕШТЕНИК ГЕОРГИЈЕ МАКСИМОВ",
                     "ПРАВОСЛАВНИ ОДНОС ПРЕМА ЧУДИМА",
                     "ЈОГА",
-                    "РЕИНКАРНАЦИЈА"
+                    "РЕИНКАРНАЦИЈА",
+                    "                                     †",//losa praksa ali nemam bolje resenje
+                    "О аутору"
             };
 
     public static int MaxNumberofFootnotes=20;

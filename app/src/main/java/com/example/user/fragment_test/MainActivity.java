@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ public class MainActivity extends Activity {
     ListView listview;
     ImageView imageView;
     Button mBookmark;
+    View mBookmarkView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,7 @@ public class MainActivity extends Activity {
                 android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
 
+        mBookmarkView=findViewById(R.id.bookMarkButton);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -66,28 +70,45 @@ public class MainActivity extends Activity {
                 intent.putExtra("type","type1");
                 intent.putExtra("index", position);
                 startActivity(intent);*/
-                Intent intent = new Intent();
-                if(position!=0) {
-                    intent.setClass(getApplicationContext(), TextActivity.class);
-                    intent.putExtra("index", position);
-                }else{
+                if(position!=UserSettings.crossNumber) {
+                    Intent intent = new Intent();
+                    if (position != UserSettings.authorTextNumber) {
+                        intent.setClass(getApplicationContext(), TextActivity.class);
+                        intent.putExtra("index", position);
+                    } else {
 
-                    intent.setClass(getApplicationContext(), AuthorActivity.class);
+                        intent.setClass(getApplicationContext(), AuthorActivity.class);
 
+                    }
+                    startActivity(intent);
                 }
-                startActivity(intent);
-
             }
 
         });
-        mBookmark=(Button)findViewById(R.id.bookMarkButton);
-        mBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(getApplication(), BookmarkActivity.class);
-                startActivity(intent);
 
+        mBookmarkView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // PRESSED
+
+                        mBookmarkView.setBackgroundResource(R.drawable.button_bookmark_active);
+                        Intent intent = new Intent();
+                        intent.setClass(getApplication(), BookmarkActivity.class);
+                        startActivity(intent);
+
+
+
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        // RELEASED
+
+                        mBookmarkView.setBackgroundResource(R.drawable.button_bookmark_normal);
+
+                        return true; // if you want to handle the touch event
+                }
+                return false;
             }
         });
         

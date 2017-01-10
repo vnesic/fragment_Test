@@ -20,7 +20,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ClickableSpan;
@@ -63,9 +65,9 @@ public class TextActivity extends Activity {
     static final String DEBUG_TAG="[VNesic]:TextAct";
     boolean firstEntry=false;
     GestureDetector mGestureDetector;
-    private static String[] cachedText = new String[Const.MaxNumOfTexts];
+    private static Spanned[] cachedText = new Spanned[Const.MaxNumOfTexts];
     private SpannableString[] footnotes=new SpannableString[Const.MaxNumberofFootnotes];
-    private String[] footnotesString=new String[Const.MaxNumberofFootnotes];
+    private static String[] footnotesString=new String[Const.MaxNumberofFootnotes];
     private boolean click=false;
     private int lastText = 0;
     private int lastSubtext = 0;
@@ -73,13 +75,12 @@ public class TextActivity extends Activity {
     Thread t;
     LinearLayout mTableLayout;
     long timePassed=0;
-    SeekBar mSeekBar;
     boolean wasClicked = false;
     int width;
     int height;
     SpannableString toDisplay;
-    Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5,tabButton6;
-    View viewBack,viewContent,viewBookmark,viewSettings,viewSearch;
+    Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5,tabButton6,nextButton,prevButton;
+    View viewBack,viewContent,viewBookmark,viewSettings,viewSearch,viewNext,viewPrev;
     TableLayout tableLayout;
     SeekBar seekBar;
     View v;
@@ -88,7 +89,7 @@ public class TextActivity extends Activity {
     private TextView tv;
     private LinearLayout layout;
     private WindowManager.LayoutParams params;
-
+    boolean sub_or_text=false;//false subtext,text-true
 
 
     @Override
@@ -115,34 +116,9 @@ public class TextActivity extends Activity {
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
         popUp = new PopupWindow(this);
-        mSeekBar=(SeekBar)findViewById(id.pager_scoller);
-        mSeekBar.setMinimumHeight(0);
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Log.d(DEBUG_TAG,"WUTEVA : "+i);
-                int h=textView.getLineHeight();
-                int hh=textView.getHeight();
-                int t=textView.getTop();
-                int hhh=textView.getBottom();
-                int moveTo=(int)((hhh)*(i/100));
-                ;}
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
 
-        mSeekBar.getProgressDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-        //mSeekBar.getThumb().setColorFilter(Color.BLACK,PorterDuff.Mode.MULTIPLY);
-        mSeekBar.getRootView().setBackgroundColor(Color.BLACK);
+
         layout.setOrientation(LinearLayout.VERTICAL);
         tv.setText("Hi this is a sample text for popup window");
         layout.addView(tv, params);
@@ -160,9 +136,53 @@ public class TextActivity extends Activity {
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
 
-            if (cachedText[lastText] != null) {
-                textView.setText(cachedText[lastText]);
-                textView.setVisibility(View.VISIBLE);
+            if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
+                final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
+
+                 for(int i=0;i<UserSettings.footnotesString.length;i++) {
+
+                        if (UserSettings.footnotesString[i] != null) {
+                            final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
+                            final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+
+                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                spannableString.setSpan(new ClickableSpan() {
+                                    @Override
+                                    public void onClick(View widget) {
+                                        if (click) {
+                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                            //    public void update(int x, int y, int width, int height) {
+                                            String tempS=spannableString.subSequence(startIndex,endIndex).toString();
+                                            tv.setText(tempS);
+                                            tv.setTextColor(Color.WHITE);
+
+                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                            click = false;
+                                        } else {
+                                            popUp.dismiss();
+                                            click = true;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void updateDrawState(TextPaint ds) {
+                                        super.updateDrawState(ds);
+                                        // this is where you set link color, underline, typeface etc.
+                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                        ds.setColor(linkColor);
+                                        ds.setUnderlineText(false);
+                                    }
+                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        }else {
+                            break;
+                        }
+                    }
+
+                textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
+
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+                dialog.dismiss();
             } else {
 
                 Intent mServiceIntent = new Intent(this, ParsingService.class);
@@ -171,23 +191,27 @@ public class TextActivity extends Activity {
                 mServiceIntent.putExtra("text", lastText);
 
                 startService(mServiceIntent);
+
+
+                t = new Thread(new Runnable() {
+
+                    public void run() {
+                        try {
+                            synchronized (lock) {
+                                lock.wait(100000);
+                            }
+                            dialog.dismiss();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                t.start();
+
+
             }
 
 
-            t = new Thread(new Runnable() {
-
-                public void run() {
-                    try {
-                        synchronized (lock) {
-                            lock.wait(100000);
-                        }
-                        dialog.dismiss();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            t.start();
 
         mGestureDetector = new GestureDetector(this,new GestureDetector.OnGestureListener() {
             @Override
@@ -286,44 +310,42 @@ public class TextActivity extends Activity {
 
                 String text = intent.getStringExtra("text_intent");
                 String footN=intent.getStringExtra("foot_note");
-                String[] parts = text.split("#");
+ //               String[] parts = text.split("#");
                 String[] fnTemp;
                 fnTemp = footN.split("#");
                 int j=0;
-                /*for(int i=0;i<parts.length;i++) {
+   /*           for(int i=0;i<parts.length;i++) {
 
                     if (!parts[i].equals("")) {
-                        cachedText[lastSubtext] = text;
+
+                        UserSettings.cachedText[lastSubtext][j] =new SpannedString(parts[i]);
                         j++;
                     }
-                }*/
+                }
 
-
-                cachedText[lastSubtext] = text;
+*/
+             //   UserSettings.cachedText[lastSubtext][UserSettings.currentPageNumber] = Html.fromHtml(text);
                 j=0;
                 if(fnTemp!=null)
                 for(int i=0;i<fnTemp.length;i++) {
 
                     if (!fnTemp[i].equals("")) {
-                        footnotesString[j] = fnTemp[i];
+                        UserSettings.footnotesString[j] = fnTemp[i];
                         j++;
                     }
                 }
 
 
-                final SpannableString spannableString = new SpannableString(cachedText[lastSubtext]);
+                final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
-                int lenght =spannableString.length();
 
                 if(fnTemp!=null)
-                for(int i=0;i<footnotesString.length;i++) {
+                for(int i=0;i<UserSettings.footnotesString.length;i++) {
 
-                    if (footnotesString[i] != null) {
-                        final int startIndex = cachedText[lastSubtext].indexOf(footnotesString[i]);
-                        final int endIndex = startIndex + footnotesString[i].length();
+                    if (UserSettings.footnotesString[i] != null) {
+                        final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
+                        final int endIndex = startIndex + UserSettings.footnotesString[i].length();
 
-                        String test = cachedText[lastSubtext];
-                        int testL = cachedText[lastSubtext].length();
                         if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
                         spannableString.setSpan(new ClickableSpan() {
                             @Override
@@ -357,8 +379,7 @@ public class TextActivity extends Activity {
                     }
                 }
 
-                  textView.setText(Html.fromHtml(text));
-            //    textView.setText(spannableString);
+                textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -386,69 +407,6 @@ public class TextActivity extends Activity {
 
     }
 
-    public static void createLink(TextView targetTextView, String completeString, String partToClick, ClickableSpan clickableAction) {
-
-        SpannableString spannableString = new SpannableString(completeString);
-        int startPosition = completeString.indexOf(partToClick);
-        int endPosition = completeString.lastIndexOf(partToClick) + partToClick.length();
-        spannableString.setSpan(clickableAction, startPosition, endPosition,
-                Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        targetTextView.setText(spannableString);
-        targetTextView.setMovementMethod(LinkMovementMethod.getInstance());
-
-    }
-    private SpannableStringBuilder addClickablePart(String charSequence) {
-
-        SpannableStringBuilder ssb = new SpannableStringBuilder(charSequence);
-
-        int idx1 = charSequence.toString().indexOf(Const.FOOTNOTE_DELIMITERS[0]);
-        int idx2 = 0;
-        while (idx1 != -1) {
-            idx2 = charSequence.toString().indexOf(Const.FOOTNOTE_DELIMITERS[1], idx1) + 1;
-
-            final String clickString = charSequence.toString().substring(idx1, idx2);
-            ssb.setSpan(new ClickableSpan() {
-
-                @Override
-                public void onClick(View widget) {
-                    Toast.makeText(getApplicationContext(), clickString,
-                            LENGTH_SHORT).show();
-                }
-            }, idx1, idx2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            idx1 = charSequence.toString().indexOf(Const.FOOTNOTE_DELIMITERS[0], idx2);
-        }
-
-        return ssb;
-    }
-
-    String getFootNote(int n) {
-
-        String aDataRow = "";
-        String aBuffer = "#";
-        int textNr = n + 1;
-        try {
-            InputStream raw = getAssets().open("text" + textNr + ".txt");
-            BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
-            while ((aDataRow = myReader.readLine()) != null) {
-
-                if (aDataRow.contains(Const.TEXT_DELIMITERS[0])) {
-                    aDataRow = myReader.readLine();
-                    do {
-                        if (aDataRow != null) aBuffer += aDataRow + "\n";
-                        if (aDataRow == null) break;
-                        aDataRow = myReader.readLine();
-                    }
-                    while (!aDataRow.contains(Const.TEXT_DELIMITERS[1]));
-
-                    aBuffer += "#";
-                }
-
-            }
-        } catch (IOException e) {
-        }
-
-        return aBuffer;
-    }
 
     public void onTouchHandle() {
 
@@ -460,10 +418,10 @@ public class TextActivity extends Activity {
             mTableLayout.setMinimumHeight((int)(height*0.1));
             tableLayout.setMinimumHeight((int)(height*0.125));
             textView.setPadding(0,0,0,0);
-            mSeekBar.setMinimumHeight(60);
-            mSeekBar.setVisibility(View.VISIBLE);
-            tabButtonAling();
 
+            tabButtonAling();
+            viewNext.setVisibility(View.VISIBLE);
+            viewPrev.setVisibility(View.VISIBLE);
             wasClicked = true;
         } else {
             textView.setHeight(height);
@@ -471,8 +429,9 @@ public class TextActivity extends Activity {
             mTableLayout.setVisibility(View.INVISIBLE);
             mTableLayout.setMinimumHeight(0);
             textView.setPadding(0,60,0,0);
-            mSeekBar.setVisibility(View.INVISIBLE);
-            mSeekBar.setMinimumHeight(1);
+            viewNext.setVisibility(View.INVISIBLE);
+
+            viewPrev.setVisibility(View.INVISIBLE);
             wasClicked = false;
         }
 
@@ -485,14 +444,135 @@ public class TextActivity extends Activity {
         tabButton4 = (Button) findViewById(id.settingsButton);
         tabButton5 = (Button) findViewById(id.searchButton);
         tabButton6 =(Button)findViewById(id.dayNightButton);
+        prevButton=(Button)findViewById(id.prevButton);
+        nextButton=(Button)findViewById(id.nextButton);
 
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int test=UserSettings.currentPageNumber-1;
+                if(test > 0 && UserSettings.cachedText[lastText][test]!=null ){
+                    UserSettings.currentPageNumber--;//should not go under 0
+                    final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
+
+                    for(int i=0;i<UserSettings.footnotesString.length;i++) {
+
+                            if (UserSettings.footnotesString[i] != null) {
+                                final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
+                                final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+
+                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS=spannableString.subSequence(startIndex,endIndex).toString();
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
+
+                                                popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                                click = false;
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
+                                            }
+                                        }
+
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            }else {
+                                break;
+                            }
+                        }
+
+                    textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
+
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+                }
+
+                //++add color/font settings
+                //++ send intent to open current Page
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int test=UserSettings.currentPageNumber+1;
+                if(test<UserSettings.cachedText[lastText].length && UserSettings.cachedText[lastText][test]!=null){
+                 UserSettings.currentPageNumber++;//should not go over lengt()-1;
+                    final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
+
+
+                        for(int i=0;i<UserSettings.footnotesString.length;i++) {
+
+                            if (UserSettings.footnotesString[i] != null) {
+                                final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
+                                final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+
+                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS=spannableString.subSequence(startIndex,endIndex).toString();
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
+
+                                                popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                                click = false;
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
+                                            }
+                                        }
+
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            }else {
+                                break;
+                            }
+                        }
+
+                    textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
+
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+                }
+
+                //++add color/font settings
+
+                //++ send intent to open current Page
+            }
+        });
         viewBack = findViewById(id.backButton);
         viewContent = findViewById(id.contentButton);
         viewBookmark =  findViewById(id.bookMarkButton);
         viewSettings = findViewById(id.settingsButton);
         viewSearch=findViewById(id.searchButton);
-
-
+        viewNext=findViewById(id.nextButton);
+        viewPrev=findViewById(id.prevButton);
 
         viewBack.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -699,8 +779,14 @@ public class TextActivity extends Activity {
 
     void putSettings(){ //ischanged proverava da li je iz settings-a postavljeno .
 
+
         if(UserSettings.isChanged){
+
+
+
             UserSettings.setToDisplay();
+
+
             textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
             switch (UserSettings.displayBackgroundColor){
 
@@ -747,7 +833,10 @@ public class TextActivity extends Activity {
 
         textView.setBackgroundColor(getResources().getColor(aseSection));
         textView.setTextColor(getResources().getColor(astPageNight));
-
+        viewNext.setBackgroundColor(getResources().getColor(aseSection));
+        nextButton.setTextColor(getResources().getColor(astPageNight));
+        prevButton.setTextColor(getResources().getColor(astPageNight));
+        viewPrev.setBackgroundColor(getResources().getColor(aseSection));
         v.setBackgroundColor(getResources().getColor(aseSection));
         viewBack.setBackgroundResource(drawable.button_back_night_normal);
         viewSettings.setBackgroundResource(drawable.button_options_night_normal);
@@ -760,7 +849,10 @@ public class TextActivity extends Activity {
 
         textView.setBackgroundColor(getResources().getColor(astTextNight));
         textView.setTextColor(Color.BLACK);
-
+        viewNext.setBackgroundColor(getResources().getColor(astTextNight));
+        viewPrev.setBackgroundColor(getResources().getColor(astTextNight));
+        nextButton.setTextColor(Color.BLACK);
+        prevButton.setTextColor(Color.BLACK);
         v.setBackgroundColor(getResources().getColor(astTextNight));
         viewBack.setBackgroundResource(drawable.button_back_normal);
         viewSettings.setBackgroundResource(drawable.button_options_normal);

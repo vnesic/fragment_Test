@@ -14,6 +14,7 @@ import android.os.Message;
 import android.os.Process;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.SpannedString;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -104,9 +105,11 @@ public class ParsingService extends Service {
 
                 //send intent to Text Activity
                 retString=parseText(lastText);
+              //  retString=parseSubtitles(lastText);
                 Intent textIntent = new Intent(Const.NOTIFICATION_TEXT);
-                textIntent.putExtra("text_intent", retString);
+               // textIntent.putExtra("text_intent", retString);
                 textIntent.putExtra("foot_note",retFootnote);
+               // textIntent.putExtra("subtitle_intent", retString);
                 sendBroadcast(textIntent);
                 retString="";
                 retFootnote="#";
@@ -146,6 +149,8 @@ public class ParsingService extends Service {
           while ((aDataRow = myReader.readLine()) != null) {
               if (aDataRow.contains(Const.SUBTITLE_DELIMITERS[0])) {
                   aDataRow = myReader.readLine();
+                  UserSettings.cachedSubtitles[n][ip] =new SpannedString(aDataRow);
+                  ip++;
                   aBuffer += aDataRow + "#";
                   if (!aDataRow.contains(Const.SUBTITLE_DELIMITERS[1])) {
                       Log.d("PARSER", "Error while parsing");
@@ -162,6 +167,8 @@ public class ParsingService extends Service {
 
         String aDataRow = "";
         String aBuffer = "";
+        int ip=0;
+        int ipSub=0;
         try{
             InputStream raw = getAssets().open("text"+n+".txt");
             BufferedReader myReader = new BufferedReader(new InputStreamReader(raw, "UTF8"));
@@ -169,22 +176,26 @@ public class ParsingService extends Service {
 
 
                     if (aDataRow.contains(Const.SUBTITLE_DELIMITERS[0])) {
-                        aBuffer+="<p>"+"<b>";
+                       String SubtitleBuffer="<p>"+"<b>";
                         aDataRow = myReader.readLine();
-                        aBuffer += aDataRow + "</b>"+"</p>";
-                        if (!aDataRow.contains(Const.SUBTITLE_DELIMITERS[1])) {
-                            Log.d("PARSER", "Error while parsing");
+
+                        SubtitleBuffer += aDataRow + "</b>"+"</p>";
+                        SubtitleBuffer+= "\n";
+                        if(!aDataRow.equals("")) {
+                            UserSettings.cachedSubtitles[n][ipSub] =Html.fromHtml(SubtitleBuffer);
+                            ipSub++;
                         }
-                        aBuffer+= "\n";
                     }
 
 
                     if (aDataRow.contains(Const.TEXT_DELIMITERS[0])) {
+                        String tempString="";
                         aDataRow = myReader.readLine();
-                        aBuffer +="<p>";
+                       // aBuffer +="<p>";
                         do{
                             if(aDataRow!=null) {
                             if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])&& !noMoreFootnote){
+                                tempString+=aDataRow;
                                 char tempChar=aDataRow.charAt(3);
                                 int temp=Character.getNumericValue(aDataRow.charAt(3));
                                 if(temp==lastText) {
@@ -198,9 +209,12 @@ public class ParsingService extends Service {
                             }
                                if(nextLine) {
                                    aBuffer += aDataRow ;
+                                   tempString+= aDataRow ;
                                    nextLine=false;
                                }else {
                                    aBuffer += aDataRow + "\n";
+                                   tempString += aDataRow + "\n";
+
                                }
                             }
 
@@ -208,13 +222,17 @@ public class ParsingService extends Service {
                             aDataRow = myReader.readLine();
                         }
                         while (!aDataRow.contains(Const.TEXT_DELIMITERS[1]));
-
-                        aBuffer += "</p>";
+                       if(!tempString.equals("")) {
+                           UserSettings.cachedText[n][ip] = new SpannedString(tempString);
+                           ip++;
+                       }
+                 //       aBuffer += "</p>";
 
                     }
 
                 }
         }catch (IOException e){}
+     // aBuffer+="#";
         noMoreFootnote=false;
         return aBuffer;
     }
