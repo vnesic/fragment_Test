@@ -127,7 +127,8 @@ public class TextActivity extends Activity {
         textView.setMovementMethod(new ScrollingMovementMethod());
         tv.setTextColor(Color.WHITE);
         int subTextIndex = getIntent().getIntExtra("index", 0);
-
+        int pageNumber=getIntent().getIntExtra("pageNum",0);
+        UserSettings.currentPageNumber=pageNumber;
         lastText = subTextIndex;
        // lastSubtext = getIntent().getIntExtra("lastPos", 0);
         /////////[lastSubtext][lastText]//////////
@@ -137,45 +138,91 @@ public class TextActivity extends Activity {
 
 
             if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
+
+
+
+
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
-                 for(int i=0;i<UserSettings.footnotesString.length;i++) {
 
-                        if (UserSettings.footnotesString[i] != null) {
-                            final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
-                            final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+                if(FootNotes.footNotes[lastText]!=null)
+                    for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
 
-                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                spannableString.setSpan(new ClickableSpan() {
-                                    @Override
-                                    public void onClick(View widget) {
-                                        if (click) {
-                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                            //    public void update(int x, int y, int width, int height) {
-                                            String tempS=spannableString.subSequence(startIndex,endIndex).toString();
-                                            tv.setText(tempS);
-                                            tv.setTextColor(Color.WHITE);
+                        if (FootNotes.footNotes[lastText][i] != null) {
+                            final int startIndex, endIndex;
+                            if (lastText == 1) {
+                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                                endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                                final int index=i;
 
-                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                            click = false;
-                                        } else {
-                                            popUp.dismiss();
-                                            click = true;
+                                if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS =FootNotes.text1[index]; //spannableString.subSequence(startIndex, endIndex).toString();
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
+
+                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                click = false;
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void updateDrawState(TextPaint ds) {
-                                        super.updateDrawState(ds);
-                                        // this is where you set link color, underline, typeface etc.
-                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                        ds.setColor(linkColor);
-                                        ds.setUnderlineText(false);
-                                    }
-                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        }else {
-                            break;
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            } else if (lastText == 8) {
+                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                                endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                                final int index=i;
+
+                                if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
+
+                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                click = false;
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
+                                            }
+                                        }
+
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            }
+
                         }
+
+
                     }
 
                 textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
@@ -325,7 +372,7 @@ public class TextActivity extends Activity {
 
 */
              //   UserSettings.cachedText[lastSubtext][UserSettings.currentPageNumber] = Html.fromHtml(text);
-                j=0;
+               /* j=0;
                 if(fnTemp!=null)
                 for(int i=0;i<fnTemp.length;i++) {
 
@@ -334,46 +381,85 @@ public class TextActivity extends Activity {
                         j++;
                     }
                 }
-
+                */
 
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
 
-                if(fnTemp!=null)
-                for(int i=0;i<UserSettings.footnotesString.length;i++) {
+                if(FootNotes.footNotes[lastText]!=null)
+                for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
 
-                    if (UserSettings.footnotesString[i] != null) {
-                        final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
-                        final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+                    if (FootNotes.footNotes[lastText][i] != null) {
+                        final int startIndex,endIndex;
+                        if(lastText==1) {
+                            startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                            endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                            final int index=i;
+                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                spannableString.setSpan(new ClickableSpan() {
+                                    @Override
+                                    public void onClick(View widget) {
+                                        if (click) {
+                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                            //    public void update(int x, int y, int width, int height) {
+                                            String tempS=FootNotes.text1[index];//spannableString.subSequence(startIndex,endIndex).toString();
+                                            tv.setText(tempS);
+                                            tv.setTextColor(Color.WHITE);
 
-                        if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                        spannableString.setSpan(new ClickableSpan() {
-                            @Override
-                            public void onClick(View widget) {
-                                if (click) {
-                                    popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                    //    public void update(int x, int y, int width, int height) {
-                                    String tempS=spannableString.subSequence(startIndex,endIndex).toString();
-                                    tv.setText(tempS);
-                                    tv.setTextColor(Color.WHITE);
+                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                            click = false;
+                                        } else {
+                                            popUp.dismiss();
+                                            click = true;
+                                        }
+                                    }
 
-                                    popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                    click = false;
-                                } else {
-                                    popUp.dismiss();
-                                    click = true;
-                                }
-                            }
+                                    @Override
+                                    public void updateDrawState(TextPaint ds) {
+                                        super.updateDrawState(ds);
+                                        // this is where you set link color, underline, typeface etc.
+                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                        ds.setColor(linkColor);
+                                        ds.setUnderlineText(false);
+                                    }
+                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                            @Override
-                            public void updateDrawState(TextPaint ds) {
-                                super.updateDrawState(ds);
-                                // this is where you set link color, underline, typeface etc.
-                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                ds.setColor(linkColor);
-                                ds.setUnderlineText(false);
-                            }
-                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        }else if(lastText==8){
+                             startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                            endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                            final int index=i;
+
+                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                spannableString.setSpan(new ClickableSpan() {
+                                    @Override
+                                    public void onClick(View widget) {
+                                        if (click) {
+                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                            //    public void update(int x, int y, int width, int height) {
+                                            String tempS=FootNotes.text8[index];//spannableString.subSequence(startIndex,endIndex).toString();
+                                            tv.setText(tempS);
+                                            tv.setTextColor(Color.WHITE);
+
+                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
+                                            click = false;
+                                        } else {
+                                            popUp.dismiss();
+                                            click = true;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void updateDrawState(TextPaint ds) {
+                                        super.updateDrawState(ds);
+                                        // this is where you set link color, underline, typeface etc.
+                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                        ds.setColor(linkColor);
+                                        ds.setUnderlineText(false);
+                                    }
+                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        }
+
                     }else {
                         break;
                     }
@@ -453,46 +539,95 @@ public class TextActivity extends Activity {
                 int test=UserSettings.currentPageNumber-1;
                 if(test > 0 && UserSettings.cachedText[lastText][test]!=null ){
                     UserSettings.currentPageNumber--;//should not go under 0
+
+
+
                     final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
-                    for(int i=0;i<UserSettings.footnotesString.length;i++) {
 
-                            if (UserSettings.footnotesString[i] != null) {
-                                final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
-                                final int endIndex = startIndex + UserSettings.footnotesString[i].length();
+                    if(FootNotes.footNotes[lastText]!=null)
+                        for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
 
-                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                    spannableString.setSpan(new ClickableSpan() {
-                                        @Override
-                                        public void onClick(View widget) {
-                                            if (click) {
-                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                                //    public void update(int x, int y, int width, int height) {
-                                                String tempS=spannableString.subSequence(startIndex,endIndex).toString();
-                                                tv.setText(tempS);
-                                                tv.setTextColor(Color.WHITE);
+                            if (FootNotes.footNotes[lastText][i] != null) {
+                                final int startIndex, endIndex;
+                                if (lastText == 1) {
+                                    startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                                    endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                                   final int index=i;
+                                    if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                        spannableString.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                if (click) {
+                                                    popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                    //    public void update(int x, int y, int width, int height) {
+                                                    String tempS =FootNotes.text1[index];// spannableString.subSequence(startIndex, endIndex).toString();
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
 
-                                                popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                                click = false;
-                                            } else {
-                                                popUp.dismiss();
-                                                click = true;
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                } else {
+                                                    popUp.dismiss();
+                                                    click = true;
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void updateDrawState(TextPaint ds) {
-                                            super.updateDrawState(ds);
-                                            // this is where you set link color, underline, typeface etc.
-                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                            ds.setColor(linkColor);
-                                            ds.setUnderlineText(false);
-                                        }
-                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            }else {
-                                break;
+                                            @Override
+                                            public void updateDrawState(TextPaint ds) {
+                                                super.updateDrawState(ds);
+                                                // this is where you set link color, underline, typeface etc.
+                                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                                ds.setColor(linkColor);
+                                                ds.setUnderlineText(false);
+                                            }
+                                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                } else if (lastText == 8) {
+                                    startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                                    endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                                    final int index=i;
+                                    if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                        spannableString.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                if (click) {
+                                                    popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                    //    public void update(int x, int y, int width, int height) {
+                                                    String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
+
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                } else {
+                                                    popUp.dismiss();
+                                                    click = true;
+                                                }
+                                            }
+
+                                            @Override
+                                            public void updateDrawState(TextPaint ds) {
+                                                super.updateDrawState(ds);
+                                                // this is where you set link color, underline, typeface etc.
+                                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                                ds.setColor(linkColor);
+                                                ds.setUnderlineText(false);
+                                            }
+                                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                }
+
                             }
+
+
                         }
+
+
+
+
+
+
 
                     textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
@@ -512,47 +647,101 @@ public class TextActivity extends Activity {
                 int test=UserSettings.currentPageNumber+1;
                 if(test<UserSettings.cachedText[lastText].length && UserSettings.cachedText[lastText][test]!=null){
                  UserSettings.currentPageNumber++;//should not go over lengt()-1;
+
+
+
+
+
+
+
                     final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
 
-                        for(int i=0;i<UserSettings.footnotesString.length;i++) {
+                    if(FootNotes.footNotes[lastText]!=null)
+                        for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
+                            if (FootNotes.footNotes[lastText][i] != null) {
+                                final int startIndex, endIndex;
+                                if (lastText == 1) {
+                                    startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                                    endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                                    final int index=i;
+                                    if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                        spannableString.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                if (click) {
+                                                    popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                    //    public void update(int x, int y, int width, int height) {
+                                                    String tempS = FootNotes.text1[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
 
-                            if (UserSettings.footnotesString[i] != null) {
-                                final int startIndex = String.valueOf(UserSettings.cachedText[lastText]).indexOf(UserSettings.footnotesString[i]);
-                                final int endIndex = startIndex + UserSettings.footnotesString[i].length();
-
-                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                    spannableString.setSpan(new ClickableSpan() {
-                                        @Override
-                                        public void onClick(View widget) {
-                                            if (click) {
-                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                                //    public void update(int x, int y, int width, int height) {
-                                                String tempS=spannableString.subSequence(startIndex,endIndex).toString();
-                                                tv.setText(tempS);
-                                                tv.setTextColor(Color.WHITE);
-
-                                                popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                                click = false;
-                                            } else {
-                                                popUp.dismiss();
-                                                click = true;
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                } else {
+                                                    popUp.dismiss();
+                                                    click = true;
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void updateDrawState(TextPaint ds) {
-                                            super.updateDrawState(ds);
-                                            // this is where you set link color, underline, typeface etc.
-                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                            ds.setColor(linkColor);
-                                            ds.setUnderlineText(false);
-                                        }
-                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            }else {
-                                break;
+                                            @Override
+                                            public void updateDrawState(TextPaint ds) {
+                                                super.updateDrawState(ds);
+                                                // this is where you set link color, underline, typeface etc.
+                                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                                ds.setColor(linkColor);
+                                                ds.setUnderlineText(false);
+                                            }
+                                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                } else if (lastText == 8) {
+                                    startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                                    endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                                    final int index=i;
+
+                                    if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                        spannableString.setSpan(new ClickableSpan() {
+                                            @Override
+                                            public void onClick(View widget) {
+                                                if (click) {
+                                                    popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                    //    public void update(int x, int y, int width, int height) {
+                                                    String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
+
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                } else {
+                                                    popUp.dismiss();
+                                                    click = true;
+                                                }
+                                            }
+
+                                            @Override
+                                            public void updateDrawState(TextPaint ds) {
+                                                super.updateDrawState(ds);
+                                                // this is where you set link color, underline, typeface etc.
+                                                int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                                ds.setColor(linkColor);
+                                                ds.setUnderlineText(false);
+                                            }
+                                        }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                }
+
                             }
+
+
                         }
+
+
+
+
+
+
+
+
 
                     textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
@@ -646,14 +835,20 @@ public class TextActivity extends Activity {
                             viewBookmark.setBackgroundResource(drawable.button_bookmark_active);
 
                         }
-                        if(UserSettings.bookmarkArray[lastText]){
-                            UserSettings.bookmarkArray[lastText]=false;
+
+                        if(UserSettings.existElem(lastText,UserSettings.currentPageNumber)){
+
+                            UserSettings.removeElem(lastText,UserSettings.currentPageNumber);
                             Toast.makeText(TextActivity.this, "Text removed from bookmarks", Toast.LENGTH_SHORT).show();
+
                         }else {
-                            UserSettings.bookmarkArray[lastText]=true;
+
+                            UserSettings.bookmarkItems.add(new BookmarkItem(lastText,UserSettings.currentPageNumber));
                             Toast.makeText(TextActivity.this, "Text bookmarked", Toast.LENGTH_SHORT).show();
 
                         }
+
+
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         // RELEASED

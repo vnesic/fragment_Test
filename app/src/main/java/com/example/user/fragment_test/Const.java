@@ -70,5 +70,6 @@ public final class Const {
 
     public static int MaxNumberofFootnotes=20;
 
+
     public static boolean day_night=true;
 }

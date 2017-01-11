@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import static com.example.user.fragment_test.Const.TITLES;
+
 /**
  * Created by Buljoslav on 13/12/2016.
  */
@@ -53,6 +55,22 @@ public  class UserSettings {
     public static colors displayBackgroundColor=colors.YELLOW;
 
     public static boolean[] bookmarkArray=new boolean[Const.MaxNumOfTexts];
+
+    public static ArrayList<BookmarkItem> bookmarkItems=new ArrayList<BookmarkItem>();
+
+    public static void removeElem(int tN,int pN){
+       for(int i=0;i<bookmarkItems.size();i++){
+           if(bookmarkItems.get(i).pageNum==pN && bookmarkItems.get(i).textNum==tN)bookmarkItems.remove(i);
+       }
+    }
+
+    public static boolean existElem(int tN,int pN){
+        for(int i=0;i<bookmarkItems.size();i++){
+            if(bookmarkItems.get(i).pageNum==pN && bookmarkItems.get(i).textNum==tN)return  true;
+        }
+    return false;
+    }
+
 
     public static void setDefaultFontSize(int n){
 
@@ -139,4 +157,21 @@ public  class UserSettings {
         currentBackgroundColor=defaultBackgroundColor;
     }
 }
+
+    class BookmarkItem{
+
+        public int textNum;
+
+        public int pageNum;
+
+        public String bookmarkName;
+
+        BookmarkItem(int tN,int pN){
+
+            textNum=tN;
+            pageNum=pN;
+            bookmarkName=TITLES[textNum]+" | страница : "+pageNum;
+        }
+
+    }
 

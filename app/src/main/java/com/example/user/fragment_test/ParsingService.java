@@ -194,7 +194,7 @@ public class ParsingService extends Service {
                        // aBuffer +="<p>";
                         do{
                             if(aDataRow!=null) {
-                            if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])&& !noMoreFootnote){
+                           /* if(aDataRow.contains(Const.FOOTNOTE_DELIMITERS[0])&& !noMoreFootnote){
                                 tempString+=aDataRow;
                                 char tempChar=aDataRow.charAt(3);
                                 int temp=Character.getNumericValue(aDataRow.charAt(3));
@@ -206,7 +206,7 @@ public class ParsingService extends Service {
                                     if(Character.getNumericValue(aDataRow.charAt(3))>lastText)noMoreFootnote=true;
 
                                 }
-                            }
+                            }*/
                                if(nextLine) {
                                    aBuffer += aDataRow ;
                                    tempString+= aDataRow ;

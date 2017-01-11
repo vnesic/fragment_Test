@@ -30,10 +30,9 @@ public class BookmarkActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.bookmark_layout);
         listview = (ListView) findViewById(R.id.listview);
-        if(UserSettings.bookmarkArray.length!=0) {
-            for (int i = 0; i < UserSettings.bookmarkArray.length; ++i) {
-                if(UserSettings.bookmarkArray[i]==true)
-                list.add(Const.TITLES[i]);
+        if(UserSettings.bookmarkItems.size()!=0) {
+            for (int i = 0; i < UserSettings.bookmarkItems.size(); ++i) {
+                list.add(UserSettings.bookmarkItems.get(i).bookmarkName);
             }
         }else {
             list.add("No bookmarks");
@@ -50,8 +49,12 @@ public class BookmarkActivity extends Activity {
                                     int position, long id) {
 
                     Intent intent = new Intent();
+
+                    UserSettings.bookmarkItems.get(position);
                     intent.setClass(getApplicationContext(), TextActivity.class);
-                    intent.putExtra("index", get_index(list.get(position)));
+                    intent.putExtra("index", UserSettings.bookmarkItems.get(position).textNum);
+                //    UserSettings.currentPageNumber=UserSettings.bookmarkItems.get(position).pageNum;
+                    intent.putExtra("pageNum",UserSettings.bookmarkItems.get(position).pageNum);
                     startActivity(intent);
 
             }
