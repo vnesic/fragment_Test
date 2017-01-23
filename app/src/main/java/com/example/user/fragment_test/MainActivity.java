@@ -19,26 +19,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static android.view.View.INVISIBLE;
 
 public class MainActivity extends Activity {
     ListView listview;
@@ -65,11 +60,7 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
 
-                /*Intent intent = new Intent();
-                intent.setClass(getApplication(), DetailsActivity.class);
-                intent.putExtra("type","type1");
-                intent.putExtra("index", position);
-                startActivity(intent);*/
+
                 if(position!=UserSettings.crossNumber) {
                     Intent intent = new Intent();
                     if (position != UserSettings.authorTextNumber) {
@@ -117,13 +108,16 @@ public class MainActivity extends Activity {
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
+        private Context mContext;
+        private int id;
+        private List <String>items ;
         public StableArrayAdapter(Context context, int textViewResourceId,
                                   List<String> objects) {
             super(context, textViewResourceId, objects);
             for (int i = 0; i < objects.size(); ++i) {
                 mIdMap.put(objects.get(i), i);
             }
+
         }
 
         @Override
@@ -136,6 +130,13 @@ public class MainActivity extends Activity {
         public boolean hasStableIds() {
             return true;
         }
+
+
+
+
+
+
+
 
     }
 

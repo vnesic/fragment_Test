@@ -9,7 +9,9 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -163,11 +165,19 @@ public class TextActivity extends Activity {
                                                 popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                                 //    public void update(int x, int y, int width, int height) {
                                                 String tempS =FootNotes.text1[index]; //spannableString.subSequence(startIndex, endIndex).toString();
-                                                tv.setText(tempS);
-                                                tv.setTextColor(Color.WHITE);
+                                                Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                click = false;
+                                                if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                    Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                    startActivity(browserIntent);
+                                                }else {
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
+
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                }
                                             } else {
                                                 popUp.dismiss();
                                                 click = true;
@@ -403,11 +413,19 @@ public class TextActivity extends Activity {
                                             popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                             //    public void update(int x, int y, int width, int height) {
                                             String tempS=FootNotes.text1[index];//spannableString.subSequence(startIndex,endIndex).toString();
-                                            tv.setText(tempS);
-                                            tv.setTextColor(Color.WHITE);
+                                            Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                            click = false;
+                                            if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                startActivity(browserIntent);
+                                            }else {
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
+
+                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                click = false;
+                                            }
                                         } else {
                                             popUp.dismiss();
                                             click = true;
@@ -437,11 +455,17 @@ public class TextActivity extends Activity {
                                             popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                             //    public void update(int x, int y, int width, int height) {
                                             String tempS=FootNotes.text8[index];//spannableString.subSequence(startIndex,endIndex).toString();
-                                            tv.setText(tempS);
-                                            tv.setTextColor(Color.WHITE);
+                                            if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                startActivity(browserIntent);
+                                            }else {
+                                                tv.setText(tempS);
+                                                tv.setTextColor(Color.WHITE);
 
-                                            popUp.update((int)(width*0.05),(int)(height*0.05),(int)(width*0.7),(int)(height*0.7));
-                                            click = false;
+                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                click = false;
+                                            }
                                         } else {
                                             popUp.dismiss();
                                             click = true;
@@ -466,12 +490,12 @@ public class TextActivity extends Activity {
                 }
 
                 textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
-
+                Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
-
                 synchronized (lock) {
                     lock.notify();
                 }
+                textView.setTypeface(type);
             }
            // else if(Const.SETTINGS_INTENT){}
         }
@@ -562,11 +586,19 @@ public class TextActivity extends Activity {
                                                     popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                                     //    public void update(int x, int y, int width, int height) {
                                                     String tempS =FootNotes.text1[index];// spannableString.subSequence(startIndex, endIndex).toString();
-                                                    tv.setText(tempS);
-                                                    tv.setTextColor(Color.WHITE);
+                                                    Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                    click = false;
+                                                    if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                        Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                        startActivity(browserIntent);
+                                                    }else {
+                                                        tv.setText(tempS);
+                                                        tv.setTextColor(Color.WHITE);
+
+                                                        popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                        click = false;
+                                                    }
                                                 } else {
                                                     popUp.dismiss();
                                                     click = true;
@@ -595,11 +627,17 @@ public class TextActivity extends Activity {
                                                     popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                                     //    public void update(int x, int y, int width, int height) {
                                                     String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
-                                                    tv.setText(tempS);
-                                                    tv.setTextColor(Color.WHITE);
+                                                    if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                        Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                        startActivity(browserIntent);
+                                                    }else {
+                                                        tv.setText(tempS);
+                                                        tv.setTextColor(Color.WHITE);
 
-                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                    click = false;
+                                                        popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                        click = false;
+                                                    }
                                                 } else {
                                                     popUp.dismiss();
                                                     click = true;
@@ -673,11 +711,19 @@ public class TextActivity extends Activity {
                                                     popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                                     //    public void update(int x, int y, int width, int height) {
                                                     String tempS = FootNotes.text1[index];//spannableString.subSequence(startIndex, endIndex).toString();
-                                                    tv.setText(tempS);
-                                                    tv.setTextColor(Color.WHITE);
+                                                    Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                    click = false;
+                                                    if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                        Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                        startActivity(browserIntent);
+                                                    }else {
+                                                        tv.setText(tempS);
+                                                        tv.setTextColor(Color.WHITE);
+
+                                                        popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                        click = false;
+                                                    }
                                                 } else {
                                                     popUp.dismiss();
                                                     click = true;
@@ -707,11 +753,17 @@ public class TextActivity extends Activity {
                                                     popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
                                                     //    public void update(int x, int y, int width, int height) {
                                                     String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
-                                                    tv.setText(tempS);
-                                                    tv.setTextColor(Color.WHITE);
+                                                    if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                        Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                        startActivity(browserIntent);
+                                                    }else {
+                                                        tv.setText(tempS);
+                                                        tv.setTextColor(Color.WHITE);
 
-                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                    click = false;
+                                                        popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                        click = false;
+                                                    }
                                                 } else {
                                                     popUp.dismiss();
                                                     click = true;

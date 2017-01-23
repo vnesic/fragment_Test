@@ -35,6 +35,7 @@ public final class Const {
             "'православном' еволуционизму.\n"};
 
     public static final int SUBTITLE=0;
+    public static final int NUMBER_OF_TEXTS=12;
     public static final int TEXT=1;
     public static final int MaxNumOfTexts=50;
     public static final int MaxNumOfSubTexts=50;
