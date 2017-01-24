@@ -961,6 +961,12 @@ public class TextActivity extends Activity {
                             viewSearch.setBackgroundResource(drawable.button_search_active);
 
                         }
+
+
+                        Intent intent = new Intent();
+                        intent.setClass(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
+
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         if(UserSettings.day_night){//active image //FALSE=day

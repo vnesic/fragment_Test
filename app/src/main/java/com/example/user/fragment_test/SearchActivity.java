@@ -1,14 +1,19 @@
 package com.example.user.fragment_test;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -56,7 +61,31 @@ public class SearchActivity extends Activity {
             public void onClick(View view) {
                 text=searchBar.getText().toString();
                 search(text);
+                final ArrayList<String> list = new ArrayList<String>();
+                final StableArrayAdapter adapter = new StableArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+                listview.setAdapter(adapter);
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view,
+                                            int position, long id) {
+
+
+                        if(position!=UserSettings.crossNumber) {
+                            Intent intent = new Intent();
+                            if (position != UserSettings.authorTextNumber) {
+                                intent.setClass(getApplicationContext(), TextActivity.class);
+                                intent.putExtra("index", position);
+                            } else {
+
+                                intent.setClass(getApplicationContext(), AuthorActivity.class);
+
+                            }
+                            startActivity(intent);
+                        }
+                    }
+
+                });
             }
         });
 
@@ -72,29 +101,31 @@ public class SearchActivity extends Activity {
                 int count = 0;
 
                 while(lastIndex != -1){
-
-                    lastIndex = (cachedText[i][j].toString()).indexOf(text,lastIndex);
-                    int tempIndex=lastIndex;
-                    if(lastIndex != -1){
-                        count ++;
-                        lastIndex += text.length();
-                        e.insertPage(j);
-                        e.insertText(cachedText[i][j].toString(),tempIndex);
+                    if(cachedText[i][j]!=null) {
+                        lastIndex = (cachedText[i][j].toString()).indexOf(text, lastIndex);
+                        int tempIndex = lastIndex;
+                        if (lastIndex != -1) {
+                            count++;
+                            lastIndex += text.length();
+                            e.insertPage(j);
+                            e.insertText(cachedText[i][j].toString(), tempIndex);
+                        }
                     }
                 }
                 lastIndex=0;
                 count = 0;
 
                 while(lastIndex != -1){
+                    if(cachedText[i][j]!=null) {
+                        lastIndex = (cachedSubtitles[i][j].toString()).indexOf(text, lastIndex);
+                        int tempIndex = lastIndex;
+                        if (lastIndex != -1) {
+                            count++;
+                            lastIndex += text.length();
+                            e.insertPage(j);
+                            e.insertText(cachedText[i][j].toString(), tempIndex);
 
-                    lastIndex = (cachedSubtitles[i][j].toString()).indexOf(text,lastIndex);
-                    int tempIndex=lastIndex;
-                    if(lastIndex != -1){
-                        count ++;
-                        lastIndex += text.length();
-                        e.insertPage(j);
-                        e.insertText(cachedText[i][j].toString(),tempIndex);
-
+                        }
                     }
                 }
                 myList.add(e);
@@ -142,6 +173,39 @@ public class SearchActivity extends Activity {
 
     }
 
+    private class StableArrayAdapter extends ArrayAdapter<String> {
 
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        private Context mContext;
+        private int id;
+        private List <String>items ;
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+
+
+
+
+
+
+
+    }
 
 }
