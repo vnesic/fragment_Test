@@ -69,6 +69,16 @@ public final class Const {
                     "О аутору"
             };
 
+    public static final String[] FONTS =
+            {
+                    "Arial",
+                    "Calibri",
+                    "Gabriola",
+                    "Palatino Linotype",
+                    "Подразумевани"
+
+            };
+
     public static int MaxNumberofFootnotes=20;
 
 

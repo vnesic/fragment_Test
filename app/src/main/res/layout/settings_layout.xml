@@ -23,7 +23,7 @@
             <Button
                 android:background="@drawable/button_back_active"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
+                android:layout_width="72dp"
                 android:id="@+id/backButton"
                 android:gravity="left"
                 />
@@ -244,6 +244,68 @@
 
     </TableLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Фонтови"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arial"
+            android:id="@+id/Arial"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calibri"
+            android:id="@+id/Calibri"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gabriola"
+            android:id="@+id/Gabriola"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Palatino Linotype"
+            android:id="@+id/palatino_Linotype"
+            android:background="@color/astTextNight"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Подразумевани"
+            android:id="@+id/defaultFont"
+            android:background="@color/astTextNight"/>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

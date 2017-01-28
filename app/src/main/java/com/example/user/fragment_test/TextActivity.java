@@ -490,12 +490,10 @@ public class TextActivity extends Activity {
                 }
 
                 textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
-                Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
                 synchronized (lock) {
                     lock.notify();
                 }
-                textView.setTypeface(type);
             }
            // else if(Const.SETTINGS_INTENT){}
         }
@@ -1075,6 +1073,29 @@ public class TextActivity extends Activity {
                 case BLACK:
 
                     textView.setTextColor(Color.BLACK);
+                    break;
+            }
+            switch (UserSettings.displayFont){
+
+                case CALIBRI:
+                    Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/calibri.ttf");
+                    textView.setTypeface(type1);
+                    break;
+                case ARIAL:
+                    Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/arial.ttf");
+                    textView.setTypeface(type2);
+                    break;
+                case GABRIOLA:
+                    Typeface type3 = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+                    textView.setTypeface(type3);
+                    break;
+                case DEFAULT:
+                   // Typeface type5 = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+                    textView.setTypeface(Typeface.DEFAULT);
+                    break;
+                case PALATINO:
+                    Typeface type5 = Typeface.createFromAsset(getAssets(),"fonts/palatino_linotype.ttf");
+                    textView.setTypeface(type5);
                     break;
             }
             UserSettings.isChanged=false;

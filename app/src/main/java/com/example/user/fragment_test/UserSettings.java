@@ -18,7 +18,7 @@ import static com.example.user.fragment_test.Const.TITLES;
 public  class UserSettings {
 
     enum colors {RED,BLACK,BLUE,YELLOW,WHITE};
-    enum fonts{TIMES,CALIBRI,ARIAL};
+    enum fonts{ARIAL,CALIBRI,GABRIOLA,PALATINO,DEFAULT};
     public static boolean firstPass=true;
 
     public static int authorTextNumber=13;
@@ -42,9 +42,9 @@ public  class UserSettings {
     public static int defaultFontSizeIncrement;
     public static int displayFontSize=0;
 
-    public static fonts defaultFont=fonts.TIMES;
-    public static fonts currentFont=fonts.TIMES;
-    public static fonts displayFont=fonts.TIMES;
+    public static fonts defaultFont=fonts.DEFAULT;
+    public static fonts currentFont=fonts.DEFAULT;
+    public static fonts displayFont=fonts.DEFAULT;
 
     public static colors defaultFontColor=colors.BLACK;
     public static colors currentFontColor=colors.BLACK;
@@ -123,8 +123,39 @@ public  class UserSettings {
 
 
 
+    ////////////////////////////// fontovi
+    public static void setFontDEFAULT() {
+        currentFont=fonts.DEFAULT;
+    }
 
-        public static void incrementFont(){
+
+
+    public static void setFontARIAL() {
+        currentFont=fonts.ARIAL;
+    }
+
+
+    public static void setFontCALIBRI() {
+        currentFont=fonts.CALIBRI;
+    }
+
+    public static void setFontGABRIOLA() {
+        currentFont=fonts.GABRIOLA;
+    }
+
+
+    public static void setFontPALATINO() {
+        currentFont=fonts.PALATINO;
+    }
+
+
+
+
+
+
+
+
+    public static void incrementFont(){
         if((currentFontSize+defaultFontSizeIncrement)>=100){
             currentFontSize=100;
         }else
@@ -156,6 +187,24 @@ public  class UserSettings {
         isChanged=false;
         currentBackgroundColor=defaultBackgroundColor;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
     class BookmarkItem{

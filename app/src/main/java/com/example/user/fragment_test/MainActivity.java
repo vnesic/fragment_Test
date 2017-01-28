@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,9 +38,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     ListView listview;
-    ImageView imageView;
-    Button mBookmark;
     View mBookmarkView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class MainActivity extends Activity {
         
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
+    public class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
         private Context mContext;
@@ -131,8 +132,21 @@ public class MainActivity extends Activity {
             return true;
         }
 
+     /*   @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
 
 
+            View view =  super.getView(position, convertView, parent);
+
+            TextView tv = (TextView) view.findViewById();
+            tv.setTextColor(0);
+            tv.setText("AAAAAA");
+            Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+            tv.setTypeface(type);
+
+            return tv;
+        }
+*/
 
 
 

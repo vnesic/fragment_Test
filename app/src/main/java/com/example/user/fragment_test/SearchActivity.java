@@ -110,7 +110,8 @@ public class SearchActivity extends Activity {
                             e.insertPage(j);
                             e.insertText(cachedText[i][j].toString(), tempIndex);
                         }
-                    }
+                    }else{
+                        break;}
                 }
                 lastIndex=0;
                 count = 0;
@@ -126,7 +127,8 @@ public class SearchActivity extends Activity {
                             e.insertText(cachedText[i][j].toString(), tempIndex);
 
                         }
-                    }
+                    }else{
+                        break;}
                 }
                 myList.add(e);
             }
