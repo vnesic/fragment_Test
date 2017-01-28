@@ -40,11 +40,131 @@ public class MainActivity extends Activity {
     ListView listview;
     View mBookmarkView;
 
-
+    Button b1,b2,b3,b4,b5,b7,b6,b8,b9,b10,b11,b12,b13,b14;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+
         this.setContentView(R.layout.activity_main1);
+        b1=(Button)findViewById(R.id.text1);
+        b2=(Button)findViewById(R.id.text2);
+        b3=(Button)findViewById(R.id.text3);
+        b4=(Button)findViewById(R.id.text4);
+        b5=(Button)findViewById(R.id.text5);
+        b6=(Button)findViewById(R.id.text6);
+        b7=(Button)findViewById(R.id.text7);
+        b8=(Button)findViewById(R.id.text8);
+        b9=(Button)findViewById(R.id.text9);
+        b10=(Button)findViewById(R.id.text10);
+        b11=(Button)findViewById(R.id.text11);
+        b12=(Button)findViewById(R.id.text12);
+        b13=(Button)findViewById(R.id.text13);
+        b14=(Button)findViewById(R.id.text14);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(1);
+            }
+        });
+        b1.setTypeface(type);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(2);
+            }
+        });
+        b2.setTypeface(type);
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(3);
+            }
+        });
+        b3.setTypeface(type);
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(4);
+            }
+        });
+        b4.setTypeface(type);
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(5);
+            }
+        });
+        b5.setTypeface(type);
+        b7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(7);
+            }
+        });
+        b7.setTypeface(type);
+        b6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(6);
+            }
+        });
+        b6.setTypeface(type);
+
+        b8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(8);
+            }
+        });
+        b8.setTypeface(type);
+
+        b9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(9);
+            }
+        });
+        b9.setTypeface(type);
+        b10.setTypeface(type);
+        b10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(10);
+            }
+        });
+        b11.setTypeface(type);
+        b11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(11);
+            }
+        });
+        b12.setTypeface(type);
+        b12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(12);
+            }
+        });
+        b13.setTypeface(type);
+        b13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(13);
+            }
+        });
+        b14.setTypeface(type);
+        b14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIntent(14);
+            }
+        });;
+
+
+        /*
        listview = (ListView) findViewById(R.id.listview);
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < Const.TITLES.length; ++i) {
@@ -54,7 +174,6 @@ public class MainActivity extends Activity {
                 android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
 
-        mBookmarkView=findViewById(R.id.bookMarkButton);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -77,6 +196,9 @@ public class MainActivity extends Activity {
             }
 
         });
+*/
+        mBookmarkView=findViewById(R.id.bookMarkButton);
+
 
         mBookmarkView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -106,6 +228,24 @@ public class MainActivity extends Activity {
         
     }
 
+    void sendIntent(int p){
+        int position=p-1;
+        if(position!=UserSettings.crossNumber) {
+            Intent intent = new Intent();
+            if (position != UserSettings.authorTextNumber) {
+                intent.setClass(getApplicationContext(), TextActivity.class);
+                intent.putExtra("index", position);
+            } else {
+
+                intent.setClass(getApplicationContext(), AuthorActivity.class);
+
+            }
+            startActivity(intent);
+        }
+
+
+
+    }
     public class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();

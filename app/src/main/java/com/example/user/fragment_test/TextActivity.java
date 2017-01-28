@@ -547,7 +547,7 @@ public class TextActivity extends Activity {
 
     void tabButtonAling() {
         tabButton1 = (Button) findViewById(id.backButton);
-        tabButton2 = (Button) findViewById(id.contentButton);
+  //      tabButton2 = (Button) findViewById(id.contentButton);
         tabButton3 = (Button) findViewById(id.bookMarkButton);
         tabButton4 = (Button) findViewById(id.settingsButton);
         tabButton5 = (Button) findViewById(id.searchButton);
@@ -806,7 +806,7 @@ public class TextActivity extends Activity {
             }
         });
         viewBack = findViewById(id.backButton);
-        viewContent = findViewById(id.contentButton);
+//        viewContent = findViewById(id.contentButton);
         viewBookmark =  findViewById(id.bookMarkButton);
         viewSettings = findViewById(id.settingsButton);
         viewSearch=findViewById(id.searchButton);
@@ -843,7 +843,7 @@ public class TextActivity extends Activity {
             }
         });
 
-        viewContent.setOnTouchListener(new View.OnTouchListener() {
+/*        viewContent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
@@ -871,7 +871,7 @@ public class TextActivity extends Activity {
                 return false;
             }
         });
-
+*/
         viewBookmark.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -982,14 +982,14 @@ public class TextActivity extends Activity {
 
 
         tabButton1.setWidth((int) (width * 0.05));
-        tabButton2.setWidth((int) (width * 0.05));
+      //  tabButton2.setWidth((int) (width * 0.05));
         tabButton3.setWidth((int) (width * 0.05));
         tabButton4.setWidth((int) (width * 0.05));
         tabButton5.setWidth((int) (width * 0.05));
         tabButton6.setWidth((int) (width * 0.05));
 
         tabButton1.setHeight((int) (height * 0.05));
-        tabButton2.setHeight((int) (height * 0.05));
+ //       tabButton2.setHeight((int) (height * 0.05));
         tabButton3.setHeight((int) (height * 0.05));
         tabButton4.setHeight((int) (height * 0.05));
         tabButton5.setHeight((int) (height * 0.05));
@@ -1115,7 +1115,7 @@ public class TextActivity extends Activity {
         viewBack.setBackgroundResource(drawable.button_back_night_normal);
         viewSettings.setBackgroundResource(drawable.button_options_night_normal);
         viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
-        viewContent.setBackgroundResource(drawable.button_contents_night_normal);
+//        viewContent.setBackgroundResource(drawable.button_contents_night_normal);
         viewSearch.setBackgroundResource(drawable.button_search_night_normal);
     }
 
@@ -1131,7 +1131,7 @@ public class TextActivity extends Activity {
         viewBack.setBackgroundResource(drawable.button_back_normal);
         viewSettings.setBackgroundResource(drawable.button_options_normal);
         viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
-        viewContent.setBackgroundResource(drawable.button_contents_normal);
+//        viewContent.setBackgroundResource(drawable.button_contents_normal);
         viewSearch.setBackgroundResource(drawable.button_search_normal);
 
     }
