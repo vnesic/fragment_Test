@@ -46,12 +46,22 @@ public class SearchActivity extends Activity {
     EditText searchBar;
     List<Elem> myList = new ArrayList<Elem>();
     ListView listview;
+    ArrayList<String> temp_list = new ArrayList<String>();
     Button searchButton;
     String text;
+    private Button backButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.search_layout);
+        backButton=(Button)findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         searchBar=(EditText)findViewById(R.id.search_bar);
         listview=(ListView)findViewById(R.id.listview);
@@ -61,8 +71,8 @@ public class SearchActivity extends Activity {
             public void onClick(View view) {
                 text=searchBar.getText().toString();
                 search(text);
-                final ArrayList<String> list = new ArrayList<String>();
-                final StableArrayAdapter adapter = new StableArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+                final ArrayList<String> list =temp_list;
+                final ArrayAdapter adapter = new ArrayAdapter(SearchActivity.this, android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -91,54 +101,71 @@ public class SearchActivity extends Activity {
 
     }
 
-    void search(String text){
+    void search(String text) {
 
-        for(int i=0;i<Const.MaxNumOfTexts;i++){
-            Elem e=new Elem(i);
-            for(int j=0;j<Const.MaxNumOfSubTexts;j++) {
+        if(!text.equals("")) {
+            int lastIndex = 0;
+            int count = 0;
 
-                int lastIndex = 0;
-                int count = 0;
+            for (int i = 0; i < Const.MaxNumOfTexts; i++) {
 
-                while(lastIndex != -1){
-                    if(cachedText[i][j]!=null) {
-                        lastIndex = (cachedText[i][j].toString()).indexOf(text, lastIndex);
-                        int tempIndex = lastIndex;
-                        if (lastIndex != -1) {
-                            count++;
-                            lastIndex += text.length();
-                            e.insertPage(j);
-                            e.insertText(cachedText[i][j].toString(), tempIndex);
+                Elem e = new Elem(i);
+
+                for (int j = 0; j < Const.MaxNumOfSubTexts; j++) {
+
+                    while (lastIndex != -1) {
+                        if (cachedText[i][j] != null) {
+                            String shit = cachedText[i][j].toString();
+                            lastIndex = (cachedText[i][j].toString()).indexOf(text, lastIndex);
+                            int tempIndex = lastIndex;
+                            if (lastIndex != -1) {
+                                count++;
+                                lastIndex += text.length();
+                                e.insertPage(j);
+                                e.insertText(cachedText[i][j].toString(), tempIndex);
+                                //    temp_list.add(cachedText[i][j].toString());
+                            }
+                        } else {
+                            break;
                         }
-                    }else{
-                        break;}
+                    }
                 }
-                lastIndex=0;
-                count = 0;
-
-                while(lastIndex != -1){
-                    if(cachedText[i][j]!=null) {
-                        lastIndex = (cachedSubtitles[i][j].toString()).indexOf(text, lastIndex);
-                        int tempIndex = lastIndex;
-                        if (lastIndex != -1) {
-                            count++;
-                            lastIndex += text.length();
-                            e.insertPage(j);
-                            e.insertText(cachedText[i][j].toString(), tempIndex);
-
-                        }
-                    }else{
-                        break;}
-                }
-                myList.add(e);
             }
 
+            lastIndex = 0;
+            count = 0;
 
+
+            for (int i = 0; i < Const.MaxNumOfTexts; i++) {
+
+                Elem e = new Elem(i);
+
+                for (int j = 0; j < Const.MaxNumOfSubTexts; j++) {
+
+                    while (lastIndex != -1) {
+                        if (cachedText[i][j] != null) {
+                            lastIndex = (cachedSubtitles[i][j].toString()).indexOf(text, lastIndex);
+                            int tempIndex = lastIndex;
+                            if (lastIndex != -1) {
+                                count++;
+                                lastIndex += text.length();
+                                e.insertPage(j);
+                                e.insertText(cachedText[i][j].toString(), tempIndex);
+                                //         temp_list.add(cachedText[i][j].toString());
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    myList.add(e);
+                }
+            }
         }
-
-
-
     }
+
+
+
+
 
 
     class Elem {
@@ -155,8 +182,9 @@ public class SearchActivity extends Activity {
         void insertText(String s,int i){//cachedText[i][j],cashedSub[i],[j], j
             int a3=i-1;int a2=i-2;int a1=i-3;int a4=i;int a5=i+1;int a6=i+2;int a7=i+2;
             String ss="";
+            /*
             if(a1>=0){
-                ss+=s.indexOf(a1)+s.indexOf(a2)+s.indexOf(a3)+s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
+                ss+=s.a1)+s.indexOf(a2)+s.indexOf(a3)+s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
             }else
             if(a2>=0){
 
@@ -169,8 +197,21 @@ public class SearchActivity extends Activity {
             {
 
                 ss+=s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
+            }*/
+            if((i-15)<0) {
+                if((i+15)>s.length()){
+                ss = s.substring(0,i)+s.substring(i, s.length()-1);}
+                else{
+                    ss = s.substring(0,i)+s.substring(i, i+15);}
+
+            }else {
+            if((i+15)>s.length()){
+                ss = s.substring(i-15,i)+s.substring(i, s.length()-1);}
+            else{
+                ss = s.substring(i-15,i)+s.substring(i, i+15);}
             }
             textToShow.add(ss);
+            temp_list.add(ss);
         }
 
     }
