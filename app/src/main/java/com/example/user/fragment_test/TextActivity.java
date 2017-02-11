@@ -82,7 +82,7 @@ public class TextActivity extends Activity {
     int height;
     SpannableString toDisplay;
     Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5,tabButton6,nextButton,prevButton;
-    View viewBack,viewContent,viewBookmark,viewSettings,viewSearch,viewNext,viewPrev;
+    View viewBack,viewContent,viewBookmark,viewSettings,viewSearch,viewNext,viewPrev,viewText;
     TableLayout tableLayout;
     SeekBar seekBar;
     View v;
@@ -125,7 +125,9 @@ public class TextActivity extends Activity {
         tv.setText("Hi this is a sample text for popup window");
         layout.addView(tv, params);
         popUp.setContentView(layout);
-        textView = (TextView) findViewById(id.text);
+        textView = (TextView) findViewById(id.textview);
+        viewText=findViewById(id.textview);
+
         textView.setMovementMethod(new ScrollingMovementMethod());
         tv.setTextColor(Color.WHITE);
         int subTextIndex = getIntent().getIntExtra("index", 0);
@@ -354,6 +356,8 @@ public class TextActivity extends Activity {
         }
         textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
 
+
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 
@@ -361,37 +365,14 @@ public class TextActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-///////////if Const_SETTINGS_INTENT sets values from user settings to text view
-//              /activates on OK on click
+
             if (action.equals(Const.NOTIFICATION_TEXT)) {
 
                 String text = intent.getStringExtra("text_intent");
                 String footN=intent.getStringExtra("foot_note");
- //               String[] parts = text.split("#");
                 String[] fnTemp;
                 fnTemp = footN.split("#");
                 int j=0;
-   /*           for(int i=0;i<parts.length;i++) {
-
-                    if (!parts[i].equals("")) {
-
-                        UserSettings.cachedText[lastSubtext][j] =new SpannedString(parts[i]);
-                        j++;
-                    }
-                }
-
-*/
-             //   UserSettings.cachedText[lastSubtext][UserSettings.currentPageNumber] = Html.fromHtml(text);
-               /* j=0;
-                if(fnTemp!=null)
-                for(int i=0;i<fnTemp.length;i++) {
-
-                    if (!fnTemp[i].equals("")) {
-                        UserSettings.footnotesString[j] = fnTemp[i];
-                        j++;
-                    }
-                }
-                */
 
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
@@ -1135,5 +1116,101 @@ public class TextActivity extends Activity {
         viewSearch.setBackgroundResource(drawable.button_search_normal);
 
     }
+
+
+
+
+
+
+    private class OnSwipeTouchListener implements View.OnTouchListener {
+
+        private final GestureDetector gestureDetector;
+
+        public OnSwipeTouchListener (Context ctx){
+            gestureDetector = new GestureDetector(ctx, new GestureListener());
+
+
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+
+                onTouchHandle();
+
+                return false;
+            }
+
+            @Override
+
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                // if the second tap hadn't been released and it's being moved
+
+                onTouchHandle();
+
+                return false;
+            }
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                        }
+                        result = true;
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                    }
+                    result = true;
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+        public void onSwipeRight() {
+        }
+
+        public void onSwipeLeft() {
+        }
+
+        public void onSwipeTop() {
+        }
+
+        public void onSwipeBottom() {
+        }
+    }
+
+
+
     }
 
