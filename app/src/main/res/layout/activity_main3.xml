@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/astTextNight"
     android:id="@+id/textFrame"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     >
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -29,7 +31,7 @@
             android:weightSum="6"
             android:id="@+id/upperTabLayout">
     <View
-        android:layout_width="52dp"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:id="@+id/contentButton"
         android:background="@color/astTextNight"
@@ -66,7 +68,7 @@
         android:background="@drawable/button_search_active" />
 
             <View
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/vv"
                 android:background="@color/astTextNight"
@@ -77,28 +79,31 @@
 </TableLayout>
     </ScrollView>
 
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
+        android:id="@+id/textview"
         android:background="@color/astTextNight"
+        android:gravity="center"
         android:scrollbars = "vertical"
         android:clickable="true"
         android:layout_above="@+id/pager_scollerTab"
         />
 
-<LinearLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/pager_scollerTab"
-    android:visibility="invisible"
+    android:visibility="visible"
     android:layout_alignParentBottom="true"
     android:weightSum="1">
 
     <Button
         android:layout_width="66dp"
         android:layout_height="wrap_content"
-        android:text="Назад"
+        android:text="На претходну страницу"
+        android:visibility="visible"
+        android:textSize="14dp"
         android:background="@color/astTextNight"
         android:id="@+id/prevButton"
         android:layout_weight="1.02" />
@@ -106,7 +111,9 @@
     <Button
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:text="Напред"
+        android:textSize="14dp"
+        android:text="На следећу страницу"
+        android:visibility="visible"
         android:background="@color/astTextNight"
         android:id="@+id/nextButton"/>
 

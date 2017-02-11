@@ -24,6 +24,8 @@ public  class UserSettings {
     public static int authorTextNumber=13;
     public static int crossNumber=authorTextNumber-1;
 
+    public static boolean checked=false;
+
     public static boolean day_night=false;
 
     public static Spanned[][] cachedText = new Spanned[Const.MaxNumOfTexts][Const.MaxNumOfTexts];//2nd index on both is currentPage
@@ -58,10 +60,17 @@ public  class UserSettings {
 
     public static ArrayList<BookmarkItem> bookmarkItems=new ArrayList<BookmarkItem>();
 
+    public static boolean changed=false;
     public static void removeElem(int tN,int pN){
        for(int i=0;i<bookmarkItems.size();i++){
            if(bookmarkItems.get(i).pageNum==pN && bookmarkItems.get(i).textNum==tN)bookmarkItems.remove(i);
        }
+    }
+
+    public static void addElem(int text,int page){
+
+        BookmarkItem bI=new BookmarkItem(text,page);
+        bookmarkItems.add(new BookmarkItem(text,page));
     }
 
     public static boolean existElem(int tN,int pN){
@@ -207,7 +216,7 @@ public  class UserSettings {
 
 }
 
-    class BookmarkItem{
+   class BookmarkItem{
 
         public int textNum;
 

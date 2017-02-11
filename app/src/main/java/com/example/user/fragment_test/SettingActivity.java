@@ -28,7 +28,7 @@ public class SettingActivity extends Activity {
     ListView listview;
 
     private TextView title,backgroundColor,textColor,textSize;
-    private Button yellowFont,blackFont,redFont;
+    private Button grayFont,blackFont,redFont;
     private Button backgroundYellow,backgroundWhite;
     private Button dummyButton,sizeUPButton,sizeDownButton,okButton;
     private Button calibriFont,gabriolaFont,palatinoFont,defaultFont,arialFont;
@@ -36,17 +36,6 @@ public class SettingActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.settings_layout);
-   /*     listview = (ListView) findViewById(R.id.listViewFonts);
-
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < Const.FONTS.length; ++i) {
-            list.add(Const.FONTS[i]);
-        }
-        final ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listview.setAdapter(adapter);
-
-    */
 
         WindowManager w = getWindowManager();
         Display d = w.getDefaultDisplay();
@@ -57,7 +46,7 @@ public class SettingActivity extends Activity {
         init();
 
 
-        yellowFont.setOnClickListener(new View.OnClickListener() {
+        grayFont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserSettings.setFontYellow();
@@ -167,7 +156,7 @@ public class SettingActivity extends Activity {
         backButtonDummy.setWidth((int) (width * 0.15));
         title.setWidth((int) (width * 0.6));
 
-        yellowFont.setWidth((int) (yellowFont.getHeight()));
+        grayFont.setWidth((int) (grayFont.getHeight()));
         blackFont.setWidth((int) (blackFont.getHeight()));
         redFont.setWidth((int) (redFont.getHeight()));
         backgroundWhite.setWidth((int) (backgroundWhite.getHeight()));
@@ -185,7 +174,7 @@ public class SettingActivity extends Activity {
         backButton=(Button)findViewById(R.id.backButton);
         backButtonDummy=(Button)findViewById(R.id.backButtonDummy);
         okButton=(Button)findViewById(R.id.okbutton);
-        yellowFont=(Button)findViewById(R.id.yellowFont);
+        grayFont=(Button)findViewById(R.id.grayFont);
         blackFont=(Button)findViewById(R.id.blackFont);
         redFont=(Button)findViewById(R.id.redFont);
         backgroundWhite=(Button)findViewById(R.id.backgroundWhite);

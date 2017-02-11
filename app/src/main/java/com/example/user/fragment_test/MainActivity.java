@@ -272,26 +272,6 @@ public class MainActivity extends Activity {
             return true;
         }
 
-     /*   @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-
-            View view =  super.getView(position, convertView, parent);
-
-            TextView tv = (TextView) view.findViewById();
-            tv.setTextColor(0);
-            tv.setText("AAAAAA");
-            Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
-            tv.setTypeface(type);
-
-            return tv;
-        }
-*/
-
-
-
-
-
     }
 
 

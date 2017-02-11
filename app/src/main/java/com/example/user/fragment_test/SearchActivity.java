@@ -24,24 +24,7 @@ import static com.example.user.fragment_test.UserSettings.cachedSubtitles;
 /**
  * Created by Buljoslav on 22/01/2017.
  */
-/*
-*
- String str = "helloslkhellodjladfjhello";
-String findStr = "hello";
-int lastIndex = 0;
-int count = 0;
 
-while(lastIndex != -1){
-
-    lastIndex = str.indexOf(findStr,lastIndex);
-
-    if(lastIndex != -1){
-        count ++;
-        lastIndex += findStr.length();
-    }
-}
-*
-* */
 public class SearchActivity extends Activity {
     EditText searchBar;
     List<Elem> myList = new ArrayList<Elem>();

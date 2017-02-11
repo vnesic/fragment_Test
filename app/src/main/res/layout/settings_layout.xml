@@ -23,7 +23,7 @@
             <Button
                 android:background="@drawable/button_back_active"
                 android:layout_height="match_parent"
-                android:layout_width="72dp"
+                android:layout_width="55dp"
                 android:id="@+id/backButton"
                 android:gravity="left"
                 />
@@ -72,10 +72,10 @@
                 android:layout_width="136dp"
                  />
             <Button
-                android:background="@drawable/button_st_fc_1_active"
+                android:background="@drawable/button_st_fc_3_normal"
                 android:layout_height="match_parent"
                 android:layout_width="54dp"
-                android:id="@+id/yellowFont"
+                android:id="@+id/grayFont"
                 />
             <Button
                 android:background="@drawable/button_st_fc_1_normal"
@@ -86,7 +86,7 @@
                 />
 
                 <Button
-                    android:background="@drawable/button_st_fc_2_normal"
+                    android:background="@drawable/button_st_fc_4_normal"
                     android:layout_height="match_parent"
                     android:layout_width="54dp"
                     android:id="@+id/redFont"
@@ -140,7 +140,7 @@
 
 
             <Button
-                android:background="@drawable/button_st_bgc_1_normal"
+                android:background="@drawable/button_st_bgc_2_normal"
                 android:layout_height="match_parent"
                 android:layout_width="50dp"
                 android:id="@+id/backgroundWhite"
@@ -148,7 +148,7 @@
             </LinearLayout>
 
             <Button
-                android:background="@drawable/button_st_bgc_2_active"
+                android:background="@drawable/button_st_bgc_1_normal"
                 android:layout_height="match_parent"
                 android:layout_width="59dp"
                 android:id="@+id/backgroundYellow"

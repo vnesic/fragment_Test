@@ -7,7 +7,7 @@
     >
 
     <Button
-        android:layout_width="60dp"
+        android:layout_width="55dp"
         android:layout_height="wrap_content"
         android:id="@+id/backButton"
         android:background="@drawable/button_back_active"
