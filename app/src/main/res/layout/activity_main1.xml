@@ -10,10 +10,12 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:paddingRight="27dp"
+        android:paddingLeft="27dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/image"
-        android:src="@drawable/win_main_title_land"
+        android:src="@drawable/zaglavlje"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
 

@@ -98,7 +98,6 @@ public class SearchActivity extends Activity {
 
                     while (lastIndex != -1) {
                         if (cachedText[i][j] != null) {
-                            String shit = cachedText[i][j].toString();
                             lastIndex = (cachedText[i][j].toString()).indexOf(text, lastIndex);
                             int tempIndex = lastIndex;
                             if (lastIndex != -1) {
@@ -163,24 +162,7 @@ public class SearchActivity extends Activity {
             pages.add(n);
         }
         void insertText(String s,int i){//cachedText[i][j],cashedSub[i],[j], j
-            int a3=i-1;int a2=i-2;int a1=i-3;int a4=i;int a5=i+1;int a6=i+2;int a7=i+2;
             String ss="";
-            /*
-            if(a1>=0){
-                ss+=s.a1)+s.indexOf(a2)+s.indexOf(a3)+s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
-            }else
-            if(a2>=0){
-
-                ss+=s.indexOf(a2)+s.indexOf(a3)+s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
-            }else
-            if(a3>=0){
-
-                ss+=s.indexOf(a3)+s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
-            }else
-            {
-
-                ss+=s.indexOf(a4)+s.indexOf(a5)+s.indexOf(a6)+s.indexOf(a7);
-            }*/
             if((i-15)<0) {
                 if((i+15)>s.length()){
                 ss = s.substring(0,i)+s.substring(i, s.length()-1);}
@@ -199,39 +181,6 @@ public class SearchActivity extends Activity {
 
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-        private Context mContext;
-        private int id;
-        private List <String>items ;
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-
-
-
-
-
-
-
-    }
 
 }

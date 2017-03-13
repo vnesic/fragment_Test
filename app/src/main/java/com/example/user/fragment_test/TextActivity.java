@@ -112,13 +112,11 @@ public class TextActivity extends Activity {
         height = d.getHeight();
         tabButtonAling();
         v=findViewById(id.textFrame);
-   //     UserSettings.Font=UserSettings.fonts.TIMES;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
         popUp = new PopupWindow(this);
-
 
 
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -143,11 +141,7 @@ public class TextActivity extends Activity {
 
             if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
 
-
-
-
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
-
 
                 if(FootNotes.footNotes[lastText]!=null)
                     for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
@@ -271,7 +265,7 @@ public class TextActivity extends Activity {
             }
 
 
-
+/*
         mGestureDetector = new GestureDetector(this,new GestureDetector.OnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
@@ -307,6 +301,9 @@ public class TextActivity extends Activity {
 
             @Override
             public boolean onDown(MotionEvent e) {
+                if(e.getAction()== MotionEvent.ACTION_DOWN)
+                onTouchHandle();
+
                 // TODO Auto-generated method stub
                 return false;
             }
@@ -336,14 +333,22 @@ public class TextActivity extends Activity {
             }
 
         });
-
+*/
         textView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                mGestureDetector.onTouchEvent(event);
+             //   mGestureDetector.onTouchEvent(event);
                 popUp.dismiss();
+                return false;
+            }
+        });
+        LinearLayout l= (LinearLayout)findViewById(R.id.upperTabLayout);
+        l.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                onTouchHandle();
                 return false;
             }
         });
@@ -367,12 +372,6 @@ public class TextActivity extends Activity {
             String action = intent.getAction();
 
             if (action.equals(Const.NOTIFICATION_TEXT)) {
-
-                String text = intent.getStringExtra("text_intent");
-                String footN=intent.getStringExtra("foot_note");
-                String[] fnTemp;
-                fnTemp = footN.split("#");
-                int j=0;
 
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
