@@ -132,137 +132,137 @@ public class TextActivity extends Activity {
         int pageNumber=getIntent().getIntExtra("pageNum",0);
         UserSettings.currentPageNumber=pageNumber;
         lastText = subTextIndex;
-       // lastSubtext = getIntent().getIntExtra("lastPos", 0);
+        // lastSubtext = getIntent().getIntExtra("lastPos", 0);
         /////////[lastSubtext][lastText]//////////
         //textView.setPadding(0,40,0,0);
 
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
 
-            if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
+        if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
 
-                final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
+            final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
-                if(FootNotes.footNotes[lastText]!=null)
-                    for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
+            if(FootNotes.footNotes[lastText]!=null)
+                for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
 
-                        if (FootNotes.footNotes[lastText][i] != null) {
-                            final int startIndex, endIndex;
-                            if (lastText == 1) {
-                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
-                                endIndex = startIndex + FootNotes.text1Footnotes[i].length();
-                                final int index=i;
+                    if (FootNotes.footNotes[lastText][i] != null) {
+                        final int startIndex, endIndex;
+                        if (lastText == 1) {
+                            startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                            endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                            final int index=i;
 
-                                if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                    spannableString.setSpan(new ClickableSpan() {
-                                        @Override
-                                        public void onClick(View widget) {
-                                            if (click) {
-                                                popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                                //    public void update(int x, int y, int width, int height) {
-                                                String tempS =FootNotes.text1[index]; //spannableString.subSequence(startIndex, endIndex).toString();
-                                                Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                            if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                spannableString.setSpan(new ClickableSpan() {
+                                    @Override
+                                    public void onClick(View widget) {
+                                        if (click) {
+                                            popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                            //    public void update(int x, int y, int width, int height) {
+                                            String tempS =FootNotes.text1[index]; //spannableString.subSequence(startIndex, endIndex).toString();
+                                            Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                                if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
-                                                    Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
-                                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
-                                                    startActivity(browserIntent);
-                                                }else {
-                                                    tv.setText(tempS);
-                                                    tv.setTextColor(Color.WHITE);
-
-                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                    click = false;
-                                                }
-                                            } else {
-                                                popUp.dismiss();
-                                                click = true;
-                                            }
-                                        }
-
-                                        @Override
-                                        public void updateDrawState(TextPaint ds) {
-                                            super.updateDrawState(ds);
-                                            // this is where you set link color, underline, typeface etc.
-                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                            ds.setColor(linkColor);
-                                            ds.setUnderlineText(false);
-                                        }
-                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                            } else if (lastText == 8) {
-                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
-                                endIndex = startIndex + FootNotes.text8Footnotes[i].length();
-                                final int index=i;
-
-                                if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                    spannableString.setSpan(new ClickableSpan() {
-                                        @Override
-                                        public void onClick(View widget) {
-                                            if (click) {
-                                                popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                                //    public void update(int x, int y, int width, int height) {
-                                                String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                            if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                startActivity(browserIntent);
+                                            }else {
                                                 tv.setText(tempS);
                                                 tv.setTextColor(Color.WHITE);
 
                                                 popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
                                                 click = false;
-                                            } else {
-                                                popUp.dismiss();
-                                                click = true;
                                             }
+                                        } else {
+                                            popUp.dismiss();
+                                            click = true;
                                         }
+                                    }
 
-                                        @Override
-                                        public void updateDrawState(TextPaint ds) {
-                                            super.updateDrawState(ds);
-                                            // this is where you set link color, underline, typeface etc.
-                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                            ds.setColor(linkColor);
-                                            ds.setUnderlineText(false);
+                                    @Override
+                                    public void updateDrawState(TextPaint ds) {
+                                        super.updateDrawState(ds);
+                                        // this is where you set link color, underline, typeface etc.
+                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                        ds.setColor(linkColor);
+                                        ds.setUnderlineText(false);
+                                    }
+                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        } else if (lastText == 8) {
+                            startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                            endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                            final int index=i;
+
+                            if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                spannableString.setSpan(new ClickableSpan() {
+                                    @Override
+                                    public void onClick(View widget) {
+                                        if (click) {
+                                            popUp.showAtLocation((RelativeLayout) findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                            //    public void update(int x, int y, int width, int height) {
+                                            String tempS = FootNotes.text8[index];//spannableString.subSequence(startIndex, endIndex).toString();
+                                            tv.setText(tempS);
+                                            tv.setTextColor(Color.WHITE);
+
+                                            popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                            click = false;
+                                        } else {
+                                            popUp.dismiss();
+                                            click = true;
                                         }
-                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    }
 
-                            }
+                                    @Override
+                                    public void updateDrawState(TextPaint ds) {
+                                        super.updateDrawState(ds);
+                                        // this is where you set link color, underline, typeface etc.
+                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                        ds.setColor(linkColor);
+                                        ds.setUnderlineText(false);
+                                    }
+                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                         }
 
-
                     }
 
-                textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
-                textView.setMovementMethod(LinkMovementMethod.getInstance());
+                }
 
-                dialog.dismiss();
-            } else {
+            textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
-                Intent mServiceIntent = new Intent(this, ParsingService.class);
-                mServiceIntent.putExtra("kind", Const.TEXT);
-                mServiceIntent.putExtra("index", lastSubtext);
-                mServiceIntent.putExtra("text", lastText);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
 
-                startService(mServiceIntent);
+            dialog.dismiss();
+        } else {
+
+            Intent mServiceIntent = new Intent(this, ParsingService.class);
+            mServiceIntent.putExtra("kind", Const.TEXT);
+            mServiceIntent.putExtra("index", lastSubtext);
+            mServiceIntent.putExtra("text", lastText);
+
+            startService(mServiceIntent);
 
 
-                t = new Thread(new Runnable() {
+            t = new Thread(new Runnable() {
 
-                    public void run() {
-                        try {
-                            synchronized (lock) {
-                                lock.wait(100000);
-                            }
-                            dialog.dismiss();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                public void run() {
+                    try {
+                        synchronized (lock) {
+                            lock.wait(100000);
                         }
+                        dialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                });
-                t.start();
+                }
+            });
+            t.start();
 
 
-            }
+        }
 
 
 /*
@@ -272,66 +272,52 @@ public class TextActivity extends Activity {
                 // TODO Auto-generated method stub
                 return false;
             }
-
             @Override
             public void onShowPress(MotionEvent e) {
                 // TODO Auto-generated method stub
-
             }
-
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                                     float distanceY) {
                 // TODO Auto-generated method stub
                 return false;
             }
-
             @Override
             public void onLongPress(MotionEvent e) {
                 // TODO Auto-generated method stub
-
             }
-
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
                 // TODO Auto-generated method stub
                 return false;
             }
-
             @Override
             public boolean onDown(MotionEvent e) {
                 if(e.getAction()== MotionEvent.ACTION_DOWN)
                 onTouchHandle();
-
                 // TODO Auto-generated method stub
                 return false;
             }
         });
-
 // set the on Double tap listener
         mGestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-
                 onTouchHandle();
                 return false;
             }
-
             @Override
             public boolean onDoubleTapEvent(MotionEvent e) {
                 // if the second tap hadn't been released and it's being moved
                 onTouchHandle();
-
                 return false;
             }
-
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 // TODO Auto-generated method stub
                 return false;
             }
-
         });
 */
         textView.setOnTouchListener(new View.OnTouchListener() {
@@ -339,7 +325,7 @@ public class TextActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-             //   mGestureDetector.onTouchEvent(event);
+                //   mGestureDetector.onTouchEvent(event);
                 popUp.dismiss();
                 return false;
             }
@@ -377,97 +363,97 @@ public class TextActivity extends Activity {
 
 
                 if(FootNotes.footNotes[lastText]!=null)
-                for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
+                    for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
 
-                    if (FootNotes.footNotes[lastText][i] != null) {
-                        final int startIndex,endIndex;
-                        if(lastText==1) {
-                            startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
-                            endIndex = startIndex + FootNotes.text1Footnotes[i].length();
-                            final int index=i;
-                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                spannableString.setSpan(new ClickableSpan() {
-                                    @Override
-                                    public void onClick(View widget) {
-                                        if (click) {
-                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                            //    public void update(int x, int y, int width, int height) {
-                                            String tempS=FootNotes.text1[index];//spannableString.subSequence(startIndex,endIndex).toString();
-                                            Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                        if (FootNotes.footNotes[lastText][i] != null) {
+                            final int startIndex,endIndex;
+                            if(lastText==1) {
+                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
+                                endIndex = startIndex + FootNotes.text1Footnotes[i].length();
+                                final int index=i;
+                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS=FootNotes.text1[index];//spannableString.subSequence(startIndex,endIndex).toString();
+                                                Log.i("VNESIC DEB","PRE svega " +"H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
 
-                                            if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
-                                                Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
-                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
-                                                startActivity(browserIntent);
-                                            }else {
-                                                tv.setText(tempS);
-                                                tv.setTextColor(Color.WHITE);
+                                                if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                    Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                    startActivity(browserIntent);
+                                                }else {
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
 
-                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                click = false;
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                }
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
                                             }
-                                        } else {
-                                            popUp.dismiss();
-                                            click = true;
                                         }
-                                    }
 
-                                    @Override
-                                    public void updateDrawState(TextPaint ds) {
-                                        super.updateDrawState(ds);
-                                        // this is where you set link color, underline, typeface etc.
-                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                        ds.setColor(linkColor);
-                                        ds.setUnderlineText(false);
-                                    }
-                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                        }else if(lastText==8){
-                             startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
-                            endIndex = startIndex + FootNotes.text8Footnotes[i].length();
-                            final int index=i;
+                            }else if(lastText==8){
+                                startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text8Footnotes[i]);
+                                endIndex = startIndex + FootNotes.text8Footnotes[i].length();
+                                final int index=i;
 
-                            if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
-                                spannableString.setSpan(new ClickableSpan() {
-                                    @Override
-                                    public void onClick(View widget) {
-                                        if (click) {
-                                            popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
-                                            //    public void update(int x, int y, int width, int height) {
-                                            String tempS=FootNotes.text8[index];//spannableString.subSequence(startIndex,endIndex).toString();
-                                            if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
-                                                Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
-                                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
-                                                startActivity(browserIntent);
-                                            }else {
-                                                tv.setText(tempS);
-                                                tv.setTextColor(Color.WHITE);
+                                if(startIndex>=0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
+                                    spannableString.setSpan(new ClickableSpan() {
+                                        @Override
+                                        public void onClick(View widget) {
+                                            if (click) {
+                                                popUp.showAtLocation((RelativeLayout)findViewById(id.textFrame), Gravity.BOTTOM, 10, 10);
+                                                //    public void update(int x, int y, int width, int height) {
+                                                String tempS=FootNotes.text8[index];//spannableString.subSequence(startIndex,endIndex).toString();
+                                                if(tempS.charAt(0)=='h'&&tempS.charAt(1)=='t'){
+                                                    Log.i("VNESIC DEB","H :"+tempS.charAt(0)+"  T: "+tempS.charAt(1));
+                                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tempS));
+                                                    startActivity(browserIntent);
+                                                }else {
+                                                    tv.setText(tempS);
+                                                    tv.setTextColor(Color.WHITE);
 
-                                                popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
-                                                click = false;
+                                                    popUp.update((int) (width * 0.05), (int) (height * 0.05), (int) (width * 0.7), (int) (height * 0.7));
+                                                    click = false;
+                                                }
+                                            } else {
+                                                popUp.dismiss();
+                                                click = true;
                                             }
-                                        } else {
-                                            popUp.dismiss();
-                                            click = true;
                                         }
-                                    }
 
-                                    @Override
-                                    public void updateDrawState(TextPaint ds) {
-                                        super.updateDrawState(ds);
-                                        // this is where you set link color, underline, typeface etc.
-                                        int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
-                                        ds.setColor(linkColor);
-                                        ds.setUnderlineText(false);
-                                    }
-                                }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        @Override
+                                        public void updateDrawState(TextPaint ds) {
+                                            super.updateDrawState(ds);
+                                            // this is where you set link color, underline, typeface etc.
+                                            int linkColor = ContextCompat.getColor(getApplicationContext(), color.colorPrimary);
+                                            ds.setColor(linkColor);
+                                            ds.setUnderlineText(false);
+                                        }
+                                    }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+                            }
+
+                        }else {
+                            break;
                         }
-
-                    }else {
-                        break;
                     }
-                }
 
                 textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -475,7 +461,7 @@ public class TextActivity extends Activity {
                     lock.notify();
                 }
             }
-           // else if(Const.SETTINGS_INTENT){}
+            // else if(Const.SETTINGS_INTENT){}
         }
 
     };
@@ -502,24 +488,24 @@ public class TextActivity extends Activity {
             textView.setHeight((int) (height * 0.75));
             tableLayout = (TableLayout) findViewById(id.topLayout);
             tableLayout.setVisibility(View.VISIBLE);
-         //   mTableLayout.setVisibility(View.VISIBLE);
-       //     mTableLayout.setMinimumHeight((int)(height*0.1));
+            //   mTableLayout.setVisibility(View.VISIBLE);
+            //     mTableLayout.setMinimumHeight((int)(height*0.1));
             tableLayout.setMinimumHeight((int)(height*0.125));
             textView.setPadding(0,0,0,0);
 
             tabButtonAling();
-     //       viewNext.setVisibility(View.VISIBLE);
-     //       viewPrev.setVisibility(View.VISIBLE);
+            //       viewNext.setVisibility(View.VISIBLE);
+            //       viewPrev.setVisibility(View.VISIBLE);
             wasClicked = true;
         } else {
             textView.setHeight(height);
             tableLayout.setVisibility(View.INVISIBLE);
-        //    mTableLayout.setVisibility(View.INVISIBLE);
-        //    mTableLayout.setMinimumHeight(0);
+            //    mTableLayout.setVisibility(View.INVISIBLE);
+            //    mTableLayout.setMinimumHeight(0);
             textView.setPadding(0,60,0,0);
-      //      viewNext.setVisibility(View.INVISIBLE);
+            //      viewNext.setVisibility(View.INVISIBLE);
 
-      //      viewPrev.setVisibility(View.INVISIBLE);
+            //      viewPrev.setVisibility(View.INVISIBLE);
             wasClicked = false;
         }
 
@@ -529,7 +515,7 @@ public class TextActivity extends Activity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
 
         tabButton1 = (Button) findViewById(id.backButton);
-  //      tabButton2 = (Button) findViewById(id.contentButton);
+        //      tabButton2 = (Button) findViewById(id.contentButton);
         tabButton3 = (Button) findViewById(id.bookMarkButton);
         tabButton4 = (Button) findViewById(id.settingsButton);
         tabButton5 = (Button) findViewById(id.searchButton);
@@ -560,7 +546,7 @@ public class TextActivity extends Activity {
                                 if (lastText == 1) {
                                     startIndex = String.valueOf(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]).indexOf(FootNotes.text1Footnotes[i]);
                                     endIndex = startIndex + FootNotes.text1Footnotes[i].length();
-                                   final int index=i;
+                                    final int index=i;
                                     if (startIndex >= 0) //could cause trouble | CHECK IF FOOTNOTE WAS FOUND, IF NOT..MEH
                                         spannableString.setSpan(new ClickableSpan() {
                                             @Override
@@ -667,7 +653,7 @@ public class TextActivity extends Activity {
             public void onClick(View view) {
                 int test=UserSettings.currentPageNumber+1;
                 if(test<UserSettings.cachedText[lastText].length && UserSettings.cachedText[lastText][test]!=null){
-                 UserSettings.currentPageNumber++;//should not go over lengt()-1;
+                    UserSettings.currentPageNumber++;//should not go over lengt()-1;
 
 
 
@@ -938,14 +924,14 @@ public class TextActivity extends Activity {
 
 
         tabButton1.setWidth((int) (width * 0.05));
-      //  tabButton2.setWidth((int) (width * 0.05));
+        //  tabButton2.setWidth((int) (width * 0.05));
         tabButton3.setWidth((int) (width * 0.05));
         tabButton4.setWidth((int) (width * 0.05));
         tabButton5.setWidth((int) (width * 0.05));
         tabButton6.setWidth((int) (width * 0.05));
 
         tabButton1.setHeight((int) (height * 0.05));
- //       tabButton2.setHeight((int) (height * 0.05));
+        //       tabButton2.setHeight((int) (height * 0.05));
         tabButton3.setHeight((int) (height * 0.05));
         tabButton4.setHeight((int) (height * 0.05));
         tabButton5.setHeight((int) (height * 0.05));
@@ -1045,7 +1031,7 @@ public class TextActivity extends Activity {
                     textView.setTypeface(type3);
                     break;
                 case DEFAULT:
-                   // Typeface type5 = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+                    // Typeface type5 = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
                     textView.setTypeface(Typeface.DEFAULT);
                     break;
                 case PALATINO:
@@ -1187,5 +1173,4 @@ public class TextActivity extends Activity {
 
 
 
-    }
-
+}
