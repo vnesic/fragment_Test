@@ -82,7 +82,7 @@ public class TextActivity extends Activity {
     int height;
     SpannableString toDisplay;
     Button tabButton1, tabButton2, tabButton3, tabButton4, tabButton5,tabButton6,nextButton,prevButton;
-    View viewBack,viewContent,viewBookmark,viewSettings,viewSearch,viewNext,viewPrev,viewText;
+    View viewBack,viewNightDay,viewContent,viewContentSecond,viewBookmark,viewSettings,viewSearch,viewNext,viewPrev,viewText;
     TableLayout tableLayout;
     SeekBar seekBar;
     View v;
@@ -101,7 +101,7 @@ public class TextActivity extends Activity {
         tv = new TextView(this);
         layout = new LinearLayout(this);
         params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
+        WindowManager.LayoutParams.WRAP_CONTENT);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         WindowManager w = getWindowManager();
@@ -112,11 +112,13 @@ public class TextActivity extends Activity {
         height = d.getHeight();
         tabButtonAling();
         v=findViewById(id.textFrame);
+        //     UserSettings.Font=UserSettings.fonts.TIMES;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
         registerReceiver(myRecieverD, filter);
         popUp = new PopupWindow(this);
+
 
 
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -136,12 +138,17 @@ public class TextActivity extends Activity {
         /////////[lastSubtext][lastText]//////////
         //textView.setPadding(0,40,0,0);
 
+        onTouchHandle();
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
 
         if (UserSettings.cachedText[lastText][UserSettings.currentPageNumber] != null) {
 
+
+
+
             final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
+
 
             if(FootNotes.footNotes[lastText]!=null)
                 for(int i=0;i<FootNotes.footNotes[lastText].length;i++) {
@@ -265,76 +272,79 @@ public class TextActivity extends Activity {
         }
 
 
-/*
+
         mGestureDetector = new GestureDetector(this,new GestureDetector.OnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 // TODO Auto-generated method stub
                 return false;
             }
+
             @Override
             public void onShowPress(MotionEvent e) {
                 // TODO Auto-generated method stub
+
             }
+
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                                     float distanceY) {
                 // TODO Auto-generated method stub
                 return false;
             }
+
             @Override
             public void onLongPress(MotionEvent e) {
                 // TODO Auto-generated method stub
+
             }
+
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
                 // TODO Auto-generated method stub
                 return false;
             }
+
             @Override
             public boolean onDown(MotionEvent e) {
-                if(e.getAction()== MotionEvent.ACTION_DOWN)
-                onTouchHandle();
                 // TODO Auto-generated method stub
                 return false;
             }
         });
+
 // set the on Double tap listener
         mGestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
+
                 onTouchHandle();
                 return false;
             }
+
             @Override
             public boolean onDoubleTapEvent(MotionEvent e) {
                 // if the second tap hadn't been released and it's being moved
                 onTouchHandle();
+
                 return false;
             }
+
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 // TODO Auto-generated method stub
                 return false;
             }
+
         });
-*/
+
         textView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                //   mGestureDetector.onTouchEvent(event);
+                mGestureDetector.onTouchEvent(event);
                 popUp.dismiss();
-                return false;
-            }
-        });
-        LinearLayout l= (LinearLayout)findViewById(R.id.upperTabLayout);
-        l.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                onTouchHandle();
                 return false;
             }
         });
@@ -358,6 +368,12 @@ public class TextActivity extends Activity {
             String action = intent.getAction();
 
             if (action.equals(Const.NOTIFICATION_TEXT)) {
+
+                String text = intent.getStringExtra("text_intent");
+                String footN=intent.getStringExtra("foot_note");
+                String[] fnTemp;
+                fnTemp = footN.split("#");
+                int j=0;
 
                 final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
@@ -485,37 +501,87 @@ public class TextActivity extends Activity {
     public void onTouchHandle() {
 
         if (!wasClicked) {
-            textView.setHeight((int) (height * 0.75));
+            changeImage();
+            textView.setHeight((int) (height * 0.8));
             tableLayout = (TableLayout) findViewById(id.topLayout);
             tableLayout.setVisibility(View.VISIBLE);
-            //   mTableLayout.setVisibility(View.VISIBLE);
-            //     mTableLayout.setMinimumHeight((int)(height*0.1));
             tableLayout.setMinimumHeight((int)(height*0.125));
             textView.setPadding(0,0,0,0);
-
             tabButtonAling();
-            //       viewNext.setVisibility(View.VISIBLE);
-            //       viewPrev.setVisibility(View.VISIBLE);
             wasClicked = true;
         } else {
-            textView.setHeight(height);
-            tableLayout.setVisibility(View.INVISIBLE);
-            //    mTableLayout.setVisibility(View.INVISIBLE);
-            //    mTableLayout.setMinimumHeight(0);
-            textView.setPadding(0,60,0,0);
-            //      viewNext.setVisibility(View.INVISIBLE);
-
-            //      viewPrev.setVisibility(View.INVISIBLE);
+    //        textView.setHeight(height);
+            changeImage();
+            textView.setPadding(0,0,0,0);
             wasClicked = false;
         }
 
+    }
+
+    private void changeImage() {
+
+        viewBack = findViewById(id.backButton);
+        viewContent = findViewById(id.contentButton);
+        viewBookmark =  findViewById(id.bookMarkButton);
+        viewSettings = findViewById(id.settingsButton);
+        viewSearch=findViewById(id.searchButton);
+        viewNext=findViewById(id.nextButton);
+        viewPrev=findViewById(id.prevButton);
+        viewContentSecond=findViewById(id.secondContent);
+        viewNightDay=findViewById(id.dayNightButton);
+        if (!wasClicked) {
+
+            if(UserSettings.day_night) {
+                viewBack.setBackgroundResource(drawable.button_back_night_normal);
+                viewSettings.setBackgroundResource(drawable.button_options_night_normal);
+                viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
+//        viewContent.setBackgroundResource(drawable.button_contents_night_normal);
+                viewSearch.setBackgroundResource(drawable.button_search_night_normal);
+                viewNightDay.setBackgroundResource(drawable.button_mode_night_active);
+                viewContent.setBackgroundColor(getResources().getColor(aseSection));
+                viewContentSecond.setBackgroundColor(getResources().getColor(aseSection));
+
+            }else{
+                viewContent.setBackgroundColor(getResources().getColor(astTextNight));
+                viewContentSecond.setBackgroundColor(getResources().getColor(astTextNight));
+
+                viewBack.setBackgroundResource(drawable.button_back_normal);
+                viewSettings.setBackgroundResource(drawable.button_options_normal);
+                viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
+//        viewContent.setBackgroundResource(drawable.button_contents_normal);
+                viewSearch.setBackgroundResource(drawable.button_search_normal);
+                viewNightDay.setBackgroundResource(drawable.button_mode_active);
+            }
+
+        }else {
+            if(UserSettings.day_night){
+                viewBookmark.setBackgroundColor(getResources().getColor(aseSection));
+                viewBack.setBackgroundColor(getResources().getColor(aseSection));
+                viewContent.setBackgroundColor(getResources().getColor(aseSection));
+                viewSettings.setBackgroundColor(getResources().getColor(aseSection));
+                viewSearch.setBackgroundColor(getResources().getColor(aseSection));
+                viewNext.setBackgroundColor(getResources().getColor(aseSection));
+                viewPrev.setBackgroundColor(getResources().getColor(aseSection));
+                viewContentSecond.setBackgroundColor(getResources().getColor(aseSection));
+                viewNightDay.setBackgroundColor(getResources().getColor(aseSection));
+            }else {
+                viewBookmark.setBackgroundColor(getResources().getColor(astTextNight));
+                viewBack.setBackgroundColor(getResources().getColor(astTextNight));
+                viewContent.setBackgroundColor(getResources().getColor(astTextNight));
+                viewSettings.setBackgroundColor(getResources().getColor(astTextNight));
+                viewSearch.setBackgroundColor(getResources().getColor(astTextNight));
+                viewNext.setBackgroundColor(getResources().getColor(astTextNight));
+                viewPrev.setBackgroundColor(getResources().getColor(astTextNight));
+                viewContentSecond.setBackgroundColor(getResources().getColor(astTextNight));
+                viewNightDay.setBackgroundColor(getResources().getColor(astTextNight));
+            }
+        }
     }
 
     void tabButtonAling() {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
 
         tabButton1 = (Button) findViewById(id.backButton);
-        //      tabButton2 = (Button) findViewById(id.contentButton);
         tabButton3 = (Button) findViewById(id.bookMarkButton);
         tabButton4 = (Button) findViewById(id.settingsButton);
         tabButton5 = (Button) findViewById(id.searchButton);
@@ -532,8 +598,6 @@ public class TextActivity extends Activity {
                 int test=UserSettings.currentPageNumber-1;
                 if(test >= 0 && UserSettings.cachedText[lastText][test]!=null ){
                     UserSettings.currentPageNumber--;//should not go under 0
-
-
 
                     final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
@@ -627,14 +691,7 @@ public class TextActivity extends Activity {
 
                             }
 
-
                         }
-
-
-
-
-
-
 
                     textView.setText(TextUtils.concat( UserSettings.cachedSubtitles[lastText][UserSettings.currentPageNumber],spannableString));
 
@@ -643,8 +700,6 @@ public class TextActivity extends Activity {
 
                 }
 
-                //++add color/font settings
-                //++ send intent to open current Page
             }
         });
 
@@ -653,13 +708,7 @@ public class TextActivity extends Activity {
             public void onClick(View view) {
                 int test=UserSettings.currentPageNumber+1;
                 if(test<UserSettings.cachedText[lastText].length && UserSettings.cachedText[lastText][test]!=null){
-                    UserSettings.currentPageNumber++;//should not go over lengt()-1;
-
-
-
-
-
-
+                    UserSettings.currentPageNumber++;
 
                     final SpannableString spannableString = new SpannableString(UserSettings.cachedText[lastText][UserSettings.currentPageNumber]);
 
@@ -777,83 +826,110 @@ public class TextActivity extends Activity {
             }
         });
         viewBack = findViewById(id.backButton);
-//        viewContent = findViewById(id.contentButton);
+        viewContent = findViewById(id.contentButton);
         viewBookmark =  findViewById(id.bookMarkButton);
         viewSettings = findViewById(id.settingsButton);
         viewSearch=findViewById(id.searchButton);
         viewNext=findViewById(id.nextButton);
         viewPrev=findViewById(id.prevButton);
+        viewContentSecond = findViewById(id.secondContent);
+
+        viewContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTouchHandle();
+            }
+        });
+
+        viewContentSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTouchHandle();
+            }
+        });
 
         viewBack.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // PRESSED
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewBack.setBackgroundResource(drawable.button_back_night_active);
+                if(wasClicked) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            // PRESSED
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewBack.setBackgroundResource(drawable.button_back_night_active);
 
-                        }else {
-                            viewBack.setBackgroundResource(drawable.button_back_active);
+                            } else {
+                                viewBack.setBackgroundResource(drawable.button_back_active);
 
-                        }
-                        onBackPressed();
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        // RELEASED
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewBack.setBackgroundResource(drawable.button_back_night_normal);
+                            }
+                            onBackPressed();
+                            return true; // if you want to handle the touch event
+                        case MotionEvent.ACTION_UP:
+                            // RELEASED
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewBack.setBackgroundResource(drawable.button_back_night_normal);
 
-                        }else {
-                            viewBack.setBackgroundResource(drawable.button_back_normal);
+                            } else {
+                                viewBack.setBackgroundResource(drawable.button_back_normal);
 
-                        }
-                        return true; // if you want to handle the touch event
+                            }
+                            return true; // if you want to handle the touch event
+                    }
+                }else{
+                    onTouchHandle();
                 }
                 return false;
+
             }
         });
 
         viewBookmark.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // PRESSED
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewBookmark.setBackgroundResource(drawable.button_bookmark_night_active);
+                if (wasClicked) {
 
-                        }else {
-                            viewBookmark.setBackgroundResource(drawable.button_bookmark_active);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            // PRESSED
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewBookmark.setBackgroundResource(drawable.button_bookmark_night_active);
 
-                        }
+                            } else {
+                                viewBookmark.setBackgroundResource(drawable.button_bookmark_active);
 
-                        if(UserSettings.existElem(lastText,UserSettings.currentPageNumber)){
+                            }
 
-                            UserSettings.removeElem(lastText,UserSettings.currentPageNumber);
-                            Toast.makeText(TextActivity.this, "Text removed from bookmarks", Toast.LENGTH_SHORT).show();
+                            if (UserSettings.existElem(lastText, UserSettings.currentPageNumber)) {
 
-                        }else {
+                                UserSettings.removeElem(lastText, UserSettings.currentPageNumber);
+                                Toast.makeText(TextActivity.this, "Text removed from bookmarks", Toast.LENGTH_SHORT).show();
 
-                            UserSettings.bookmarkItems.add(new BookmarkItem(lastText,UserSettings.currentPageNumber));
-                            Toast.makeText(TextActivity.this, "Text bookmarked", Toast.LENGTH_SHORT).show();
+                            } else {
 
-                        }
+                                UserSettings.bookmarkItems.add(new BookmarkItem(lastText, UserSettings.currentPageNumber));
+                                Toast.makeText(TextActivity.this, "Text bookmarked", Toast.LENGTH_SHORT).show();
+
+                            }
 
 
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        // RELEASED
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
+                            return true; // if you want to handle the touch event
+                        case MotionEvent.ACTION_UP:
+                            // RELEASED
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
 
-                        }else {
-                            viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
+                            } else {
+                                viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
 
-                        }
-                        return true; // if you want to handle the touch event
+                            }
+                            return true; // if you want to handle the touch event
+                    }
+                    return false;
+                } else {
+                    onTouchHandle();
+                    return false;
+
                 }
-                return false;
             }
         });
 
@@ -861,64 +937,73 @@ public class TextActivity extends Activity {
         viewSettings.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // PRESSED
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewSettings.setBackgroundResource(drawable.button_options_night_active);
+                if (wasClicked) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            // PRESSED
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewSettings.setBackgroundResource(drawable.button_options_night_active);
 
-                        }else {
-                            viewSettings.setBackgroundResource(drawable.button_options_active);
+                            } else {
+                                viewSettings.setBackgroundResource(drawable.button_options_active);
 
-                        }
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(), SettingActivity.class);
-                        startActivity(intent);
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        // RELEASED
-                        if(UserSettings.day_night){//normal image
-                            viewSettings.setBackgroundResource(drawable.button_options_night_normal);
+                            }
+                            Intent intent = new Intent();
+                            intent.setClass(getApplicationContext(), SettingActivity.class);
+                            startActivity(intent);
+                            return true; // if you want to handle the touch event
+                        case MotionEvent.ACTION_UP:
+                            // RELEASED
+                            if (UserSettings.day_night) {//normal image
+                                viewSettings.setBackgroundResource(drawable.button_options_night_normal);
 
-                        }else {
-                            viewSettings.setBackgroundResource(drawable.button_options_normal);
+                            } else {
+                                viewSettings.setBackgroundResource(drawable.button_options_normal);
 
-                        }
-                        return true; // if you want to handle the touch event
-                }
-                return false;
+                            }
+                            return true; // if you want to handle the touch event
+                    }
+                    return false;
+                }else{
+                    onTouchHandle();
+                    return  false;                       }
             }
         });
         viewSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewSearch.setBackgroundResource(drawable.button_search_night_active);
+                if(wasClicked) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewSearch.setBackgroundResource(drawable.button_search_night_active);
 
-                        }else {
-                            viewSearch.setBackgroundResource(drawable.button_search_active);
+                            } else {
+                                viewSearch.setBackgroundResource(drawable.button_search_active);
 
-                        }
+                            }
 
 
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
+                            Intent intent = new Intent();
+                            intent.setClass(getApplicationContext(), SearchActivity.class);
+                            startActivity(intent);
 
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        if(UserSettings.day_night){//active image //FALSE=day
-                            viewSearch.setBackgroundResource(drawable.button_search_night_normal);
+                            return true; // if you want to handle the touch event
+                        case MotionEvent.ACTION_UP:
+                            if (UserSettings.day_night) {//active image //FALSE=day
+                                viewSearch.setBackgroundResource(drawable.button_search_night_normal);
 
-                        }else {
-                            viewSearch.setBackgroundResource(drawable.button_search_normal);
+                            } else {
+                                viewSearch.setBackgroundResource(drawable.button_search_normal);
 
-                        }
-                        return true; // if you want to handle the touch event
+                            }
+                            return true; // if you want to handle the touch event
+                    }
+                    return false;
+                }else{
+                    onTouchHandle();
+                    return false;
                 }
-                return false;
             }
         });
 
@@ -1046,7 +1131,8 @@ public class TextActivity extends Activity {
     }
 
     void nightModeOn(){
-
+        viewContent.setBackgroundColor(getResources().getColor(aseSection));
+        viewContentSecond.setBackgroundColor(getResources().getColor(aseSection));
         textView.setBackgroundColor(getResources().getColor(aseSection));
         textView.setTextColor(getResources().getColor(astPageNight));
         viewNext.setBackgroundColor(getResources().getColor(aseSection));
@@ -1062,7 +1148,8 @@ public class TextActivity extends Activity {
     }
 
     void dayModeOn(){
-
+        viewContent.setBackgroundColor(getResources().getColor(astTextNight));
+        viewContentSecond.setBackgroundColor(getResources().getColor(astTextNight));
         textView.setBackgroundColor(getResources().getColor(astTextNight));
         textView.setTextColor(Color.BLACK);
         viewNext.setBackgroundColor(getResources().getColor(astTextNight));
@@ -1106,7 +1193,7 @@ public class TextActivity extends Activity {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
 
-                onTouchHandle();
+           //     onTouchHandle();
 
                 return false;
             }
@@ -1116,7 +1203,7 @@ public class TextActivity extends Activity {
             public boolean onDoubleTapEvent(MotionEvent e) {
                 // if the second tap hadn't been released and it's being moved
 
-                onTouchHandle();
+             //   onTouchHandle();
 
                 return false;
             }
