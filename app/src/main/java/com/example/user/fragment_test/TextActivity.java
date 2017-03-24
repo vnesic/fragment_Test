@@ -138,7 +138,25 @@ public class TextActivity extends Activity {
         /////////[lastSubtext][lastText]//////////
         //textView.setPadding(0,40,0,0);
 
-        onTouchHandle();
+       // onTouchHandle();
+
+
+
+
+        //        textView.setHeight(height);
+            changeImage();
+            textView.setHeight((int) (height * 0.8));
+            tableLayout = (TableLayout) findViewById(id.topLayout);
+            tableLayout.setVisibility(View.VISIBLE);
+            tableLayout.setMinimumHeight((int)(height*0.125));
+            textView.setPadding(0,0,0,0);
+            tabButtonAling();
+            wasClicked = true;
+            //        textView.setHeight(height);
+            changeImage();
+            textView.setPadding(0,0,0,0);
+            wasClicked = false;
+
         final ProgressDialog dialog = ProgressDialog.show(this, "Учитавање текста...", "Молимо Вас сачекајте", true);
 
 
