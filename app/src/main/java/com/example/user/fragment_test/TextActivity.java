@@ -8,21 +8,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.SpannedString;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -44,13 +36,6 @@ import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.user.fragment_test.R.*;
 import static com.example.user.fragment_test.R.color.aseSection;
 import static com.example.user.fragment_test.R.color.astPageNight;
@@ -91,7 +76,6 @@ public class TextActivity extends Activity {
     private TextView tv;
     private LinearLayout layout;
     private WindowManager.LayoutParams params;
-    boolean sub_or_text=false;//false subtext,text-true
 
 
     @Override
@@ -112,7 +96,6 @@ public class TextActivity extends Activity {
         height = d.getHeight();
         tabButtonAling();
         v=findViewById(id.textFrame);
-        //     UserSettings.Font=UserSettings.fonts.TIMES;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Const.NOTIFICATION_TEXT);
@@ -134,16 +117,7 @@ public class TextActivity extends Activity {
         int pageNumber=getIntent().getIntExtra("pageNum",0);
         UserSettings.currentPageNumber=pageNumber;
         lastText = subTextIndex;
-        // lastSubtext = getIntent().getIntExtra("lastPos", 0);
-        /////////[lastSubtext][lastText]//////////
-        //textView.setPadding(0,40,0,0);
 
-       // onTouchHandle();
-
-
-
-
-        //        textView.setHeight(height);
             changeImage();
             textView.setHeight((int) (height * 0.8));
             tableLayout = (TableLayout) findViewById(id.topLayout);
@@ -152,7 +126,6 @@ public class TextActivity extends Activity {
             textView.setPadding(0,0,0,0);
             tabButtonAling();
             wasClicked = true;
-            //        textView.setHeight(height);
             changeImage();
             textView.setPadding(0,0,0,0);
             wasClicked = false;
@@ -336,14 +309,14 @@ public class TextActivity extends Activity {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
 
-                onTouchHandle();
+//                onTouchHandle();
                 return false;
             }
 
             @Override
             public boolean onDoubleTapEvent(MotionEvent e) {
                 // if the second tap hadn't been released and it's being moved
-                onTouchHandle();
+ //               onTouchHandle();
 
                 return false;
             }
@@ -369,11 +342,13 @@ public class TextActivity extends Activity {
 
         if(UserSettings.firstPass){
             UserSettings.setDefaultFontSize((int)textView.getTextSize());
+            UserSettings.displayFontSize=(int)textView.getTextSize();
             UserSettings.firstPass=false;
         }else{
             putSettings();
         }
-        textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
+        float si=textView.getTextSize();
+    //   textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
 
 
         textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -517,21 +492,19 @@ public class TextActivity extends Activity {
 
 
     public void onTouchHandle() {
-
         if (!wasClicked) {
-            changeImage();
+             changeImage();
             textView.setHeight((int) (height * 0.8));
             tableLayout = (TableLayout) findViewById(id.topLayout);
             tableLayout.setVisibility(View.VISIBLE);
             tableLayout.setMinimumHeight((int)(height*0.125));
             textView.setPadding(0,0,0,0);
             tabButtonAling();
-            wasClicked = true;
+            wasClicked =!wasClicked;
         } else {
-    //        textView.setHeight(height);
             changeImage();
             textView.setPadding(0,0,0,0);
-            wasClicked = false;
+            wasClicked = !wasClicked;
         }
 
     }
@@ -553,7 +526,6 @@ public class TextActivity extends Activity {
                 viewBack.setBackgroundResource(drawable.button_back_night_normal);
                 viewSettings.setBackgroundResource(drawable.button_options_night_normal);
                 viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
-//        viewContent.setBackgroundResource(drawable.button_contents_night_normal);
                 viewSearch.setBackgroundResource(drawable.button_search_night_normal);
                 viewNightDay.setBackgroundResource(drawable.button_mode_night_active);
                 viewContent.setBackgroundColor(getResources().getColor(aseSection));
@@ -566,11 +538,9 @@ public class TextActivity extends Activity {
                 viewBack.setBackgroundResource(drawable.button_back_normal);
                 viewSettings.setBackgroundResource(drawable.button_options_normal);
                 viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
-//        viewContent.setBackgroundResource(drawable.button_contents_normal);
                 viewSearch.setBackgroundResource(drawable.button_search_normal);
                 viewNightDay.setBackgroundResource(drawable.button_mode_active);
             }
-
         }else {
             if(UserSettings.day_night){
                 viewBookmark.setBackgroundColor(getResources().getColor(aseSection));
@@ -582,6 +552,14 @@ public class TextActivity extends Activity {
                 viewPrev.setBackgroundColor(getResources().getColor(aseSection));
                 viewContentSecond.setBackgroundColor(getResources().getColor(aseSection));
                 viewNightDay.setBackgroundColor(getResources().getColor(aseSection));
+                viewContent.setBackgroundColor(getResources().getColor(aseSection));
+                viewContentSecond.setBackgroundColor(getResources().getColor(aseSection));
+                textView.setBackgroundColor(getResources().getColor(aseSection));
+                textView.setTextColor(getResources().getColor(astPageNight));
+                nextButton.setTextColor(getResources().getColor(astPageNight));
+                prevButton.setTextColor(getResources().getColor(astPageNight));
+                viewPrev.setBackgroundColor(getResources().getColor(aseSection));
+                v.setBackgroundColor(getResources().getColor(aseSection));
             }else {
                 viewBookmark.setBackgroundColor(getResources().getColor(astTextNight));
                 viewBack.setBackgroundColor(getResources().getColor(astTextNight));
@@ -1060,14 +1038,18 @@ public class TextActivity extends Activity {
         tabButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!UserSettings.day_night){
-                    view.setBackgroundResource(R.drawable.button_mode_night_active);
-                    nightModeOn();
-                    UserSettings.day_night=!UserSettings.day_night;
+                if(wasClicked) {
+                    if (!UserSettings.day_night) {
+                        view.setBackgroundResource(R.drawable.button_mode_night_active);
+                        nightModeOn();
+                        UserSettings.day_night = !UserSettings.day_night;
+                    } else {
+                        view.setBackgroundResource(drawable.button_mode_active);
+                        dayModeOn();
+                        UserSettings.day_night = !UserSettings.day_night;
+                    }
                 }else {
-                    view.setBackgroundResource(drawable.button_mode_active);
-                    dayModeOn();
-                    UserSettings.day_night=!UserSettings.day_night;
+                    onTouchHandle();
                 }
             }
         });
@@ -1144,7 +1126,9 @@ public class TextActivity extends Activity {
             }
             UserSettings.isChanged=false;
         }
-        textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
+        float si=textView.getTextSize();
+
+        textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
 
     }
 
@@ -1163,6 +1147,7 @@ public class TextActivity extends Activity {
         viewBookmark.setBackgroundResource(drawable.button_bookmark_night_normal);
 //        viewContent.setBackgroundResource(drawable.button_contents_night_normal);
         viewSearch.setBackgroundResource(drawable.button_search_night_normal);
+        putSettings();
     }
 
     void dayModeOn(){
@@ -1180,6 +1165,7 @@ public class TextActivity extends Activity {
         viewBookmark.setBackgroundResource(drawable.button_bookmark_normal);
 //        viewContent.setBackgroundResource(drawable.button_contents_normal);
         viewSearch.setBackgroundResource(drawable.button_search_normal);
+        putSettings();
 
     }
 
