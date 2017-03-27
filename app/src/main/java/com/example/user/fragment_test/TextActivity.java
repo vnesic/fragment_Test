@@ -815,7 +815,7 @@ public class TextActivity extends Activity {
 
                     textView.setMovementMethod(LinkMovementMethod.getInstance());
 
-
+                    textView.scrollTo(0,0);
                 }
 
                 //++add color/font settings
