@@ -342,13 +342,15 @@ public class TextActivity extends Activity {
 
         if(UserSettings.firstPass){
             UserSettings.setDefaultFontSize((int)textView.getTextSize());
-            UserSettings.displayFontSize=(int)textView.getTextSize();
+            UserSettings.currentFontSize=(int)textView.getTextSize();
             UserSettings.firstPass=false;
         }else{
             putSettings();
         }
         float si=textView.getTextSize();
-    //   textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
+        float si2=UserSettings.displayFontSize;
+
+        textView.setTextSize(TypedValue.DENSITY_DEFAULT,textView.getTextSize());
 
 
         textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -984,7 +986,7 @@ public class TextActivity extends Activity {
                             intent.setClass(getApplicationContext(), SearchActivity.class);
                             startActivity(intent);
 
-                            return true; // if you want to handle the touch event
+                            return true; // if you want to handle the touch eventd
                         case MotionEvent.ACTION_UP:
                             if (UserSettings.day_night) {//active image //FALSE=day
                                 viewSearch.setBackgroundResource(drawable.button_search_night_normal);
@@ -1127,6 +1129,7 @@ public class TextActivity extends Activity {
             UserSettings.isChanged=false;
         }
         float si=textView.getTextSize();
+        float si2=UserSettings.displayFontSize;
 
         textView.setTextSize(TypedValue.DENSITY_DEFAULT,UserSettings.displayFontSize);
 
