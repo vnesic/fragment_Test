@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/astTextNight"
+    android:id="@+id/textFrame"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    >
+
+    <TextView
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview"
+        android:background="@color/astTextNight"
+        android:gravity="left"
+        android:scrollbars = "vertical"
+        android:clickable="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_above="@+id/pager_scollerTab"
+        />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/topLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                android:id="@+id/upperTabLayout">
+                <Button
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/contentButton"
+                    android:background="@color/astTextNight"
+                    android:stateListAnimator="@null"
+                    />
+
+                <Button
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/backButton"
+                    android:background="@drawable/button_back_active"
+                    android:stateListAnimator="@null"
+                    />
+                <Button
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/dayNightButton"
+                    android:background="@drawable/button_mode_active"
+                    android:stateListAnimator="@null" />
+
+                <Button
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/bookMarkButton"
+                    android:background="@drawable/button_bookmark_normal"
+                    android:stateListAnimator="@null"/>
+
+                <Button
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/settingsButton"
+                    android:background="@drawable/button_options_normal"
+                    android:stateListAnimator="@null" />
+
+                <Button
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/searchButton"
+                    android:background="@drawable/button_search_active"
+                    android:stateListAnimator="@null" />
+
+                <Button
+                    android:layout_width="614dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondContent"
+                    android:background="@color/astTextNight"
+                    android:stateListAnimator="@null"
+                    />
+
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pager_scollerTab"
+        android:visibility="visible"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="307dp"
+            android:layout_height="wrap_content"
+            android:text="На претходну страницу"
+            android:visibility="visible"
+            android:textSize="25dp"
+            android:background="@color/astTextNight"
+            android:id="@+id/prevButton"
+            android:layout_weight="0.65" />
+
+        <Button
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="На следећу страницу"
+            android:visibility="visible"
+            android:background="@color/astTextNight"
+            android:id="@+id/nextButton"
+            android:layout_weight="0.60" />
+
+    </LinearLayout>
+
+</RelativeLayout>

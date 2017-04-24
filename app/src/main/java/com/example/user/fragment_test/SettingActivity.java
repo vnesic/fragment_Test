@@ -3,6 +3,7 @@ package com.example.user.fragment_test;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,7 +36,17 @@ public class SettingActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.settings_layout);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=8){
+            this.setContentView(R.layout.android_tablet_settings);
+        }else{
+            this.setContentView(R.layout.settings_layout);
+        }
 
         WindowManager w = getWindowManager();
         Display d = w.getDefaultDisplay();

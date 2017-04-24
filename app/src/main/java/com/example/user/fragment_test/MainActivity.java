@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,8 +46,17 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/gabriola.ttf");
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        this.setContentView(R.layout.activity_main1);
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=8){
+            this.setContentView(R.layout.android_tablet);
+        }else{
+            this.setContentView(R.layout.activity_main1);
+        }
         b1=(Button)findViewById(R.id.text1);
         b2=(Button)findViewById(R.id.text2);
         b3=(Button)findViewById(R.id.text3);

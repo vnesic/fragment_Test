@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -81,7 +82,17 @@ public class TextActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main3);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=8){
+            this.setContentView(R.layout.android_tablet3);
+        }else{
+            this.setContentView(R.layout.activity_main3);
+        }
         tv = new TextView(this);
         layout = new LinearLayout(this);
         params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
