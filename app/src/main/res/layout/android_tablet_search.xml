@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/astTextNight"
+    android:layout_height="match_parent"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:id="@+id/backButton"
+        android:background="@drawable/button_back_active"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Унесите фразу за претрагу"
+        android:background="@color/astTextNight"
+        android:textSize="36sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:id="@+id/search_bar"
+        />
+
+    <Button
+        android:text="Тражи"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/astTextNight"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchButton"
+        android:textSize="36sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listview"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        />
+
+
+</LinearLayout>

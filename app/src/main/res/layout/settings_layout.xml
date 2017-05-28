@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/astTextNight">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_top_list_back"
+        >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                >
+            <Button
+                android:background="@drawable/button_back_active"
+                android:layout_height="match_parent"
+                android:layout_width="55dp"
+                android:id="@+id/backButton"
+                android:gravity="left"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/subtitleTitle"
+                android:text="Подешавања "
+                android:gravity="center"
+                />
+
+            <Button
+                android:background="@drawable/button_back_active"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/backButtonDummy"
+                android:visibility="invisible"
+                android:gravity="right"
+                />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                >
+
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/backgroundColor"
+                android:text="Боја слова"
+                android:layout_width="136dp"
+                 />
+            <Button
+                android:background="@drawable/button_st_fc_3_normal"
+                android:layout_height="match_parent"
+                android:layout_width="54dp"
+                android:id="@+id/grayFont"
+                />
+            <Button
+                android:background="@drawable/button_st_fc_1_normal"
+                android:layout_height="match_parent"
+                android:layout_width="51dp"
+                android:id="@+id/blackFont"
+
+                />
+
+                <Button
+                    android:background="@drawable/button_st_fc_4_normal"
+                    android:layout_height="match_parent"
+                    android:layout_width="54dp"
+                    android:id="@+id/redFont"
+
+                    />
+            </LinearLayout>
+
+
+        </TableRow>
+        </TableLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+    <ImageView
+        android:layout_height="10dp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/line_all"/>
+    </TableRow>
+</TableLayout>
+
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="6"
+            >
+            <TextView
+                android:layout_width="194dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textColor"
+                android:text="Боја позадине"
+
+                />
+
+
+            <Button
+                android:background="@drawable/button_st_bgc_2_normal"
+                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:id="@+id/backgroundWhite"
+                />
+            </LinearLayout>
+
+            <Button
+                android:background="@drawable/button_st_bgc_1_normal"
+                android:layout_height="match_parent"
+                android:layout_width="59dp"
+                android:id="@+id/backgroundYellow"
+                />
+
+        </TableRow>
+</TableLayout>
+
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+</TableLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+               >
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="136dp"
+                android:id="@+id/textSize"
+                android:text="Величина слова "
+                />
+
+                <Button
+                    android:background="@drawable/button_st_s_plus_normal"
+                    android:layout_height="match_parent"
+                    android:layout_width="49dp"
+                    android:id="@+id/sizeUP"
+
+                    />
+
+                <TextView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/button_st_fc_2_normal"
+                     />
+
+
+            <Button
+                android:background="@drawable/button_st_s_minus_normal"
+                android:layout_height="match_parent"
+                android:layout_width="48dp"
+                android:id="@+id/sizeDOWN"
+
+                 />
+
+            </LinearLayout>
+
+        </TableRow>
+</TableLayout>
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Фонтови"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arial"
+            android:id="@+id/Arial"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calibri"
+            android:id="@+id/Calibri"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gabriola"
+            android:id="@+id/Gabriola"
+            android:background="@color/astTextNight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Palatino Linotype"
+            android:id="@+id/palatino_Linotype"
+            android:background="@color/astTextNight"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Подразумевани"
+            android:id="@+id/defaultFont"
+            android:background="@color/astTextNight"/>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="118dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.50">
+
+        </View>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="51dp"
+            android:id="@+id/okbutton"
+            android:background="@drawable/button_st_ok_normal"
+            android:layout_gravity="center_horizontal" />
+
+
+        <View
+            android:layout_width="118dp"
+            android:layout_height="match_parent">
+
+        </View>
+    </LinearLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

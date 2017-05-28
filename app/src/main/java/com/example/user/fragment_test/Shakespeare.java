@@ -10,14 +10,20 @@ public final class Shakespeare {
   */
  public static final String[] TITLES =
          {
-                 "Henry IV (1)",
-                 "Henry V",
-                 "Henry VIII",
-                 "Richard II",
-                 "Richard III",
-                 "Merchant of Venice",
-                 "Othello",
-                 "King Lear"
+                 "О аутору",
+                 "ПРАВОСЛАВНО УЧЕЊЕ О СПАСЕЊУ",
+                 "О РАСКОЛИМА",
+                 "МОНОФИЗИТСТВО",
+                 "РИМОКАТОЛИЦИЗАМ ",
+                 "ПРОТЕСТАНТИЗАМ",
+                 "ЈЕХОВИНИ СВЕДОЦИ",
+                 "ИСЛАМ",
+                 "О НЕОПАГАНИЗМУ",
+                 "ШТА ОДГОВОРИТИ АТЕИСТИ? \n" +
+                         "СВЕШТЕНИК ГЕОРГИЈЕ МАКСИМОВ",
+                 "ПРАВОСЛАВНИ ОДНОС ПРЕМА ЧУДИМА",
+                 "ЈОГА",
+                 "РЕИНКАРНАЦИЈА"
          };
 
     public static final String[] SUBTITLES =
@@ -68,31 +74,83 @@ public final class Shakespeare {
                          "Therefore we meet not now. Then let me hear" +
                          "Of you, my gentle cousin Westmoreland," +
                          "What yesternight our council did decree" +
+                         "In forwarding this dear expedience."+
+                         "So shaken as we are, so wan with care," +
+                         "Find we a time for frighted peace to pant," +
+                         "And breathe short-winded accents of new broils" +
+                         "To be commenced in strands afar remote." +
+                         "No more the thirsty entrance of this soil" +
+                         "Shall daub her lips with her own children's blood;" +
+                         "Nor more shall trenching war channel her fields," +
+                         "Nor bruise her flowerets with the armed hoofs" +
+                         "Of hostile paces: those opposed eyes," +
+                         "Which, like the meteors of a troubled heaven," +
+                         "All of one nature, of one substance bred," +
+                         "Did lately meet in the intestine shock" +
+                         "And furious close of civil butchery" +
+                         "Shall now, in mutual well-beseeming ranks," +
+                         "March all one way and be no more opposed" +
+                         "Against acquaintance, kindred and allies:" +
+                         "The edge of war, like an ill-sheathed knife," +
+                         "No more shall cut his master. Therefore, friends," +
+                         "As far as to the sepulchre of Christ," +
+                         "Whose soldier now, under whose blessed cross" +
+                         "We are impressed and engaged to fight," +
+                         "Forthwith a power of English shall we levy;" +
+                         "Whose arms were moulded in their mothers' womb" +
+                         "To chase these pagans in those holy fields" +
+                         "Over whose acres walk'd those blessed feet" +
+                         "Which fourteen hundred years ago were nail'd" +
+                         "For our advantage on the bitter cross." +
+                         "But this our purpose now is twelve month old," +
+                         "And bootless 'tis to tell you we will go:" +
+                         "Therefore we meet not now. Then let me hear" +
+                         "Of you, my gentle cousin Westmoreland," +
+                         "What yesternight our council did decree" +
+                         "In forwarding this dear expedience."+
+                         "So shaken as we are, so wan with care," +
+                         "Find we a time for frighted peace to pant," +
+                         "And breathe short-winded accents of new broils" +
+                         "To be commenced in strands afar remote." +
+                         "No more the thirsty entrance of this soil" +
+                         "Shall daub her lips with her own children's blood;" +
+                         "Nor more shall trenching war channel her fields," +
+                         "Nor bruise her flowerets with the armed hoofs" +
+                         "Of hostile paces: those opposed eyes," +
+                         "Which, like the meteors of a troubled heaven," +
+                         "All of one nature, of one substance bred," +
+                         "Did lately meet in the intestine shock" +
+                         "And furious close of civil butchery" +
+                         "Shall now, in mutual well-beseeming ranks," +
+                         "March all one way and be no more opposed" +
+                         "Against acquaintance, kindred and allies:" +
+                         "The edge of war, like an ill-sheathed knife," +
+                         "No more shall cut his master. Therefore, friends," +
+                         "As far as to the sepulchre of Christ," +
+                         "Whose soldier now, under whose blessed cross" +
+                         "We are impressed and engaged to fight," +
+                         "Forthwith a power of English shall we levy;" +
+                         "Whose arms were moulded in their mothers' womb" +
+                         "To chase these pagans in those holy fields" +
+                         "Over whose acres walk'd those blessed feet" +
+                         "Which fourteen hundred years ago were nail'd" +
+                         "For our advantage on the bitter cross." +
+                         "But this our purpose now is twelve month old," +
+                         "And bootless 'tis to tell you we will go:" +
+                         "Therefore we meet not now. Then let me hear" +
+                         "Of you, my gentle cousin Westmoreland," +
+                         "What yesternight our council did decree" +
                          "In forwarding this dear expedience.",
 
-                 "Hear him but reason in divinity," +
-                         "And all-admiring with an inward wish" +
-                         "You would desire the king were made a prelate:" +
-                         "Hear him debate of commonwealth affairs," +
-                         "You would say it hath been all in all his study:" +
-                         "List his discourse of war, and you shall hear" +
-                         "A fearful battle render'd you in music:" +
-                         "Turn him to any cause of policy," +
-                         "The Gordian knot of it he will unloose," +
-                         "Familiar as his garter: that, when he speaks," +
-                         "The air, a charter'd libertine, is still," +
-                         "And the mute wonder lurketh in men's ears," +
-                         "To steal his sweet and honey'd sentences;" +
-                         "So that the art and practic part of life" +
-                         "Must be the mistress to this theoric:" +
-                         "Which is a wonder how his grace should glean it," +
-                         "Since his addiction was to courses vain," +
-                         "His companies unletter'd, rude and shallow," +
-                         "His hours fill'd up with riots, banquets, sports," +
-                         "And never noted in him any study," +
-                         "Any retirement, any sequestration" +
-                         "From open haunts and popularity.",
-
+                 "Nikola Tesla (Serbian Cyrillic: Никола Тесла; 10 July 1856 – 7 January 1943) was a " +
+                         "Serbian-American[3][4][5][6] inventor, electrical engineer, mechanical engineer, physicist," +
+                         " and futurist best known for his contributions to the design of the modern alternating current (AC) " +
+                         "electricity supply system.[7]"+
+                "Tesla gained experience in telephony and electrical engineering before emigrating to the United States in 1884 to work for Thomas Edison in New York City. He soon struck out on his own with financial backers, setting up laboratories and companies to develop a range of electrical devices. His patented AC" +
+                         " induction motor and transformer were licensed by George Westinghouse, who also hired " +
+                         "Tesla for a short time as a consultant. His work in the formative years of electric-power" +
+                         " development was involved in a corporate alternating current/direct current War of Currents as " +
+                         "well as various patent battles. He became a naturalized US citizen in 1891.[8]",
                  "I come no more to make you laugh: things now," +
                          "That bear a weighty and a serious brow," +
                          "Sad, high, and working, full of state and woe," +

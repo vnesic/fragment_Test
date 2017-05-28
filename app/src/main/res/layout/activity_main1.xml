@@ -1,12 +1,705 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/astPage">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <ImageView
+        android:paddingRight="27dp"
+        android:paddingLeft="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:src="@drawable/zaglavlje"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+
+        >
+
+
+    </ImageView>
+    <Button
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bookMarkButton"
+        android:background="@drawable/button_bookmark_normal">
+
+    </Button>
+</RelativeLayout>
+<!--
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_alignTop="@+id/image"
+        android:background="@drawable/adv_main_background"
         android:id="@+id/listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:divider="@drawable/line_all"
+        android:dividerHeight="1dp"
+        />
+-->
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <!-- Here you put the rest of your current view-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/adv_main_background"
+        >
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text1"
+                android:text="ПРАВОСЛАВНО УЧЕЊЕ О СПАСЕЊУ"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
 
 
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text2"
+                android:text="РАСКОЛИ"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text3"
+                android:text="МОНОФИЗИТСТВО"
+                android:textSize="17dp"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal" />
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text4"
+                android:text="РИМОКАТОЛИЦИЗАМ"
+                android:background="@color/astTextNight"
+                android:textSize="17dp"
+                android:layout_gravity="center_horizontal" />
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text5"
+                android:text="ПРОТЕСТАНТИЗАМ"
+                android:textSize="17dp"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal" />
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text6"
+                android:textSize="17dp"
+                android:text="ЈЕХОВИНИ СВЕДОЦИ"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal" />
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text7"
+                android:text="ИСЛАМ"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text8"
+                android:text="НЕОПАГАНИЗАМ"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+       <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/line_all"/>
+        </TableRow>
+
+    </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text9"
+                android:text="ШТА ОДГОВОРИТИ АТЕИСТИ?"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text10"
+                android:text="ПРАВОСЛАВНИ ОДНОС ПРЕМА ЧУДИМА"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text11"
+                android:text="ЈОГА"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text12"
+                android:text="РЕИНКАРНАЦИЈА"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text13"
+                android:text="†"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                >
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/line_all"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50">
+
+            </View>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/text14"
+                android:text="О аутору"
+                android:background="@color/astTextNight"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17dp"/>
+
+
+            <View
+                android:layout_width="118dp"
+                android:layout_height="match_parent">
+
+            </View>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

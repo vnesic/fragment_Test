@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/astPage">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/image"
+            android:src="@drawable/zaglavlje"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+
+            >
+
+
+        </ImageView>
+        <Button
+            android:layout_width="58dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:background="@drawable/button_back_normal">
+
+        </Button>
+    </RelativeLayout>
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_alignTop="@+id/image"
+        android:background="@drawable/adv_main_background"
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:divider="@drawable/line_all"
+        android:dividerHeight="1dp"
+        />
+
+
+</LinearLayout>
