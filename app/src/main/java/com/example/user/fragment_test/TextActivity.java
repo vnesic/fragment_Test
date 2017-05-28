@@ -896,9 +896,9 @@ public class TextActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (wasClicked) {
-
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+
                             // PRESSED
                             if (UserSettings.day_night) {//active image //FALSE=day
                                 viewBookmark.setBackgroundResource(drawable.button_bookmark_night_active);

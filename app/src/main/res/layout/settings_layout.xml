@@ -28,16 +28,15 @@
                 android:gravity="left"
                 />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/subtitleTitle"
-                    android:text="Подешавања "
-                    android:gravity="center"
-                    android:paddingLeft="20dp"
-                    />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/subtitleTitle"
+                android:text="Подешавања "
+                android:gravity="center"
+                />
 
-                <Button
+            <Button
                 android:background="@drawable/button_back_active"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -199,10 +198,11 @@
                 />
 
                 <Button
+                    android:background="@drawable/button_st_s_plus_normal"
                     android:layout_height="match_parent"
                     android:layout_width="49dp"
-                    android:background="@drawable/button_st_s_minus_normal"
-                    android:id="@+id/sizeDOWN"
+                    android:id="@+id/sizeUP"
+
                     />
 
                 <TextView
@@ -214,10 +214,11 @@
 
 
             <Button
-                android:id="@+id/sizeUP"
-                android:background="@drawable/button_st_s_plus_normal"
+                android:background="@drawable/button_st_s_minus_normal"
                 android:layout_height="match_parent"
                 android:layout_width="48dp"
+                android:id="@+id/sizeDOWN"
+
                  />
 
             </LinearLayout>
